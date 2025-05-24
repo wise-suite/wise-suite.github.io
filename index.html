@@ -277,7 +277,7 @@
             <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Tools</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { title: "TabWise", desc: "Organize your browser tabs with smart categorization, drag-and-drop, and more. Available now!", link: "https://wise-suite.github.io/tabwise/", cta: "Get TabWise", isComingSoon: false },
+                { title: "TabWise", desc: "Organize your browser tabs with smart categorization, drag-and-drop, and more. Available now!", link: "/tabwise/", cta: "Get TabWise", isBeta: true },
                 { title: "FocusWise", desc: "Block distractions and stay focused with customizable website filters.", cta: "Sign Up for Beta", isComingSoon: true },
                 { title: "TimeWise", desc: "Track your time across tasks and projects to boost productivity.", cta: "Sign Up for Beta", isComingSoon: true },
                 { title: "ClipWise", desc: "Save and organize web snippets for quick reference.", cta: "Sign Up for Beta", isComingSoon: true },
@@ -289,6 +289,11 @@
                   {tool.isComingSoon && (
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">
                       Coming Soon
+                    </div>
+                  )}
+                  {tool.isBeta && (
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">
+                      In Beta
                     </div>
                   )}
                   <h3 className="text-xl font-medium text-blue-900 mb-2">{tool.title}</h3>
