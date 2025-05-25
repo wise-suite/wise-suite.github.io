@@ -3,19 +3,19 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>WiseSuite - Your All-in-One Productivity Solution</title>
-    <meta name="description" content="WiseSuite is a collection of productivity tools to streamline your workflow, featuring TabWise for browser tab management and more. Join the waitlist for upcoming tools!"/>
+    <title>WiseSuite: Productivity & Organization Tools for a Smarter Digital Life</title>
+    <meta name="description" content="Discover WiseSuite, a collection of intuitive digital tools designed to boost your productivity, organize your digital life, and enhance your online experience. Join the waitlist!"/>
     <meta name="keywords" content="WiseSuite, productivity tools, browser management, tab organizer, TabWise, FocusWise, TimeWise, ClipWise, EmailWise, TaskWise, BookmarkWise, Chrome extension, waitlist"/>
     <meta name="author" content="WiseSuite Team"/>
     <meta name="robots" content="index, follow"/>
     <link rel="canonical" href="https://wise-suite.github.io/home/"/>
-    <meta property="og:title" content="WiseSuite - Your All-in-One Productivity Solution"/>
+    <meta property="og:title" content="WiseSuite: Productivity & Organization Tools for a Smarter Digital Life"/>
     <meta property="og:description" content="Discover WiseSuite, a suite of productivity tools starting with TabWise for effortless browser tab management. Join the waitlist for more tools!"/>
     <meta property="og:image" content="https://wise-suite.github.io/home/wisesuite-logo.png"/>
     <meta property="og:url" content="https://wise-suite.github.io/home/"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="WiseSuite - Your All-in-One Productivity Solution"/>
+    <meta name="twitter:title" content="WiseSuite: Productivity & Organization Tools for a Smarter Digital Life"/>
     <meta name="twitter:description" content="Join the waitlist for WiseSuite, a collection of productivity tools to enhance your workflow."/>
     <meta name="twitter:image" content="https://wise-suite.github.io/home/wisesuite-logo.png"/>
     <script type="application/ld+json">
@@ -37,10 +37,28 @@
         .waitlist-input:focus { border-color: #3B82F6; }
         .modal-overlay { background: rgba(0, 0, 0, 0.5); }
         .error-boundary { color: red; text-align: center; padding: 16px; }
-        .tool-button { width: 200px; padding: 8px 16px; font-size: 14px; display: inline-block; text-align: center; }
+        .tool-button { width: 200px; padding: 8px 16px; font-size: 14px; display: inline-block; transition: all 0.3s ease; }
+        a, button { transition: all 0.3s ease; }
+        .dark-mode { background-color: #1a202c; color: #e2e8f0; }
+        .dark-mode .bg-white { background-color: #2d3748; }
+        .dark-mode .bg-gray-50 { background-color: #1f2937; }
+        .dark-mode .bg-gray-100 { background-color: #2d3748; }
+        .dark-mode .text-gray-600 { color: #cbd5e0; }
+        .dark-mode .text-blue-900 { color: #63b3ed; }
+        .dark-mode .bg-blue-500 { background-color: #4299e1; }
+        .dark-mode .hover\:bg-blue-600:hover { background-color: #3182ce; }
+        .discover-section { background: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 50L50 0L100 50L50 100Z" fill="%23E5F3FF" fill-opacity="0.1"/%3E%3C/svg%3E'), linear-gradient(to bottom, #F0F7FF, #FFFFFF); }
+        .slider-card { transition: opacity 0.5s ease, transform 0.5s ease; }
+        .slider-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        @media (max-width: 640px) { .slider-container { grid-template-columns: 1fr; } }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #D1D5DB; transition: background 0.3s ease; }
+        .dot.active { background: #3B82F6; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
     </style>
+    <!-- Technical SEO: Ensure this page (https://wise-suite.github.io/home/) is included in sitemap.xml alongside /tabwise/, /blog.html, and all blog articles. Submit to Google Search Console. -->
 </head>
-<body class="bg-gray-50 text-gray-700">
+<body className="bg-gray-50 text-gray-700">
 <div id="root"></div>
 <script type="text/babel">
     const { useState, useEffect } = React;
@@ -130,22 +148,52 @@
     const Navbar = () => {
       const [isModalOpen, setIsModalOpen] = useState(false);
       const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+      const [isDarkMode, setIsDarkMode] = useState(false);
+
+      useEffect(() => {
+        const savedMode = localStorage.getItem('darkMode');
+        if (savedMode === 'true') {
+          setIsDarkMode(true);
+          document.body.classList.add('dark-mode');
+        }
+      }, []);
+
+      const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        if (!isDarkMode) {
+          document.body.classList.add('dark-mode');
+          localStorage.setItem('darkMode', 'true');
+        } else {
+          document.body.classList.remove('dark-mode');
+          localStorage.setItem('darkMode', 'false');
+        }
+      };
 
       return (
         <nav className="bg-white shadow-sm fixed w-full z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex">
-                <a href="/" className="flex-shrink-0 flex items-center">
+                <a href="/home/" className="flex-shrink-0 flex items-center">
                   <img src="/home/wisesuite-logo.png" alt="WiseSuite Logo" className="h-8 w-8"/>
                   <span className="ml-2 text-xl font-bold text-blue-900">WiseSuite</span>
                 </a>
               </div>
               {/* Desktop Menu */}
               <div className="hidden md:flex items-center space-x-4">
-                <a href="/#tools" className="text-gray-600 hover:text-blue-600" aria-label="WiseSuite Tools">WiseSuite Tools</a>
-                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" aria-label="Tabwise Features">Tabwise Features</a>
-                <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" aria-label="Tabwise Blog">Tabwise Blog</a>
+                <a href="/#tools" className="text-gray-600 hover:text-blue-600" aria-label="WiseSuite Tools">Tools</a>
+                <a href="/#discover" className="text-gray-600 hover:text-blue-600" aria-label="Discover WiseSuite">Discover</a>
+                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" aria-label="TabWise Features">TabWise</a>
+                <a href="/blog.html" className="text-gray-600 hover:text-blue-600" aria-label="WiseSuite Blog">Blog</a>
+                <button
+                  onClick={toggleDarkMode}
+                  className="text-gray-600 hover:text-blue-600 p-2"
+                  aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isDarkMode ? "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" : "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"} />
+                  </svg>
+                </button>
                 <button
                   onClick={() => setIsModalOpen(true)}
                   className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600"
@@ -175,9 +223,17 @@
             {isMobileMenuOpen && (
               <div className="md:hidden">
                 <div className="flex flex-col space-y-2 px-4 py-2">
-                  <a href="/#tools" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>WiseSuite Tools</a>
-                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Tabwise Features</a>
-                  <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Tabwise Blog</a>
+                  <a href="/#tools" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Tools</a>
+                  <a href="/#discover" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Discover</a>
+                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>TabWise</a>
+                  <a href="/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
+                  <button
+                    onClick={toggleDarkMode}
+                    className="text-gray-600 hover:text-blue-600 text-left"
+                    aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                  >
+                    {isDarkMode ? "Light Mode" : "Dark Mode"}
+                  </button>
                   <button
                     onClick={() => {
                       setIsModalOpen(true);
@@ -199,12 +255,12 @@
     // Hero Component
     const Hero = () => (
       <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}>
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            WiseSuite: Your All-in-One Productivity Solution
+            WiseSuite: Your Toolkit for a Smarter Digital Experience
           </h1>
           <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-2xl mx-auto">
-            A collection of tools to streamline your workflow—starting with TabWise, available now!
+            WiseSuite is a collection of intuitive tools designed to simplify your digital life, boost productivity, and keep you organized—starting with TabWise, available now!
           </p>
           <div className="flex justify-center space-x-4 mb-4">
             <a
@@ -230,31 +286,136 @@
       </section>
     );
 
-    // Features Component
-    const Features = () => (
-      <section id="features" className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Why Choose WiseSuite?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: "All-in-One Productivity", desc: "WiseSuite brings together essential tools like TabWise, FocusWise, and more to simplify your daily tasks in one platform." },
-              { title: "Customizable Tools", desc: "Tailor each WiseSuite tool to fit your unique workflow, starting with TabWise’s flexible tab management features." },
-              { title: "Grow with WiseSuite", desc: "Start with TabWise today and expand your productivity with upcoming tools designed to evolve with your needs." },
-            ].map((feature, index) => (
-              <div key={index} className="bg-gray-50 p-5 rounded-lg shadow-sm text-center">
-                <div className="h-12 w-12 mx-auto mb-3 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg className="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium text-blue-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
+    // Discover Component (Three Slides at a Time)
+    const Discover = () => {
+      const [currentSet, setCurrentSet] = useState(0);
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
+      const slides = [
+        {
+          icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+          title: "Simplify Your Digital World",
+          content: "WiseSuite is your all-in-one solution for navigating the complexities of digital life. Our intuitive tools eliminate clutter, boost productivity, and make your online experience seamless."
+        },
+        {
+          icon: "M5 13l4 4L19 7",
+          title: "Solve Everyday Challenges",
+          content: "From juggling browser tabs to managing tasks, WiseSuite tackles daily challenges with tools like <a href=\"/tabwise/\" className=\"text-blue-500 hover:text-blue-600\">TabWise</a>, designed to keep you focused and efficient."
+        },
+        {
+          icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
+          title: "Shape the Future",
+          content: "WiseSuite is growing with tools like FocusWise and TimeWise, unified by a vision to empower your digital workflow. Join our waitlist for updates!"
+        },
+        {
+          icon: "M4 6h16M4 12h16M4 18h16",
+          title: "All-in-One Productivity",
+          content: "WiseSuite integrates tools like TabWise and FocusWise into a single platform, streamlining your tasks for maximum efficiency."
+        },
+        {
+          icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4",
+          title: "Customizable Workflow",
+          content: "Tailor WiseSuite tools, starting with TabWise’s flexible tab management, to fit your unique needs and preferences."
+        },
+        {
+          icon: "M13 10V3L4 14h7v7l9-11h-7z",
+          title: "Evolving Ecosystem",
+          content: "Start with TabWise and grow with WiseSuite’s upcoming tools, designed to adapt to your changing digital demands."
+        }
+      ];
+
+      const slidesPerSet = window.innerWidth < 640 ? 1 : 3;
+      const totalSets = Math.ceil(slides.length / slidesPerSet);
+
+      useEffect(() => {
+        const timer = setInterval(() => {
+          setCurrentSet((prev) => (prev + 1) % totalSets);
+        }, 6000);
+        return () => clearInterval(timer);
+      }, [totalSets]);
+
+      const goToSet = (index) => {
+        setCurrentSet(index);
+      };
+
+      const prevSet = () => {
+        setCurrentSet((prev) => (prev - 1 + totalSets) % totalSets);
+      };
+
+      const nextSet = () => {
+        setCurrentSet((prev) => (prev + 1) % totalSets);
+      };
+
+      const currentSlides = slides.slice(
+        currentSet * slidesPerSet,
+        (currentSet + 1) * slidesPerSet
+      );
+
+      return (
+        <section id="discover" className="py-12 discover-section animate-fade-in-up">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-blue-900 text-center mb-10">Discover WiseSuite</h2>
+            <div className="relative">
+              <div className="slider-container">
+                {currentSlides.map((slide, index) => (
+                  <div
+                    key={index}
+                    className="slider-card bg-white p-5 rounded-lg shadow-md text-center"
+                    role="group"
+                  >
+                    <div className="flex justify-center mb-3">
+                      <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-blue-900 mb-2">{slide.title}</h3>
+                    <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: slide.content }}></p>
+                  </div>
+                ))}
               </div>
-            ))}
+              <button
+                onClick={prevSet}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
+                aria-label="Previous slide set"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={nextSet}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
+                aria-label="Next slide set"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex justify-center mt-6 space-x-2">
+              {Array.from({ length: totalSets }).map((_, index) => (
+                <button
+                  key={index}
+                  className={`dot ${index === currentSet ? 'active' : ''}`}
+                  onClick={() => goToSet(index)}
+                  aria-label={`Go to slide set ${index + 1}`}
+                  aria-current={index === currentSet}
+                ></button>
+              ))}
+            </div>
+            <div className="text-center mt-10">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg"
+              >
+                Join the Journey
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
-    );
+          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="WiseSuite" />
+        </section>
+      );
+    };
 
     // Tools Component
     const Tools = () => {
@@ -269,18 +430,61 @@
       };
 
       return (
-        <section id="tools" className="py-12 bg-gray-50">
+        <section id="tools" className="py-12 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Tools</h2>
+            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Productivity Tools</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { title: "TabWise", desc: "Organize your browser tabs with smart categorization, drag-and-drop, and more. Available now!", link: "/tabwise/", cta: "Get TabWise", isBeta: true },
-                { title: "FocusWise", desc: "Block distractions and stay focused with customizable website filters.", cta: "Sign Up for Beta", isComingSoon: true },
-                { title: "TimeWise", desc: "Track your time across tasks and projects to boost productivity.", cta: "Sign Up for Beta", isComingSoon: true },
-                { title: "ClipWise", desc: "Save and organize web snippets for quick reference.", cta: "Sign Up for Beta", isComingSoon: true },
-                { title: "EmailWise", desc: "Manage your inbox with smart filters and scheduling tools.", cta: "Sign Up for Beta", isComingSoon: true },
-                { title: "TaskWise", desc: "Create and track tasks with seamless integration across your workflow.", cta: "Sign Up for Beta", isComingSoon: true },
-                { title: "BookmarkWise", desc: "Organize your bookmarks into intuitive categories for easy access.", cta: "Sign Up for Beta", isComingSoon: true },
+                {
+                  title: "TabWise",
+                  tagline: "Smart Browser Tab Management",
+                  desc: "Effortlessly organize your browser tabs with AI-powered categorization, drag-and-drop, and session saving.",
+                  link: "/tabwise/",
+                  cta: "Get TabWise",
+                  isBeta: true
+                },
+                {
+                  title: "FocusWise",
+                  tagline: "Stay Focused, Block Distractions",
+                  desc: "Boost productivity with customizable website filters to keep distractions at bay.",
+                  cta: "Join Waitlist",
+                  isComingSoon: true
+                },
+                {
+                  title: "TimeWise",
+                  tagline: "Track Time, Boost Efficiency",
+                  desc: "Monitor time spent on tasks and projects to optimize your workflow.",
+                  cta: "Join Waitlist",
+                  isComingSoon: true
+                },
+                {
+                  title: "ClipWise",
+                  tagline: "Save Web Snippets Easily",
+                  desc: "Capture and organize web content for quick reference and research.",
+                  cta: "Join Waitlist",
+                  isComingSoon: true
+                },
+                {
+                  title: "EmailWise",
+                  tagline: "Smart Inbox Organization",
+                  desc: "Streamline your email with intelligent filters and scheduling tools.",
+                  cta: "Join Waitlist",
+                  isComingSoon: true
+                },
+                {
+                  title: "TaskWise",
+                  tagline: "Seamless Task Tracking",
+                  desc: "Manage tasks with integration across your digital tools for maximum efficiency.",
+                  cta: "Join Waitlist",
+                  isComingSoon: true
+                },
+                {
+                  title: "BookmarkWise",
+                  tagline: "Organized Bookmarking",
+                  desc: "Categorize and access your bookmarks intuitively for a clutter-free experience.",
+                  cta: "Join Waitlist",
+                  isComingSoon: true
+                },
               ].map((tool, index) => (
                 <div key={index} className="relative bg-white p-5 rounded-lg shadow-sm text-center">
                   {tool.isComingSoon && (
@@ -289,11 +493,14 @@
                     </div>
                   )}
                   {tool.isBeta && (
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">
                       In Beta
                     </div>
                   )}
-                  <h3 className="text-xl font-medium text-blue-900 mb-2">{tool.title}</h3>
+                  {/* Placeholder for product image */}
+                  {/* <img src={`/home/${tool.title.toLowerCase()}-icon.png`} alt={`${tool.title} Icon`} className="h-12 w-12 mx-auto mb-3"/> */}
+                  <h2 className="text-xl font-bold text-blue-900 mb-2">{tool.title}</h2>
+                  <p className="text-blue-600 font-medium mb-2">{tool.tagline}</p>
                   <p className="text-gray-600 mb-4">{tool.desc}</p>
                   {tool.link ? (
                     <a href={tool.link} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">
@@ -331,6 +538,7 @@
             </div>
             <div className="flex space-x-4">
               <a href="/tabwise/privacy.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Privacy Policy">Privacy</a>
+              <a href="/blog.html" className="hover:text-blue-300" aria-label="WiseSuite Blog">Blog</a>
               <a href="mailto:contact@wisesuite.com" className="hover:text-blue-300" aria-label="Contact Us">Contact</a>
             </div>
           </div>
@@ -345,7 +553,7 @@
         <div>
           <Navbar />
           <Hero />
-          <Features />
+          <Discover />
           <Tools />
           <Footer />
         </div>
