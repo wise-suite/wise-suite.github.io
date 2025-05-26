@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tabwise Privacy Policy - Your Data, Our Responsibility</title>
+<meta name="description" content="Read Tabwise's Privacy Policy to understand how we handle your data while using our Chrome extension for browser management and organization."/>
+<meta name="keywords" content="Tabwise privacy policy, browser management privacy, tab organization data, Chrome extension privacy"/>
+<meta name="author" content="Tabwise Team"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.tabwise.app/tabwise/privacy.html"/>
+<meta property="og:title" content="Tabwise Privacy Policy - Your Data, Our Responsibility"/>
+<meta property="og:description" content="Learn how Tabwise protects your data in our Chrome extension for browser management."/>
+<meta property="og:image" content="https://www.tabwise.app/tabwise/logo.png"/>
+<meta property="og:url" content="https://www.tabwise.app/tabwise/privacy.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Tabwise Privacy Policy - Your Data, Our Responsibility"/>
+<meta name="twitter:description" content="Understand how Tabwise handles your data with our Chrome extension."/>
+<meta name="twitter:image" content="https://www.tabwise.app/tabwise/logo.png"/>
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body { font-family: 'Inter', 'Nunito', sans-serif; }
+    .error-boundary { color: red; text-align: center; padding: 16px; }
+    .waitlist-input { transition: all 0.3s ease; }
+    .waitlist-input:focus { border-color: #3B82F6; }
+    .modal-overlay { background: rgba(0, 0, 0, 0.5); }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-700">
+<div id="root"></div>
+<script type="text/babel">
+    const { useState } = React;
+
+    // Error Boundary Component
+    class ErrorBoundary extends React.Component {
+      state = { hasError: false, error: null };
+      static getDerivedStateFromError(error) {
+        console.error("ErrorBoundary caught:", error);
+        return { hasError: true, error };
+      }
+      componentDidCatch(error, errorInfo) {
+        console.error("ErrorBoundary info:", errorInfo);
+      }
+      render() {
+        if (this.state.hasError) {
+          return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
+        }
+        return this.props.children;
+      }
+    }
+
+    // Waitlist Modal Component
+    const WaitlistModal = ({ isOpen, onClose }) => {
+      const [email, setEmail] = useState("");
+      const [message, setMessage] = useState("");
+
+      const handleWaitlistSubmit = () => {
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setMessage("Please enter a valid email address");
+          setTimeout(() => setMessage(""), 3000);
+          return;
+        }
+        try {
+          console.log("Waitlist email submitted:", email);
+          setMessage("Thank you for joining the waitlist!");
+          setEmail("");
+          setTimeout(() => {
+            setMessage("");
+            onClose();
+          }, 2000);
+        } catch (error) {
+          console.error("Waitlist submission error:", error);
+          setMessage("Failed to join waitlist. Please try again.");
+          setTimeout(() => setMessage(""), 3000);
+        }
+      };
+
+      if (!isOpen) return null;
+
+      return (
+        <div className="modal-overlay fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
+              <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <p className="text-gray-600 mb-4">Be the first to try Tabwise when it launches!</p>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="waitlist-input p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4"
+            />
+            <button
+              onClick={handleWaitlistSubmit}
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Join Waitlist
+            </button>
+            {message && (
+              <div className={`text-center text-sm mt-2 ${message.includes("Thank") ? "text-green-600" : "text-red-500"}`}>
+                {message}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    // Navigation Component
+    const Navbar = () => {
+      const [isModalOpen, setIsModalOpen] = useState(false);
+      const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+      return (
+        <nav className="bg-white shadow-sm fixed w-full z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex">
+                <a href="/tabwise/" className="flex-shrink-0 flex items-center">
+                  <img src="/tabwise/logo.png" alt="Tabwise Logo for Browser Management" className="h-8 w-8"/>
+                  <span className="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
+                </a>
+              </div>
+              {/* Desktop Menu */}
+              <div className="hidden md:flex items-center space-x-4">
+                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
+                <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
+                <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
+                <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600"
+                >
+                  Join Waitlist
+                </button>
+              </div>
+              {/* Mobile Menu Button */}
+              <div className="md:hidden flex items-center">
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="text-gray-600 hover:text-blue-600 focus:outline-none"
+                  aria-label="Toggle mobile menu"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+              <div className="md:hidden">
+                <div className="flex flex-col space-y-2 px-4 py-2">
+                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
+                  <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+                  <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Demo</a>
+                  <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
+                  <button
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
+                  >
+                    Join Waitlist
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        </nav>
+      );
+    };
+
+    // Privacy Component
+    const Privacy = () => (
+      <section className="pt-20 pb-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-900 text-center mb-8">Privacy Policy</h1>
+          <p className="text-lg text-gray-600 mb-10 text-center max-w-2xl mx-auto">
+            At Tabwise, we value your privacy. This policy explains how we handle your data while using our Chrome extension for browser management.
+          </p>
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <p className="text-sm text-gray-500 mb-4">Last Updated: May 23, 2025</p>
+            <h2 className="text-2xl font-medium text-blue-900 mb-4">Data We Collect</h2>
+            <p className="text-gray-600 mb-4">
+              We collect minimal data to provide Tabwise’s functionality:
+            </p>
+            <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
+              <li><strong>Email Address:</strong> When you join our waitlist, we collect your email to notify you of Tabwise’s launch.</li>
+              <li><strong>Tab Data:</strong> Tabwise stores your browser tabs locally on your device. For Pro users, this data is synced via cloud with end-to-end encryption.</li>
+              <li><strong>Usage Data:</strong> We may collect anonymized usage statistics to improve Tabwise, such as feature usage frequency.</li>
+            </ul>
+            <h2 className="text-2xl font-medium text-blue-900 mb-4">How We Use Your Data</h2>
+            <p className="text-gray-600 mb-4">
+              Your data is used solely to enhance your experience with Tabwise:
+            </p>
+            <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
+              <li>To provide core functionality like tab categorization and session saving.</li>
+              <li>To sync your tabs across devices (Pro users only).</li>
+              <li>To send you updates about Tabwise if you’ve joined our waitlist.</li>
+            </ul>
+            <h2 className="text-2xl font-medium text-blue-900 mb-4">Your Rights</h2>
+            <p className="text-gray-600 mb-4">
+              You have control over your data:
+            </p>
+            <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
+              <li>You can request deletion of your waitlist email by contacting us at <a href="mailto:support@tabwise.app" className="text-blue-500 hover:text-blue-600">support@tabwise.app</a>.</li>
+              <li>Tab data can be cleared by uninstalling the extension or clearing your browser data.</li>
+            </ul>
+            <h2 className="text-2xl font-medium text-blue-900 mb-4">Contact Us</h2>
+            <p className="text-gray-600 mb-6">
+              If you have questions about this policy, please reach out to us at <a href="mailto:support@tabwise.app" className="text-blue-500 hover:text-blue-600">support@tabwise.app</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+
+    // Footer Component
+    const Footer = () => (
+      <footer className="bg-blue-900 text-white py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center mb-4 md:mb-0">
+              <img src="/tabwise/logo.png" alt="Tabwise Logo for Browser Organization" className="h-8 w-8"/>
+              <span className="ml-2 text-lg font-medium">Tabwise</span>
+            </div>
+            <div className="flex space-x-4">
+              <a href="/tabwise/privacy.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Privacy Policy">Privacy</a>
+              <a href="/tabwise/terms.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Terms of Service">Terms</a>
+              <a href="/tabwise/contact.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Contact Us">Contact</a>
+            </div>
+          </div>
+          <p className="text-center mt-4 text-gray-400 text-sm">© 2025 Tabwise. All rights reserved.</p>
+        </div>
+      </footer>
+    );
+
+    // Main App Component
+    const App = () => (
+      <ErrorBoundary>
+        <div>
+          <Navbar />
+          <Privacy />
+          <Footer />
+        </div>
+      </ErrorBoundary>
+    );
+
+    // Render the App
+    try {
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    } catch (err) {
+      console.error("Error rendering app:", err);
+    }
+</script>
+</body>
+</html>
