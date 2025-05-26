@@ -8,12 +8,10 @@
     <meta name="keywords" content="WiseSuite, productivity tools, browser management, tab organizer, TabWise, FocusWise, TimeWise, ClipWise, EmailWise, TaskWise, BookmarkWise, Chrome extension, waitlist"/>
     <meta name="author" content="WiseSuite Team"/>
     <meta name="robots" content="index, follow"/>
-    <!-- Updated canonical URL -->
     <link rel="canonical" href="https://wise-suite.github.io/"/>
     <meta property="og:title" content="WiseSuite: Elevate Your Digital Experience with Productivity Tools"/>
     <meta property="og:description" content="Discover WiseSuite, a suite of productivity tools starting with TabWise for effortless browser tab management. Join the waitlist for more tools!"/>
     <meta property="og:image" content="https://wise-suite.github.io/wisesuite-logo.png"/>
-    <!-- Updated og:url -->
     <meta property="og:url" content="https://wise-suite.github.io/"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
@@ -63,7 +61,9 @@
     </style>
 </head>
 <body className="bg-gray-50 text-gray-700">
-<div id="root"></div>
+<div id="root">
+    <p>Loading WiseSuite... If this persists, please enable JavaScript or check your connection.</p>
+</div>
 <script type="text/babel">
     const { useState, useEffect } = React;
 
@@ -178,7 +178,7 @@
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex">
-                <!-- Updated logo link -->
+                // Updated logo link
                 <a href="/" className="flex-shrink-0 flex items-center">
                   <img src="/wisesuite-logo.png" alt="WiseSuite Logo" className="h-8 w-8"/>
                   <span className="ml-2 text-xl font-bold text-blue-900">WiseSuite</span>
@@ -232,7 +232,7 @@
                   <button
                     onClick={toggleDarkMode}
                     className="text-gray-600 hover:text-blue-600 text-left"
-                    aria-label={isDarkDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                    aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                   >
                     {isDarkMode ? "Light Mode" : "Dark Mode"}
                   </button>
@@ -367,7 +367,7 @@
                 aria-label="Previous slide set"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <pathconversation_id: 1 strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
@@ -405,7 +405,7 @@
       );
     };
 
-    // Products Section
+    // Products Component
     const Products = () => {
       const [modalState, setModalState] = useState({ isOpen: false, toolName: '' });
 
@@ -426,6 +426,11 @@
               </div>
             </div>
           </div>
+          <WaitlistModal
+            isOpen={modalState.isOpen}
+            onClose={() => setModalState({ isOpen: false, toolName: '' })}
+            toolName={modalState.toolName}
+          />
         </section>
       );
     };
@@ -433,13 +438,12 @@
     // Vision Section
     const Vision = () => (
       <section id="vision" className="py-12 bg-gray-50">
-        <div className一同
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Vision</h2>
-            <p className="text-gray-600 text-lg text-center">WiseSuite envisions a digital future where tools seamlessly adapt to your needs, providing clarity and control. We are continuously researching and developing new solutions to empower individuals and teams to achieve more with less digital friction.</p>
-          </div>
-        </section>
-      );
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Vision</h2>
+          <p className="text-gray-600 text-lg text-center">WiseSuite envisions a digital future where tools seamlessly adapt to your needs, providing clarity and control. We are continuously researching and developing new solutions to empower individuals and teams to achieve more with less digital friction.</p>
+        </div>
+      </section>
+    );
 
     // Tools Component
     const Tools = () => {
@@ -521,7 +525,6 @@
                       In Beta
                     </div>
                   )}
-                  <!-- Changed h2 to h3 for individual tools -->
                   <h3 className="text-xl font-bold text-blue-900 mb-2">{tool.title}</h3>
                   <p className="text-blue-600 font-medium mb-2">{tool.tagline}</p>
                   <p className="text-gray-600 mb-4">{tool.desc}</p>
