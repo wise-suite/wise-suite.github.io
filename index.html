@@ -687,22 +687,22 @@
                         <div className="slider-container">
                             {currentSlides.map((slide, index) => (
                                 <div key={index} className="slider-card">
-                                    <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={slide.icon} />
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
                                     </svg>
-                                    <h3 class="mt-4">{slide.title}</h3>
-                                    <p class="mt-2" dangerouslySetInnerHTML={{ __html: slide.content }}></p>
+                                    <h3>{slide.title}</h3>
+                                    <p dangerouslySetInnerHTML={{ __html: slide.content }}></p>
                                 </div>
                             ))}
                         </div>
                         <button onClick={prevSet} className="slider-nav left" aria-label="Previous slide">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button onClick={nextSet} className="slider-nav right" aria-label="Next slide">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
                     </div>
@@ -733,15 +733,15 @@
             <section id="products" className="section">
                 <div className="container">
                     <h2>Our Products</h2>
-                    <div className="product-grid gap-4">
+                    <div className="product-grid">
                         <div className="product-card">
-                            <h3 class="mt-2">TabWise</h3>
-                            <p class="mt-4">Organize browser tabs with AI-powered categorization.</p>
+                            <h3>TabWise</h3>
+                            <p>Organize browser tabs with AI-powered categorization.</p>
                             <a href="/tabwise" className="tool-button">Visit TabWise</a>
                         </div>
                         <div className="product-card">
-                            <h3 class="mt-2">FocusWise</h3>
-                            <p class="mt-4">Block distractions with customizable filters.</p>
+                            <h3>FocusWise</h3>
+                            <p>Block distractions with customizable filters.</p>
                             <button
                                 onClick={() => setModalState({ isOpen: true, toolName: 'FocusWise' })}
                                 className="tool-button"
@@ -765,9 +765,9 @@
         const [modalState, setModalState] = useState({ isOpen: false, toolName: '' });
 
         const tools = [
-            { title: "TabWise", tagline: "Tab Management", description: "Organize tabs with AI.", link: "/tabwise", cta: "Get TabWise", isBeta: true },
+            { title: "TabWise", tagline: "Tab Management", desc: "Organize tabs with AI.", link: "/tabwise", cta: "Get TabWise", isBeta: true },
             { title: "FocusWise", tagline: "Block Distractions", desc: "Customizable filters.", cta: "Join Waitlist", isComingSoon: true },
-            { title: "TimeWise", tagline: "Track Time", description: "Optimize workflow.", cta: "Join", isComingSoon: true }
+            { title: "TimeWise", tagline: "Track Time", desc: "Optimize workflow.", cta: "Join Waitlist", isComingSoon: true }
         ];
 
         return (
@@ -776,12 +776,12 @@
                     <h2>Our Tools</h2>
                     <div className="tool-grid">
                         {tools.map((tool, index) => (
-                            <div key={tool.title} className="tool-card">
+                            <div key={index} className="tool-card">
                                 {tool.isComingSoon && <div className="badge">Coming Soon</div>}
-                                {tool.isBeta && <div className="badge beta">Beta</div>}
-                                <h3 class="mt-2">{tool.title}</h3>
-                                <p className="tagline" class="mt-2">{tool.tagline}</p>
-                                <p className="description" class="mt-2">{tool.description}</p>
+                                {tool.isBeta && <div className="badge beta">In Beta</div>}
+                                <h3>{tool.title}</h3>
+                                <p className="tagline">{tool.tagline}</p>
+                                <p className="desc">{tool.desc}</p>
                                 {tool.link ? (
                                     <a href={tool.link} className="tool-button">{tool.cta}</a>
                                 ) : (
@@ -805,27 +805,15 @@
         );
     };
 
-    // Vision
-    const Vision = () => (
-        <section id="vision" className="section">
-            <div className="container">
-                <h2 class="mt-4">Our Vision</h2>
-                <p style={{ font-size: '18px', text-align: 'center' }}>
-                    WiseSuite envisions to be a future where tools are smart, intuitive, and tailored to your needs, providing clarity and control.
-                </p>
-            </div>
-        </section>
-    );
-
     // Footer
     const Footer = () => (
-        <footer class="footer">
+        <footer className="footer">
             <div className="container">
-                <p>© 2025 WiseSuite. All rights reserved.</p>
-                <p><a href="/blog">Go to Blog</a></p>
-                <div class="mt-6" style={{ display: 'flex', justify-content: 'center', gap: '10px' }}>
-                    <a href="/privacy">Privacy</a>
-                    <a href="mailto:support@wisesuite.com">Contact</a>
+                <p>Copyright © 2025 WiseSuite</p>
+                <p><a href="/blog.html">Visit Our Blog</a></p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
+                    <a href="/privacy.html">Privacy</a>
+                    <a href="mailto:contact@wisesuite.com">Contact</a>
                 </div>
             </div>
         </footer>
@@ -841,7 +829,6 @@
                 <Products />
                 <Discover />
                 <Tools />
-                <Vision />
                 <Footer />
             </div>
         </ErrorBoundary>
