@@ -10,22 +10,22 @@
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://wise-suite.github.io/tabwise/"/>
 <meta property="og:title" content="Tabwise: Smart Tab Manager for Chrome"/>
-<meta property="og:description" content="Tabwise auto-categorizes Chrome tabs, saves sessions, and syncs across devices. Join the waitlist for smarter browsing!"/>
+<meta property="og:description" content="Tabwise auto-categorizes Chrome tabs, saves sessions, and syncs across devices. Join the waitlist for smarter Browse!"/>
 <meta property="og:image" content="https://wise-suite.github.io/tabwise/logo.png"/>
 <meta property="og:url" content="https://wise-suite.github.io/tabwise/"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Tabwise: Smart Tab Manager for Chrome"/>
-<meta name="twitter:description" content="Tabwise auto-categorizes Chrome tabs, saves sessions, and syncs across devices. Join the waitlist for smarter browsing!"/>
+<meta name="twitter:description" content="Tabwise auto-categorizes Chrome tabs, saves sessions, and syncs across devices. Join the waitlist for smarter Browse!"/>
 <meta name="twitter:image" content="https://wise-suite.github.io/tabwise/logo.png"/>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Tabwise",
-  "operatingSystem": "Chrome",
-  "applicationCategory": "Productivity",
-  "description": "Tabwise is a Chrome extension for tab management, offering auto-categorization, session saving, and cloud sync to boost productivity."
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Tabwise",
+  "operatingSystem": "Chrome",
+  "applicationCategory": "Productivity",
+  "description": "Tabwise is a Chrome extension for tab management, offering auto-categorization, session saving, and cloud sync to boost productivity."
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
@@ -33,1387 +33,639 @@
 <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-    body { font-family: 'Inter', 'Nunito', sans-serif; }
-    .category.dragging { opacity: 0.5; }
-    .category.drop-target { border: 2px dashed #3B82F6; }
-    .tab-item.dragging { opacity: 0.5; }
-    .tab-item.drop-target { border: 2px dashed #3B82F6; }
-    .error-boundary { color: red; text-align: center; padding: 16px; }
-    .waitlist-input { transition: all 0.3s ease; }
-    .waitlist-input:focus { border-color: #3B82F6; }
-    .modal-overlay { background: rgba(0, 0, 0, 0.5); }
+    body { font-family: 'Inter', 'Nunito', sans-serif; }
+    .category.dragging { opacity: 0.5; }
+    .category.drop-target { border: 2px dashed #3B82F6; }
+    .tab-item.dragging { opacity: 0.5; }
+    .tab-item.drop-target { border: 2px dashed #3B82F6; }
+    .error-boundary { color: red; text-align: center; padding: 16px; }
+    .waitlist-input { transition: all 0.3s ease; }
+    .waitlist-input:focus { border-color: #3B82F6; }
+    .modal-overlay { background: rgba(0, 0, 0, 0.5); }
 </style>
 </head>
 <body class="bg-gray-50 text-gray-700">
 <div id="root"></div>
 <script type="text/babel">
-    const { useState, useEffect } = React;
+    const { useState, useEffect } = React;
 
-    // Error Boundary Component
-    class ErrorBoundary extends React.Component {
-      state = { hasError: false, error: null };
-      static getDerivedStateFromError(error) {
-        console.error("ErrorBoundary caught:", error);
-        return { hasError: true, error };
-      }
-      componentDidCatch(error, errorInfo) {
-        console.error("ErrorBoundary info:", errorInfo);
-      }
-      render() {
-        if (this.state.hasError) {
-          return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
-        }
-        return this.props.children;
-      }
-    }
+    // Error Boundary Component
+    class ErrorBoundary extends React.Component {
+      state = { hasError: false, error: null };
+      static getDerivedStateFromError(error) {
+        console.error("ErrorBoundary caught:", error);
+        return { hasError: true, error };
+      }
+      componentDidCatch(error, errorInfo) {
+        console.error("ErrorBoundary info:", errorInfo);
+      }
+      render() {
+        if (this.state.hasError) {
+          return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
+        }
+        return this.props.children;
+      }
+    }
 
-    // Waitlist Modal Component
-    const WaitlistModal = ({ isOpen, onClose }) => {
-      const [email, setEmail] = useState("");
-      const [message, setMessage] = useState("");
+    // Waitlist Modal Component
+    const WaitlistModal = ({ isOpen, onClose }) => {
+      const [email, setEmail] = useState("");
+      const [message, setMessage] = useState("");
 
-      const handleWaitlistSubmit = () => {
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          setMessage("Please enter a valid email address");
-          setTimeout(() => setMessage(""), 3000);
-          return;
-        }
-        try {
-          console.log("Waitlist email submitted:", email);
-          setMessage("Thank you for joining the Tabwise beta waitlist!");
-          setEmail("");
-          setTimeout(() => {
-            setMessage("");
-            onClose();
-          }, 2000);
-        } catch (error) {
-          console.error("Waitlist submission error:", error);
-          setMessage("Failed to join waitlist. Please try again.");
-          setTimeout(() => setMessage(""), 3000);
-        }
-      };
+      const handleWaitlistSubmit = () => {
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setMessage("Please enter a valid email address");
+          setTimeout(() => setMessage(""), 3000);
+          return;
+        }
+        try {
+          console.log("Waitlist email submitted:", email);
+          setMessage("Thank you for joining the Tabwise beta waitlist!");
+          setEmail("");
+          setTimeout(() => {
+            setMessage("");
+            onClose();
+          }, 2000);
+        } catch (error) {
+          console.error("Waitlist submission error:", error);
+          setMessage("Failed to join waitlist. Please try again.");
+          setTimeout(() => setMessage(""), 3000);
+        }
+      };
 
-      if (!isOpen) return null;
+      if (!isOpen) return null;
 
-      return (
-        <div className="modal-overlay fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-blue-900">Join the Tabwise Beta Waitlist</h3>
-              <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
-            <p className="text-gray-600 mb-4">Be the first to try Tabwise’s smart tab manager for Chrome!</p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="waitlist-input p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4"
-            />
-            <button
-              onClick={handleWaitlistSubmit}
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-            >
-              Sign Up for Beta
-            </button>
-            {message && (
-              <div className={`text-center text-sm mt-2 ${message.includes("Thank") ? "text-green-600" : "text-red-500"}`}>
-                {message}
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    };
+      return (
+        <div className="modal-overlay fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-medium text-blue-900">Join the Tabwise Beta Waitlist</h3>
+              <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <p className="text-gray-600 mb-4">Be the first to try Tabwise’s smart tab manager for Chrome!</p>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="waitlist-input p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4"
+            />
+            <button
+              onClick={handleWaitlistSubmit}
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Sign Up for Beta
+            </button>
+            {message && (
+              <div className={`text-center text-sm mt-2 ${message.includes("Thank") ? "text-green-600" : "text-red-500"}`}>
+                {message}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
 
-    // Navigation Component
-    const Navbar = () => {
-      const [isModalOpen, setIsModalOpen] = useState(false);
-      const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // Navigation Component
+    const Navbar = () => {
+      const [isModalOpen, setIsModalOpen] = useState(false);
+      const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-      return (
-        <nav className="bg-white shadow-sm fixed w-full z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                <a href="/tabwise/" className="flex-shrink-0 flex items-center">
-                  <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" className="h-8 w-8"/>
-                  <span className="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
-                </a>
-              </div>
-              <div className="hidden md:flex items-center space-x-4">
-                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
-                <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
-                <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
-                <a href="/tabwise/#blog" className="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600"
-                  aria-label="Sign Up for Beta"
-                >
-                  Sign Up for Beta
-                </button>
-              </div>
-              <div className="md:hidden flex items-center">
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="text-gray-600 hover:text-blue-600 focus:outline-none"
-                  aria-label="Toggle mobile menu"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            {isMobileMenuOpen && (
-              <div className="md:hidden">
-                <div className="flex flex-col space-y-2 px-4 py-2">
-                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
-                  <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
-                  <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Demo</a>
-                  <a href="/tabwise/#blog" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
-                  <button
-                    onClick={() => {
-                      setIsModalOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
-                    aria-label="Sign Up for Beta"
-                  >
-                    Sign Up for Beta
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-        </nav>
-      );
-    };
+      return (
+        <nav className="bg-white shadow-sm fixed w-full z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex">
+                <a href="/tabwise/" className="flex-shrink-0 flex items-center">
+                  <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" className="h-8 w-8"/>
+                  <span className="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
+                </a>
+              </div>
+              <div className="hidden md:flex items-center space-x-4">
+                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
+                <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
+                <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
+                <a href="/tabwise/#blog" className="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600"
+                  aria-label="Sign Up for Beta"
+                >
+                  Sign Up for Beta
+                </button>
+              </div>
+              <div className="md:hidden flex items-center">
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="text-gray-600 hover:text-blue-600 focus:outline-none"
+                  aria-label="Toggle mobile menu"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            {isMobileMenuOpen && (
+              <div className="md:hidden">
+                <div className="flex flex-col space-y-2 px-4 py-2">
+                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
+                  <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+                  <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Demo</a>
+                  <a href="/tabwise/#blog" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
+                  <button
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
+                    aria-label="Sign Up for Beta"
+                  >
+                    Sign Up for Beta
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        </nav>
+      );
+    };
 
-    // Hero Component
-    const Hero = () => (
-      <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}>
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tabwise: The Smart Way to Manage Your Chrome Tabs
-          </h1>
-          <div className="flex flex-row justify-center space-x-2 mt-4 sm:mt-6 md:mt-8 mb-12">
-            <img
-              src="/tabwise/hero-image.png"
-              alt="Tabwise screenshot showing auto-categorized Chrome tabs"
-              className="w-full max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-lg max-h-[150px] sm:max-h-[300px] md:max-h-[400px] lg:max-h-[450px] rounded-lg shadow-sm object-contain"
-            />
-            <img
-              src="/tabwise/hero-image-2.png"
-              alt="Animated GIF showing Tabwise session saving feature"
-              className="w-full max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-lg max-h-[150px] sm:max-h-[300px] md:max-h-[400px] lg:max-h-[450px] rounded-lg shadow-sm object-contain"
-            />
-          </div>
-          <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-2xl mx-auto">
-            Tabwise’s Chrome extension auto-categorizes tabs, saves sessions locally, and syncs across devices. Perfect for researchers, developers, and students. <a href="/tabwise/blog.html" className="text-blue-300 hover:text-blue-400">Explore our blog</a> for tips.
-          </p>
-          <div className="flex justify-center space-x-4 mb-8">
-            <button
-              onClick={() => document.querySelector('button[aria-label="Sign Up for Beta"]').click()}
-              className="bg-blue-400 text-white px-6 py-3 rounded-md hover:bg-blue-500 text-lg"
-            >
-              Sign Up for Beta
-            </button>
-            <a href="/tabwise/#features" className="border border-blue-200 text-blue-200 px-6 py-3 rounded-md hover:bg-blue-700 text-lg">
-              Explore Features
-            </a>
-          </div>
-        </div>
-      </section>
-    );
+    // Hero Component
+    const Hero = () => (
+      <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}>
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Tabwise: The Smart Way to Manage Your Chrome Tabs
+          </h1>
+          <div className="flex flex-row justify-center space-x-2 mt-4 sm:mt-6 md:mt-8 mb-12">
+            <img
+              src="/tabwise/hero-image.png"
+              alt="Tabwise screenshot showing auto-categorized Chrome tabs"
+              className="w-full max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-lg max-h-[150px] sm:max-h-[300px] md:max-h-[400px] lg:max-h-[450px] rounded-lg shadow-sm object-contain"
+            />
+            <img
+              src="/tabwise/hero-image-2.png"
+              alt="Animated GIF showing Tabwise session saving feature"
+              className="w-full max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-lg max-h-[150px] sm:max-h-[300px] md:max-h-[400px] lg:max-h-[450px] rounded-lg shadow-sm object-contain"
+            />
+          </div>
+          <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-2xl mx-auto">
+            Tabwise’s Chrome extension auto-categorizes tabs, saves sessions locally, and syncs across devices. Perfect for researchers, developers, and students. <a href="/tabwise/blog.html" className="text-blue-300 hover:text-blue-400">Explore our blog</a> for tips.
+          </p>
+          <div className="flex justify-center space-x-4 mb-8">
+            <button
+              onClick={() => document.querySelector('button[aria-label="Sign Up for Beta"]').click()}
+              className="bg-blue-400 text-white px-6 py-3 rounded-md hover:bg-blue-500 text-lg"
+            >
+              Sign Up for Beta
+            </button>
+            <a href="/tabwise/#features" className="border border-blue-200 text-blue-200 px-6 py-3 rounded-md hover:bg-blue-700 text-lg">
+              Explore Features
+            </a>
+          </div>
+        </div>
+      </section>
+    );
 
-    // Features Component
-    const Features = () => (
-      <section id="features" className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Why Choose Tabwise?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Auto-Categorize Your Tabs Effortlessly",
-                desc: "Tabwise’s smart tab manager groups Chrome tabs by topic, saving researchers time and reducing browser clutter. Ideal for managing multiple sources or projects. <a href='/tabwise/tabwise-productivity-benefits.html' className='text-blue-500 hover:text-blue-600'>Read our productivity guide</a>."
-              },
-              {
-                title: "Seamlessly Save Tabs Locally for Later",
-                desc: "Save sessions locally with Tabwise’s Chrome extension to revisit them anytime. Perfect for students organizing study materials without slowing your browser. <a href='/tabwise/terms.html' className='text-blue-500 hover:text-blue-600'>See our Terms</a>."
-              },
-              {
-                title: "Sync Tabs Across Devices",
-                desc: "Access tabs anywhere with cloud syncing. Developers can streamline workflows by keeping project tabs consistent across devices. <a href='/tabwise/browser-tab-management-guide.html' className='text-blue-500 hover:text-blue-600'>Learn more</a>."
-              }
-            ].map((feature, index) => (
-              <div key={index} className="bg-white p-5 rounded-lg shadow-sm text-center">
-                <div className="h-12 w-12 mx-auto mb-3 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg className="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h2 className="text-xl font-medium text-blue-900 mb-2">{feature.title}</h2>
-                <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: feature.desc }}></p>
-                {index === 0 && (
-                  <img src="/tabwise/placeholder-screenshot.png" alt="Tabwise screenshot showing auto-categorized Chrome tabs" className="mt-4 mx-auto max-w-full h-auto"/>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
+    // Features Component
+    const Features = () => (
+      <section id="features" className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Why Choose Tabwise?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Auto-Categorize Your Tabs Effortlessly",
+                desc: "Tabwise’s smart tab manager groups Chrome tabs by topic, saving researchers time and reducing browser clutter. Ideal for managing multiple sources or projects. <a href='/tabwise/tabwise-productivity-benefits.html' className='text-blue-500 hover:text-blue-600'>Read our productivity guide</a>."
+              },
+              {
+                title: "Seamlessly Save Tabs Locally for Later",
+                desc: "Save sessions locally with Tabwise’s Chrome extension to revisit them anytime. Perfect for students organizing study materials without slowing your browser. <a href='/tabwise/terms.html' className='text-blue-500 hover:text-blue-600'>See our Terms</a>."
+              },
+              {
+                title: "Sync Tabs Across Devices",
+                desc: "Access tabs anywhere with cloud syncing. Developers can streamline workflows by keeping project tabs consistent across devices. <a href='/tabwise/browser-tab-management-guide.html' className='text-blue-500 hover:text-blue-600'>Learn more</a>."
+              }
+            ].map((feature, index) => (
+              <div key={index} className="bg-white p-5 rounded-lg shadow-sm text-center">
+                <div className="h-12 w-12 mx-auto mb-3 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg className="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                {/* Changed h2 to h3 here */}
+                <h3 className="text-xl font-medium text-blue-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: feature.desc }}></p>
+                {index === 0 && (
+                  <img src="/tabwise/placeholder-screenshot.png" alt="Tabwise screenshot showing auto-categorized Chrome tabs" className="mt-4 mx-auto max-w-full h-auto"/>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
 
-    // Experience Component (unchanged)
-    const Experience = () => {
-      const [activeView, setActiveView] = useState("interactive");
-      const [categories, setCategories] = useState([
-        { name: "Work", tabs: [{ title: "Project Plan", url: "https://example.com", note: "" }] },
-        { name: "Personal", tabs: [{ title: "Shopping List", url: "https://example.com", note: "Buy groceries" }] },
-      ]);
-      const [filteredCategories, setFilteredCategories] = useState(categories);
-      const [collapsedCategories, setCollapsedCategories] = useState(new Set());
-      const [sortPreference, setSortPreference] = useState("name-asc");
-      const [activeTab, setActiveTab] = useState("create");
-      const [theme, setTheme] = useState("light");
-      const [searchQuery, setSearchQuery] = useState("");
-      const [lastAction, setLastAction] = useState(null);
-      const [showSettings, setShowSettings] = useState(false);
-      const [error, setError] = useState("");
-      const [hoverMessage, setHoverMessage] = useState("Hover over an element to see its description");
+    // Experience Component (unchanged)
+    const Experience = () => {
+      const [activeView, setActiveView] = useState("interactive");
+      const [categories, setCategories] = useState([
+        { name: "Work", tabs: [{ title: "Project Plan", url: "https://example.com", note: "" }] },
+        { name: "Personal", tabs: [{ title: "Shopping List", url: "https://example.com", note: "Buy groceries" }] },
+      ]);
+      const [filteredCategories, setFilteredCategories] = useState(categories);
+      const [collapsedCategories, setCollapsedCategories] = useState(new Set());
+      const [sortPreference, setSortPreference] = useState("name-asc");
+      const [activeTab, setActiveTab] = useState("create");
+      const [theme, setTheme] = useState("light");
+      const [searchQuery, setSearchQuery] = useState("");
+      const [lastAction, setLastAction] = useState(null);
+      const [showSettings, setShowSettings] = useState(false);
+      const [error, setError] = useState("");
+      const [hoverMessage, setHoverMessage] = useState("Hover over an element to see its description");
 
-      const showError = (message) => {
-        setError(message);
-        setTimeout(() => setError(""), 3000);
-      };
+      const showError = (message) => {
+        setError(message);
+        setTimeout(() => setError(""), 3000);
+      };
 
-      const applySort = (cats) => {
-        return [...cats].sort((a, b) => {
-          if (sortPreference === "name-asc") return a.name.localeCompare(b.name);
-          if (sortPreference === "name-desc") return b.name.localeCompare(b.name);
-          if (sortPreference === "tabs-asc") return a.tabs.length - b.tabs.length;
-          if (sortPreference === "tabs-desc") return b.tabs.length - a.tabs.length;
-          return 0;
-        });
-      };
+      const applySort = (cats) => {
+        return [...cats].sort((a, b) => {
+          if (sortPreference === "name-asc") return a.name.localeCompare(b.name);
+          if (sortPreference === "name-desc") return b.name.localeCompare(b.name);
+          if (sortPreference === "tabs-asc") return a.tabs.length - b.tabs.length;
+          if (sortPreference === "tabs-desc") return b.tabs.length - a.tabs.length;
+          return 0;
+        });
+      };
 
-      const updateCategoryDropdown = () => {
-        const dropdown = document.getElementById("addToCategory");
-        if (!dropdown) {
-          console.warn("addToCategory dropdown not found");
-          return;
-        }
-        try {
-          dropdown.innerHTML = '<option value="">Select category to add tabs</option>';
-          categories.forEach((cat, index) => {
-            const option = document.createElement("option");
-            option.value = index;
-            option.textContent = cat.name;
-            dropdown.appendChild(option);
-          });
-        } catch (err) {
-          console.error("Error updating category dropdown:", err);
-        }
-      };
+      const updateCategoryDropdown = () => {
+        const dropdown = document.getElementById("addToCategory");
+        if (!dropdown) {
+          console.warn("addToCategory dropdown not found");
+          return;
+        }
+        try {
+          dropdown.innerHTML = '<option value="">Select category to add tabs</option>';
+          categories.forEach((cat, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = cat.name;
+            dropdown.appendChild(option);
+          });
+        } catch (err) {
+          console.error("Error updating category dropdown:", err);
+        }
+      };
 
-      const deduplicateTabs = (existingTabs, newTabs) => {
-        const existingUrls = new Set(existingTabs.map(tab => tab.url));
-        const uniqueTabs = newTabs.filter(tab => !existingUrls.has(tab.url));
-        const skippedCount = newTabs.length - uniqueTabs.length;
-        return { uniqueTabs, skippedCount };
-      };
+      const deduplicateTabs = (existingTabs, newTabs) => {
+        const existingUrls = new Set(existingTabs.map(tab => tab.url));
+        const uniqueTabs = newTabs.filter(tab => !existingUrls.has(tab.url));
+        const skippedCount = newTabs.length - uniqueTabs.length;
+        return { uniqueTabs, skippedCount };
+      };
 
-      const toggleCategory = (categoryName) => {
-        const newCollapsed = new Set(collapsedCategories);
-        if (newCollapsed.has(categoryName)) {
-          newCollapsed.delete(categoryName);
-        } else {
-          newCollapsed.add(categoryName);
-        }
-        setCollapsedCategories(newCollapsed);
-      };
+      const toggleCategory = (categoryName) => {
+        const newCollapsed = new Set(collapsedCategories);
+        if (newCollapsed.has(categoryName)) {
+          newCollapsed.delete(categoryName);
+        } else {
+          newCollapsed.add(categoryName);
+        }
+        setCollapsedCategories(newCollapsed);
+      };
 
-      const addCategory = () => {
-        const nameInput = document.getElementById("newCategory");
-        const name = nameInput?.value?.trim();
-        if (!name) {
-          showError("Please enter a category name");
-          return;
-        }
-        try {
-          const newCategories = [...categories, { name, tabs: [] }];
-          setCategories(newCategories);
-          setFilteredCategories(applySort(newCategories));
-          nameInput.value = "";
-          setActiveTab("create");
-          updateCategoryDropdown();
-        } catch (err) {
-          console.error("Error adding category:", err);
-          showError("Failed to add category");
-        }
-      };
+      const addCategory = () => {
+        const nameInput = document.getElementById("newCategory");
+        const name = nameInput?.value?.trim();
+        if (!name) {
+          showError("Please enter a category name");
+          return;
+        }
+        try {
+          const newCategories = [...categories, { name, tabs: [] }];
+          setCategories(newCategories);
+          setFilteredCategories(applySort(newCategories));
+          nameInput.value = "";
+          setActiveTab("create");
+          updateCategoryDropdown();
+        } catch (err) {
+          console.error("Error adding category:", err);
+          showError("Failed to add category");
+        }
+      };
 
-      const deleteCategory = (catIndex) => {
-        if (window.confirm("Delete this category?")) {
-          try {
-            const category = categories[catIndex];
-            setLastAction({
-              type: "delete-category",
-              index: catIndex,
-              category,
-              wasCollapsed: collapsedCategories.has(category.name),
-            });
-            const newCategories = categories.filter((_, i) => i !== catIndex);
-            const newCollapsed = new Set(collapsedCategories);
-            newCollapsed.delete(category.name);
-            setCategories(newCategories);
-            setFilteredCategories(applySort(newCategories));
-            setCollapsedCategories(newCollapsed);
-            updateCategoryDropdown();
-            setTimeout(() => setLastAction(null), 5000);
-          } catch (err) {
-            console.error("Error deleting category:", err);
-            showError("Failed to delete category");
-          }
-        }
-      };
+      const deleteCategory = (catIndex) => {
+        if (window.confirm("Delete this category?")) {
+          try {
+            const category = categories[catIndex];
+            setLastAction({
+              type: "delete-category",
+              index: catIndex,
+              category,
+              wasCollapsed: collapsedCategories.has(category.name),
+            });
+            const newCategories = categories.filter((_, i) => i !== catIndex);
+            const newCollapsed = new Set(collapsedCategories);
+            newCollapsed.delete(category.name);
+            setCategories(newCategories);
+            setFilteredCategories(applySort(newCategories));
+            setCollapsedCategories(newCollapsed);
+            updateCategoryDropdown();
+            setTimeout(() => setLastAction(null), 5000);
+          } catch (err) {
+            console.error("Error deleting category:", err);
+            showError("Failed to delete category");
+          }
+        }
+      };
 
-      const editCategoryName = (catIndex) => {
-        try {
-          const oldName = categories[catIndex].name;
-          const newName = prompt("Enter new category name:", oldName);
-          if (newName && newName.trim()) {
-            const newCategories = [...categories];
-            newCategories[catIndex].name = newName.trim();
-            const newCollapsed = new Set(collapsedCategories);
-            if (newCollapsed.has(oldName)) {
-              newCollapsed.delete(oldName);
-              newCollapsed.add(newName.trim());
-            }
-            setCategories(newCategories);
-            setFilteredCategories(applySort(newCategories));
-            setCollapsedCategories(newCollapsed);
-            updateCategoryDropdown();
-          }
-        } catch (err) {
-          console.error("Error editing category name:", err);
-          showError("Failed to edit category name");
-        }
-      };
+      const editCategoryName = (catIndex) => {
+        try {
+          const oldName = categories[catIndex].name;
+          const newName = prompt("Enter new category name:", oldName);
+          if (newName && newName.trim()) {
+            const newCategories = [...categories];
+            newCategories[catIndex].name = newName.trim();
+            const newCollapsed = new Set(collapsedCategories);
+            if (newCollapsed.has(oldName)) {
+              newCollapsed.delete(oldName);
+              newCollapsed.add(newName.trim());
+            }
+            setCategories(newCategories);
+            setFilteredCategories(applySort(newCategories));
+            setCollapsedCategories(newCollapsed);
+            updateCategoryDropdown();
+          }
+        } catch (err) {
+          console.error("Error editing category name:", err);
+          showError("Failed to edit category name");
+        }
+      };
 
-      const addTabsToCategory = (catIndex) => {
-        try {
-          const newTabs = [
-            { title: `Sample Tab ${categories[catIndex].tabs.length + 1}`, url: "https://example.com", note: "" },
-          ];
-          const { uniqueTabs, skippedCount } = deduplicateTabs(categories[catIndex].tabs, newTabs);
-          const newCategories = [...categories];
-          newCategories[catIndex].tabs.push(...uniqueTabs);
-          setCategories(newCategories);
-          setFilteredCategories(applySort(newCategories));
-          setActiveTab("create");
-          if (skippedCount > 0) {
-            showError(`Skipped ${skippedCount} duplicate tab(s)`);
-          }
-        } catch (err) {
-          console.error("Error adding tabs to category:", err);
-          showError("Failed to add tabs");
-        }
-      };
+      const addTabsToCategory = (catIndex) => {
+        try {
+          const newTabs = [
+            { title: `Sample Tab ${categories[catIndex].tabs.length + 1}`, url: "https://example.com", note: "" },
+          ];
+          const { uniqueTabs, skippedCount } = deduplicateTabs(categories[catIndex].tabs, newTabs);
+          const newCategories = [...categories];
+          newCategories[catIndex].tabs.push(...uniqueTabs);
+          setCategories(newCategories);
+          setFilteredCategories(applySort(newCategories));
+          setActiveTab("create");
+          if (skippedCount > 0) {
+            showError(`Skipped ${skippedCount} duplicate tab(s)`);
+          }
+        } catch (err) {
+          console.error("Error adding tabs to category:", err);
+          showError("Failed to add tabs");
+        }
+      };
 
-      const deleteTab = (catIndex, tabIndex) => {
-        if (window.confirm("Remove this tab?")) {
-          try {
-            setLastAction({
-              type: "delete-tabs",
-              catIndex,
-              deletedTabs: [{ index: tabIndex, tab: categories[catIndex].tabs[tabIndex] }],
-            });
-            const newCategories = [...categories];
-            newCategories[catIndex].tabs.splice(tabIndex, 1);
-            setCategories(newCategories);
-            setFilteredCategories(applySort(newCategories));
-            setTimeout(() => setLastAction(null), 5000);
-          } catch (err) {
-            console.error("Error deleting tab:", err);
-            showError("Failed to delete tab");
-          }
-        }
-      };
+      const deleteTab = (catIndex, tabIndex) => {
+        if (window.confirm("Remove this tab?")) {
+          try {
+            setLastAction({
+              type: "delete-tabs",
+              catIndex,
+              deletedTabs: [{ index: tabIndex, tab: categories[catIndex].tabs[tabIndex] }],
+            });
+            const newCategories = [...categories];
+            newCategories[catIndex].tabs.splice(tabIndex, 1);
+            setCategories(newCategories);
+            setFilteredCategories(applySort(newCategories));
+            setTimeout(() => setLastAction(null), 5000);
+          } catch (err) {
+            console.error("Error deleting tab:", err);
+            showError("Failed to delete tab");
+          }
+        }
+      };
 
-      const editTabNote = (catIndex, tabIndex) => {
-        try {
-          const tab = categories[catIndex].tabs[tabIndex];
-          const newNote = prompt("Enter note for this tab:", tab.note || "");
-          if (newNote !== null) {
-            const newCategories = [...categories];
-            newCategories[catIndex].tabs[tabIndex].note = newNote.trim();
-            setCategories(newCategories);
-            setFilteredCategories(applySort(newCategories));
-          }
-        } catch (err) {
-          console.error("Error editing tab note:", err);
-          showError("Failed to edit tab note");
-        }
-      };
+      const editTabNote = (catIndex, tabIndex) => {
+        try {
+          const tab = categories[catIndex].tabs[tabIndex];
+          const newNote = prompt("Enter note for this tab:", tab.note || "");
+          if (newNote !== null) {
+            const newCategories = [...categories];
+            newCategories[catIndex].tabs[tabIndex].note = newNote.trim();
+            setCategories(newCategories);
+            setFilteredCategories(applySort(newCategories));
+          }
+        } catch (err) {
+          console.error("Error editing tab note:", err);
+          showError("Failed to edit tab note");
+        }
+      };
 
-      const handleDragStart = (e, type, catIndex, tabIndex = null) => {
-        try {
-          e.currentTarget.classList.add("dragging");
-          e.dataTransfer.setData("text/plain", JSON.stringify({ type, catIndex, tabIndex }));
-        } catch (err) {
-          console.error("Error in drag start:", err);
-        }
-      };
+      const handleDragStart = (e, type, catIndex, tabIndex = null) => {
+        try {
+          e.currentTarget.classList.add("dragging");
+          e.dataTransfer.setData("text/plain", JSON.stringify({ type, catIndex, tabIndex }));
+        } catch (err) {
+          console.error("Error in drag start:", err);
+        }
+      };
 
-      const handleDragEnd = (e) => {
-        try {
-          e.currentTarget.classList.remove("dragging");
-          document.querySelectorAll(".drop-target").forEach(el => el.classList.remove("drop-target"));
-        } catch (err) {
-          console.error("Error in drag end:", err);
-        }
-      };
+      const handleDragEnd = (e) => {
+        try {
+          e.currentTarget.classList.remove("dragging");
+          document.querySelectorAll(".drop-target").forEach(el => el.classList.remove("drop-target"));
+        } catch (err) {
+          console.error("Error in drag end:", err);
+        }
+      };
 
-      const handleDragOver = (e) => {
-        try {
-          e.preventDefault();
-          e.currentTarget.classList.add("drop-target");
-        } catch (err) {
-          console.error("Error in drag over:", err);
-        }
-      };
+      const handleDragOver = (e) => {
+        try {
+          e.preventDefault();
+          e.currentTarget.classList.add("drop-target");
+        } catch (err) {
+          console.error("Error in drag over:", err);
+        }
+      };
 
-      const handleDragLeave = (e) => {
-        try {
-          e.currentTarget.classList.remove("drop-target");
-        } catch (err) {
-          console.error("Error in drag leave:", err);
-        }
-      };
+      const handleDragLeave = (e) => {
+        try {
+          e.currentTarget.classList.remove("drop-target");
+        } catch (err) {
+          console.error("Error in drag leave:", err);
+        }
+      };
 
-      const handleDrop = (e, toCatIndex, toTabIndex = null) => {
-        try {
-          e.preventDefault();
-          e.currentTarget.classList.remove("drop-target");
-          const data = JSON.parse(e.dataTransfer.getData("text/plain"));
-          const newCategories = [...categories];
+      const handleDrop = (e, toCatIndex, toTabIndex = null) => {
+        try {
+          e.preventDefault();
+          e.currentTarget.classList.remove("drop-target");
+          const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+          const newCategories = [...categories];
 
-          if (data.type === "category") {
-            const fromIndex = data.catIndex;
-            if (fromIndex !== toCatIndex) {
-              const [moved] = newCategories.splice(fromIndex, 1);
-              newCategories.splice(toCatIndex, 0, moved);
-              setCategories(newCategories);
-              setFilteredCategories(applySort(newCategories));
-            }
-          } else if (data.type === "tab") {
-            const { catIndex: fromCatIndex, tabIndex: fromTabIndex } = data;
-            if (fromCatIndex !== toCatIndex || (toTabIndex !== null && fromTabIndex !== toTabIndex)) {
-              const [moved] = newCategories[fromCatIndex].tabs.splice(fromTabIndex, 1);
-              if (fromCatIndex === toCatIndex && toTabIndex !== null) {
-                newCategories[toCatIndex].tabs.splice(toTabIndex, 0, moved);
-              } else {
-                newCategories[toCatIndex].tabs.push(moved);
-              }
-              setCategories(newCategories);
-              setFilteredCategories(applySort(newCategories));
-            }
-          }
-        } catch (err) {
-          console.error("Error in drop handler:", err);
-          showError("Failed to reorder items");
-        }
-      };
+          if (data.type === "category") {
+            const fromIndex = data.catIndex;
+            if (fromIndex !== toCatIndex) {
+              const [moved] = newCategories.splice(fromIndex, 1);
+              newCategories.splice(toCatIndex, 0, moved);
+              setCategories(newCategories);
+              setFilteredCategories(applySort(newCategories));
+            }
+          } else if (data.type === "tab") {
+            const { catIndex: fromCatIndex, tabIndex: fromTabIndex } = data;
+            if (fromCatIndex !== toCatIndex || (toTabIndex !== null && fromTabIndex !== toTabIndex)) {
+              const [moved] = newCategories[fromCatIndex].tabs.splice(fromTabIndex, 1);
+              if (fromCatIndex === toCatIndex && toTabIndex !== null) {
+                newCategories[toCatIndex].tabs.splice(toTabIndex, 0, moved);
+              } else {
+                newCategories[toCatIndex].tabs.push(moved);
+              }
+              setCategories(newCategories);
+              setFilteredCategories(applySort(newCategories));
+            }
+          }
+        } catch (err) {
+          console.error("Error in drop handler:", err);
+          showError("Failed to reorder items");
+        }
+      };
 
-      const searchCategories = () => {
-        try {
-          if (!searchQuery) {
-            setFilteredCategories(applySort(categories));
-          } else {
-            const query = searchQuery.toLowerCase().trim();
-            const filtered = categories
-              .map(category => ({
-                ...category,
-                tabs: category.tabs.filter(tab =>
-                  tab.title.toLowerCase().includes(query) ||
-                  tab.url.toLowerCase().includes(query) ||
-                  (tab.note && tab.note.toLowerCase().includes(query))
-                ),
-              }))
-              .filter(category => category.name.toLowerCase().includes(query) || category.tabs.length > 0);
-            setFilteredCategories(applySort(filtered));
-          }
-        } catch (err) {
-          console.error("Error in searchCategories:", err);
-          showError("Failed to search categories");
-        }
-      };
+      const searchCategories = () => {
+        try {
+          if (!searchQuery) {
+            setFilteredCategories(applySort(categories));
+          } else {
+            const query = searchQuery.toLowerCase().trim();
+            const filtered = categories
+              .map(category => ({
+                ...category,
+                tabs: category.tabs.filter(tab =>
+                  tab.title.toLowerCase().includes(query) ||
+                  tab.url.toLowerCase().includes(query) ||
+                  (tab.note && tab.note.toLowerCase().includes(query))
+                ),
+              }))
+              .filter(category => category.name.toLowerCase().includes(query) || category.tabs.length > 0);
+            setFilteredCategories(applySort(filtered));
+          }
+        } catch (err) {
+          console.error("Error in searchCategories:", err);
+          showError("Failed to search categories");
+        }
+      };
 
-      const toggleTheme = () => {
-        try {
-          setTheme(theme === "light" ? "dark" : "light");
-        } catch (err) {
-          console.error("Error toggling theme:", err);
-        }
-      };
+      const toggleTheme = () => {
+        try {
+          setTheme(theme === "light" ? "dark" : "light");
+        } catch (err) {
+          console.error("Error toggling theme:", err);
+        }
+      };
 
-      useEffect(() => {
-        try {
-          searchCategories();
-          updateCategoryDropdown();
-        } catch (err) {
-          console.error("Error in useEffect:", err);
-        }
-      }, [searchQuery, categories, sortPreference]);
+      useEffect(() => {
+        try {
+          searchCategories();
+          updateCategoryDropdown();
+        } catch (err) {
+          console.error("Error in useEffect:", err);
+        }
+      }, [searchQuery, categories, sortPreference]);
 
-      return (
-        <section id="experience" className="py-12 bg-gradient-to-b from-gray-50 to-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Experience Tabwise</h2>
-            <p className="text-lg text-gray-600 mb-6 text-center max-w-2xl mx-auto">
-              See Tabwise in action with a quick demo video, or try its browser management features interactively. Learn more in our <a href="/tabwise/browser-tab-management-guide.html" className="text-blue-500 hover:text-blue-600">tab management guide</a>.
-            </p>
-            <div className="flex justify-center mb-6">
-              <div className="inline-flex rounded-md shadow-sm">
-                <button
-                  onClick={() => setActiveView("interactive")}
-                  className={`px-4 py-2 text-sm font-medium rounded-l-md ${
-                    activeView === "interactive"
-                      ? "bg-blue-500 text-white hover:bg-blue-600"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-800"
-                  }`}
-                >
-                  Try It Interactively
-                </button>
-                <button
-                  onClick={() => setActiveView("video")}
-                  className={`px-4 py-2 text-sm font-medium rounded-r-md ${
-                    activeView === "video"
-                      ? "bg-blue-500 text-white hover:bg-blue-600"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-800"
-                  }`}
-                >
-                  Watch It in Action
-                </button>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              {activeView === "interactive" ? (
-                <div className={`border border-gray-200 rounded-lg shadow-sm ${theme === "dark" ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"}`}>
-                  <div className="p-4">
-                    <div style={{ width: "360px", maxHeight: "900px", overflowY: "auto" }}>
-                      <header className="flex justify-end items-center mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className="relative w-40">
-                            <input
-                              id="search"
-                              type="text"
-                              placeholder="Search tabs..."
-                              value={searchQuery}
-                              onChange={(e) => setSearchQuery(e.target.value)}
-                              onMouseEnter={() => setHoverMessage("Search Bar: Find tabs by title or URL")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              aria-label="Search Bar: Find tabs by title or URL"
-                              className={`w-full p-1 text-sm border rounded-md ${
-                                theme === "dark" ? "bg-gray-700 text-gray-200 border-gray-600" : "bg-white text-gray-700 border-gray-300"
-                              }`}
-                            />
-                            <svg
-                              className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4"
-                              fill={theme === "dark" ? "#bbb" : "#666"}
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <button 
-                              onClick={() => setShowSettings(!showSettings)} 
-                              onMouseEnter={() => setHoverMessage("Settings: Sort categories or manage tabs")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              className="p-1"
-                              aria-label="Settings: Sort categories or manage tabs"
-                            >
-                              <svg className="w-4 h-4" fill={theme === "dark" ? "#66b0ff" : "#3B82F6"} viewBox="0 0 24 24">
-                                <path d="M4 12a2 2 0 110-4 2 2 0 010 4zm8 0a2 2 0 110-4 2 2 0 010 4zm8 0a2 2 0 110-4 2 2 0 010 4z" />
-                              </svg>
-                            </button>
-                          </div>
-                          <div>
-                            <button 
-                              onClick={toggleTheme} 
-                              onMouseEnter={() => setHoverMessage("Theme: Toggle between light and dark mode")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              className="p-1"
-                              aria-label="Theme: Toggle between light and dark mode"
-                            >
-                              <svg
-                                id="themeIcon"
-                                className="w-4 h-4"
-                                fill={theme === "dark" ? "#66b0ff" : "#3B82F6"}
-                                viewBox="0 0 24 24"
-                              >
-                                {theme === "light" ? (
-                                  <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                                ) : (
-                                  <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                                )}
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                      </header>
-                      <div 
-                        role="status" 
-                        aria-live="polite" 
-                        className={`p-2 text-sm border-b ${
-                          theme === "dark" ? "bg-gray-800 text-gray-200 border-gray-600" : "bg-white text-gray-700 border-gray-300"
-                        }`}
-                      >
-                        {hoverMessage}
-                      </div>
-                      {showSettings && (
-                        <div
-                          className={`absolute right-4 mt-2 w-48 rounded-md shadow-lg ${
-                            theme === "dark" ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
-                          } border z-10`}
-                        >
-                          <div className="p-2">
-                            <div className="text-sm font-medium mb-1">Sort Categories</div>
-                            <select
-                              id="sortCategories"
-                              value={sortPreference}
-                              onChange={(e) => setSortPreference(e.target.value)}
-                              className={`w-full p-1 text-sm rounded-md ${
-                                theme === "dark" ? "bg-gray-600 text-gray-200" : "bg-gray-100 text-gray-700"
-                              }`}
-                            >
-                              <option value="name-asc">Name (A-Z)</option>
-                              <option value="name-desc">Name (Z-A)</option>
-                              <option value="tabs-asc">Tabs (Low to High)</option>
-                              <option value="tabs-desc">Tabs (High to Low)</option>
-                            </select>
-                            <hr className={`my-2 ${theme === "dark" ? "border-gray-600" : "border-gray-300"}`} />
-                            <button
-                              className={`w-full p-1 text-sm rounded-md text-left ${
-                                theme === "dark" ? "hover:bg-gray-600" : "hover:bg-blue-100"
-                              }`}
-                              onClick={() => alert("Auto-categorization not available in demo")}
-                            >
-                              Auto-Categorize Tabs
-                            </button>
-                            <button
-                              className={`w-full p-1 text-sm rounded-md text-left ${
-                                theme === "dark" ? "hover:bg-gray-600" : "hover:bg-blue-100"
-                              }`}
-                              onClick={() => alert("Export not available in demo")}
-                            >
-                              Export Categories
-                            </button>
-                            <button
-                              className={`w-full p-1 text-sm rounded-md text-left ${
-                                theme === "dark" ? "hover:bg-gray-600" : "hover:bg-blue-100"
-                              }`}
-                              onClick={() => alert("Import not available in demo")}
-                            >
-                              Import Categories
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                      <nav className="flex mb-2">
-                        {["create", "manage"].map((tab) => (
-                          <div className="flex-1" key={tab}>
-                            <button
-                              data-tab={tab}
-                              className={`w-full p-2 text-sm rounded-md ${
-                                activeTab === tab
-                                  ? theme === "dark"
-                                    ? "bg-blue-400 text-white"
-                                    : "bg-blue-500 text-white"
-                                  : theme === "dark"
-                                  ? "bg-gray-600 text-gray-200"
-                                  : "bg-gray-200 text-gray-700"
-                              }`}
-                              onClick={() => setActiveTab(tab)}
-                              onMouseEnter={() => setHoverMessage("Tabs: Switch between Create and Manage modes")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              aria-label="Tabs: Switch between Create and Manage modes"
-                            >
-                              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                            </button>
-                          </div>
-                        ))}
-                      </nav>
-                      <div
-                        id="create"
-                        className="tab-content"
-                        style={{ display: activeTab === "create" ? "block" : "none" }}
-                      >
-                        <div className="flex flex-col gap-2">
-                          <div>
-                            <input
-                              id="newCategory"
-                              type="text"
-                              placeholder="New category name"
-                              onMouseEnter={() => setHoverMessage("Category Management: Enter a new category name")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              className={`p-2 text-sm border rounded-md ${
-                                theme === "dark" ? "bg-gray-700 text-gray-200 border-gray-600" : "bg-white text-gray-700 border-gray-300"
-                              }`}
-                              aria-label="Category Management: Enter a new category name"
-                            />
-                          </div>
-                          <div>
-                            <button
-                              id="addCategoryBtn"
-                              onClick={addCategory}
-                              onMouseEnter={() => setHoverMessage("Category Management: Add a new category")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              className={`p-2 text-sm rounded-md ${
-                                theme === "dark" ? "bg-blue-400 hover:bg-blue-500" : "bg-blue-500 hover:bg-blue-600"
-                              } text-white`}
-                              aria-label="Category Management: Add a new category"
-                            >
-                              Add Category
-                            </button>
-                          </div>
-                          <div>
-                            <select
-                              id="addToCategory"
-                              onMouseEnter={() => setHoverMessage("Category Management: Select a category to add tabs")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              className={`p-2 text-sm border rounded-md ${
-                                theme === "dark" ? "bg-gray-700 text-gray-200 border-gray-600" : "bg-white text-gray-700 border-gray-300"
-                              }`}
-                              aria-label="Category Management: Select a category to add tabs"
-                            >
-                              <option value="">Select category to add tabs</option>
-                              {categories.map((cat, index) => (
-                                <option key={index} value={index}>
-                                  {cat.name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                          <div>
-                            <button
-                              id="addToCategoryBtn"
-                              onClick={() => {
-                                const dropdown = document.getElementById("addToCategory");
-                                const catIndex = parseInt(dropdown.value);
-                                if (isNaN(catIndex)) {
-                                  showError("Please select a category");
-                                  return;
-                                }
-                                addTabsToCategory(catIndex);
-                              }}
-                              onMouseEnter={() => setHoverMessage("Category Management: Add sample tabs to the selected category")}
-                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                              className={`p-2 text-sm rounded-md ${
-                                theme === "dark" ? "bg-blue-400 hover:bg-blue-500" : "bg-blue-500 hover:bg-blue-600"
-                              } text-white`}
-                              aria-label="Category Management: Add sample tabs to the selected category"
-                            >
-                              Add Tabs to Category
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        id="manage"
-                        className="tab-content"
-                        style={{ display: activeTab === "manage" ? "block" : "none" }}
-                      >
-                        <div id="categories">
-                          {filteredCategories.map((category, catIndex) => {
-                            const isCollapsed = collapsedCategories.has(category.name);
-                            return (
-                              <div
-                                key={catIndex}
-                                className={`category p-2 mb-2 rounded-md ${
-                                  isCollapsed ? "collapsed" : ""
-                                } ${theme === "dark" ? "bg-gray-700 border-gray-600" : "bg-gray-50 border-gray-300"} border`}
-                                draggable
-                                onDragStart={(e) => handleDragStart(e, "category", catIndex)}
-                                onDragEnd={handleDragEnd}
-                                onDragOver={handleDragOver}
-                                onDragLeave={handleDragLeave}
-                                onDrop={(e) => handleDrop(e, catIndex)}
-                                data-cat-index={catIndex}
-                              >
-                                <h3 className="flex items-center text-base m-0">
-                                  <span
-                                    className="collapse-toggle cursor-pointer mr-1 font-bold w-5 text-center"
-                                    onClick={() => toggleCategory(category.name)}
-                                  >
-                                    {isCollapsed ? "+" : "-"}
-                                  </span>
-                                  <span
-                                    className="flex-1 cursor-pointer"
-                                    onClick={() => editCategoryName(catIndex)}
-                                  >
-                                    {category.name}
-                                  </span>
-                                  <div className="flex gap-1">
-                                    <button
-                                      className={`p-1 border rounded-md ${
-                                        theme === "dark" ? "border-gray-600 hover:bg-blue-400" : "border-gray-300 hover:bg-blue-600 hover:text-white"
-                                      }`}
-                                      onClick={() => alert("Opening all tabs in new windows")}
-                                      title="Open All Tabs"
-                                    >
-                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth="2"
-                                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                        />
-                                      </svg>
-                                    </button>
-                                    <button
-                                      className={`p-1 border rounded-md ${
-                                        theme === "dark" ? "border-gray-600 hover:bg-blue-400" : "border-gray-300 hover:bg-blue-600 hover:text-white"
-                                      }`}
-                                      onClick={() => {
-                                        const otherCats = categories.filter((_, i) => i !== catIndex);
-                                        if (otherCats.length === 0) {
-                                          showError("Need at least two categories to merge");
-                                          return;
-                                        }
-                                        const targetIndex = prompt(
-                                          `Enter the index to merge "${category.name}" into:\n` +
-                                            otherCats.map((cat, i) => `${i}: ${cat.name}`).join("\n")
-                                        );
-                                        const target = parseInt(targetIndex);
-                                        if (isNaN(target) || target < 0 || target >= otherCats.length) {
-                                          showError("Invalid category index");
-                                          return;
-                                        }
-                                        if (window.confirm(`Merge "${category.name}" into "${otherCats[target].name}"?`)) {
-                                          setLastAction({
-                                            type: "merge-categories",
-                                            sourceIndex: catIndex,
-                                            targetIndex: categories.findIndex((c) => c.name === otherCats[target].name),
-                                            sourceCategory: category,
-                                            targetTabsBefore: [...otherCats[target].tabs],
-                                            sourceWasCollapsed: collapsedCategories.has(category.name),
-                                          });
-                                          const newCategories = [...categories];
-                                          newCategories[
-                                            categories.findIndex((c) => c.name === otherCats[target].name)
-                                          ].tabs.push(...category.tabs);
-                                          newCategories.splice(catIndex, 1);
-                                          const newCollapsed = new Set(collapsedCategories);
-                                          newCollapsed.delete(category.name);
-                                          setCategories(newCategories);
-                                          setFilteredCategories(applySort(newCategories));
-                                          setCollapsedCategories(newCollapsed);
-                                          updateCategoryDropdown();
-                                          setTimeout(() => setLastAction(null), 5000);
-                                        }
-                                      }}
-                                      title="Merge Category"
-                                    >
-                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth="2"
-                                          d="M19 11H5m14 0l-4-4m4 4l-4 4"
-                                        />
-                                      </svg>
-                                    </button>
-                                    <button
-                                      className={`p-1 border rounded-md ${
-                                        theme === "dark" ? "border-gray-600 hover:bg-blue-400" : "border-gray-300 hover:bg-blue-600 hover:text-white"
-                                      }`}
-                                      onClick={() => deleteCategory(catIndex)}
-                                      title="Delete Category"
-                                    >
-                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth="2"
-                                          d="M6 18L18 6M6 6l12 12"
-                                        />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </h3>
-                                {!isCollapsed &&
-                                  category.tabs.map((tab, tabIndex) => (
-                                    <div key={tabIndex}>
-                                      <div
-                                        className={`tab-item flex items-center p-1 mt-1 rounded-md ${
-                                          theme === "dark" ? "bg-gray-600 border-gray-500" : "bg-white border-gray-200"
-                                        } border`}
-                                        draggable
-                                        onDragStart={(e) => handleDragStart(e, "tab", catIndex, tabIndex)}
-                                        onDragEnd={handleDragEnd}
-                                        onDragOver={handleDragOver}
-                                        onDragLeave={handleDragLeave}
-                                        onDrop={(e) => handleDrop(e, catIndex, tabIndex)}
-                                        data-cat-index={catIndex}
-                                        data-tab-index={tabIndex}
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          className="mr-1"
-                                          onChange={() => {
-                                            const checkboxes = document.querySelectorAll(
-                                              `.tab-item[data-cat-index="${catIndex}"] input[type="checkbox"]`
-                                            );
-                                            const selectAll = document.querySelector(
-                                              `.select-all-checkbox[data-cat-index="${catIndex}"]`
-                                            );
-                                            const checkedCount = Array.from(checkboxes).filter((cb) => cb.checked).length;
-                                            selectAll.checked = checkedCount === checkboxes.length && checkboxes.length > 0;
-                                            selectAll.indeterminate = checkedCount > 0 && checkedCount < checkboxes.length;
-                                          }}
-                                        />
-                                        <span
-                                          className="flex-1 cursor-pointer"
-                                          onClick={() => {
-                                            const newTitle = prompt("Edit tab title:", tab.title);
-                                            const newUrl = prompt("Edit tab URL:", tab.url);
-                                            if (newTitle && newUrl) {
-                                              const newCategories = [...categories];
-                                              newCategories[catIndex].tabs[tabIndex] = {
-                                                title: newTitle.trim(),
-                                                url: newUrl.trim(),
-                                                note: tab.note,
-                                              };
-                                              setCategories(newCategories);
-                                              setFilteredCategories(applySort(newCategories));
-                                            }
-                                          }}
-                                        >
-                                          {tab.title}
-                                        </span>
-                                        <button
-                                          className="text-xs p-1"
-                                          onClick={() => editTabNote(catIndex, tabIndex)}
-                                        >
-                                          {tab.note ? "Edit Note" : "Add Note"}
-                                        </button>
-                                        <button
-                                          className="text-xs p-1"
-                                          onClick={() => deleteTab(catIndex, tabIndex)}
-                                        >
-                                          Remove
-                                        </button>
-                                      </div>
-                                      {tab.note && (
-                                        <div
-                                          className={`tab-note ml-5 italic ${
-                                            theme === "dark" ? "text-gray-400" : "text-gray-600"
-                                          }`}
-                                        >
-                                          {tab.note}
-                                        </div>
-                                      )}
-                                    </div>
-                                  ))}
-                                {!isCollapsed && (
-                                  <div className="bulk-actions flex items-center mt-1">
-                                    <label className="select-all mr-2 flex items-center">
-                                      <input
-                                        type="checkbox"
-                                        className="select-all-checkbox mr-1"
-                                        data-cat-index={catIndex}
-                                        onChange={(e) => {
-                                          const checkboxes = document.querySelectorAll(
-                                            `.tab-item[data-cat-index="${catIndex}"] input[type="checkbox"]`
-                                          );
-                                          checkboxes.forEach((cb) => (cb.checked = e.target.checked));
-                                          e.target.indeterminate = false;
-                                        }}
-                                      />
-                                      Select All
-                                    </label>
-                                    <select
-                                      className="p-1 text-sm rounded-md"
-                                      onChange={(e) => {
-                                        const action = e.target.value;
-                                        const checkboxes = document.querySelectorAll(
-                                          `.tab-item[data-cat-index="${catIndex}"] input[type="checkbox"]:checked`
-                                        );
-                                        const selectedIndices = Array.from(checkboxes)
-                                          .map((cb) => parseInt(cb.parentElement.dataset.tabIndex))
-                                          .sort((a, b) => b - a);
-                                        if (selectedIndices.length === 0) {
-                                          showError("No tabs selected");
-                                          e.target.value = "";
-                                          return;
-                                        }
-                                        if (action === "delete") {
-                                          if (window.confirm(`Delete ${selectedIndices.length} selected tab(s)?`)) {
-                                            setLastAction({
-                                              type: "delete-tabs",
-                                              catIndex,
-                                              deletedTabs: selectedIndices.map((index) => ({
-                                                index,
-                                                tab: categories[catIndex].tabs[index],
-                                              })),
-                                            });
-                                            const newCategories = [...categories];
-                                            selectedIndices.forEach((index) =>
-                                              newCategories[catIndex].tabs.splice(index, 1)
-                                            );
-                                            setCategories(newCategories);
-                                            setFilteredCategories(applySort(newCategories));
-                                            setTimeout(() => setLastAction(null), 5000);
-                                          }
-                                        } else if (action === "move") {
-                                          const otherCats = categories.filter((_, i) => i !== catIndex);
-                                          const targetIndex = prompt(
-                                            `Enter the index to move ${selectedIndices.length} tab(s) to:\n` +
-                                              otherCats.map((cat, i) => `${i}: ${cat.name}`).join("\n")
-                                          );
-                                          const target = parseInt(targetIndex);
-                                          if (isNaN(target) || target < 0 || target >= otherCats.length) {
-                                            showError("Invalid category index");
-                                            e.target.value = "";
-                                            return;
-                                          }
-                                          const newCategories = [...categories];
-                                          const movedTabs = selectedIndices.map(
-                                            (index) => newCategories[catIndex].tabs[index]
-                                          );
-                                          const { uniqueTabs } = deduplicateTabs(
-                                            newCategories[categories.findIndex((c) => c.name === otherCats[target].name)]
-                                              .tabs,
-                                            movedTabs
-                                          );
-                                          newCategories[
-                                            categories.findIndex((c) => c.name === otherCats[target].name)
-                                          ].tabs.push(...uniqueTabs);
-                                          selectedIndices.forEach((index) =>
-                                            newCategories[catIndex].tabs.splice(index, 1)
-                                          );
-                                          setCategories(newCategories);
-                                          setFilteredCategories(applySort(newCategories));
-                                        } else if (action === "open") {
-                                          alert(`Opening ${selectedIndices.length} selected tabs`);
-                                        }
-                                        e.target.value = "";
-                                      }}
-                                    >
-                                      <option value="">Bulk Actions</option>
-                                      <option value="delete">Delete Selected</option>
-                                      <option value="move">Move to Category</option>
-                                      <option value="open">Open Selected</option>
-                                    </select>
-                                  </div>
-                                )}
-                                {!isCollapsed && (
-                                  <button
-                                    className="mt-1 p-1 text-sm w-full rounded-md"
-                                    onClick={() => addTabsToCategory(catIndex)}
-                                  >
-                                    Add Current Tabs
-                                  </button>
-                                )}
-                              </div>
-                            );
-                          })}
-                          {filteredCategories.length === 0 && <p className="text-sm">No categories to display.</p>}
-                        </div>
-                      </div>
-                      {error && (
-                        <div
-                          className={`text-center text-sm mt-2 ${theme === "dark" ? "text-red-400" : "text-red-500"}`}
-                        >
-                          {error}
-                        </div>
-                      )}
-                      {lastAction && (
-                        <div>
-                          <button
-                            className={`w-full p-2 text-sm rounded-md mt-2 ${
-                              theme === "dark" ? "bg-red-500 hover:bg-red-600" : "bg-red-600 hover:bg-red-700"
-                            } text-white`}
-                            onClick={() => {
-                              const newCategories = [...categories];
-                              if (lastAction.type === "delete-tabs") {
-                                lastAction.deletedTabs.forEach(({ index, tab }) => {
-                                  newCategories[lastAction.catIndex].tabs.splice(index, 0, tab);
-                                });
-                              } else if (lastAction.type === "delete-category") {
-                                newCategories.splice(lastAction.index, 0, lastAction.category);
-                                if (lastAction.wasCollapsed) {
-                                  setCollapsedCategories(
-                                    new Set([...collapsedCategories, lastAction.category.name])
-                                  );
-                                }
-                              } else if (lastAction.type === "merge-categories") {
-                                newCategories.splice(lastAction.sourceIndex, 0, lastAction.sourceCategory);
-                                newCategories[lastAction.targetIndex].tabs = lastAction.targetTabsBefore;
-                                if (lastAction.sourceWasCollapsed) {
-                                  setCollapsedCategories(
-                                    new Set([...collapsedCategories, lastAction.sourceCategory.name])
-                                  );
-                                }
-                              }
-                              setCategories(newCategories);
-                              setFilteredCategories(applySort(newCategories));
-                              setLastAction(null);
-                            }}
-                            onMouseEnter={() => setHoverMessage("Undo: Revert recent actions")}
-                            onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
-                            aria-label="Undo: Revert recent actions"
-                          >
-                            Undo
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="border border-gray-200 rounded-lg shadow-sm">
-                  <video
-                    className="w-full max-w-[800px]"
-                    controls
-                    poster="/tabwise/demo-video-poster.png"
-                  >
-                    <source src="/tabwise/demo-video.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    // Pricing Component
-    const Pricing = () => {
-      const [isYearly, setIsYearly] = useState(false);
-      const [isModalOpen, setIsModalOpen] = useState(false);
-
-      return (
-        <section id="pricing" className="py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Simple, Transparent Pricing</h2>
-            <p className="text-lg text-gray-600 mb-6 text-center max-w-2xl mx-auto">
-              Join the beta to try Tabwise. Pricing plans will be available after launch.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  plan: "Free",
-                  price: "$0/mo",
-                  desc: "Perfect for casual users who want basic tab organization. <a href='/tabwise/contact.html' className='text-blue-500 hover:text-blue-600'>Contact us</a> for support.",
-                  features: [
-                    "Save up to 10 tabs per category",
-                    "Manual session save/restore",
-                    "Light/Dark theme support",
-                  ],
-                  cta: "Sign Up for Beta",
-                  isBestSeller: false,
-                },
-                {
-                  plan: "Pro",
-                  price: isYearly ? "$20/yr" : "$2/mo",
-                  desc: "Ideal for daily users who want enhanced productivity features.",
-                  features: [
-                    "Unlimited categories and tab saves",
-                    "AI-powered auto-categorization",
-                    "Bulk tab operations",
-                    "Export & import tab library",
-                    "Cloud sync across devices",
-                  ],
-                  cta: "Sign Up for Beta",
-                  isBestSeller: true,
-                },
-                {
-                  plan: "Lifetime",
-                  price: "$25 one-time",
-                  desc: "Best for power users. Get all Pro features forever. See <a href='/tabwise/best-tab-extensions-chrome-2025.html' className='text-blue-500 hover:text-blue-600'>top Chrome extensions</a>.",
-                  features: [
-                    "All Pro features for life",
-                    "No recurring fees",
-                    "Lifetime updates and upgrades",
-                  ],
-                  cta: "Sign Up for Beta",
-                  isBestSeller: false,
-                },
-              ].map((plan, index) => (
-                <div key={index} className="relative bg-gray-100 p-5 rounded-lg shadow-sm text-center border border-gray-200">
-                  {plan.isBestSeller && (
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-gray-900 text-sm font-medium px-3 py-1 rounded-full shadow-sm">
-                      Best Seller
-                    </div>
-                  )}
-                  <h3 className="text-2xl font-medium text-blue-900 mb-2">{plan.plan}</h3>
-                  <p className="text-4xl font-bold text-blue-900 mb-4">{plan.price}</p>
-                  {plan.plan === "Pro" && (
-                    <div className="flex justify-center mb-4">
-                      <div className="inline-flex rounded-md shadow-sm">
-                        <button
-                          onClick={() => setIsYearly(false)}
-                          className={`px-3 py-1 text-xs font-medium rounded-l-md ${
-                            !isYearly ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
-                          }`}
-                        >
-                          Monthly
-                        </button>
-                        <button
-                          onClick={() => setIsYearly(true)}
-                          className={`px-3 py-1 text-xs font-medium rounded-r-md ${
-                            isYearly ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
-                          }`}
-                        >
-                          Yearly
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  <p className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: plan.desc }}></p>
-                  <ul className="text-gray-600 mb-6 space-y-2">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center justify-center">
-                        <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className={`inline-block px-6 py-3 rounded-md text-lg ${
-                      plan.isBestSeller
-                        ? "bg-blue-500 text-white hover:bg-blue-600"
-                        : "border border-blue-900 text-blue-900 hover:bg-blue-50"
-                    }`}
-                  >
-                    {plan.cta}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-        </section>
-      );
-    };
-
-    // Blog Component
-    const Blog = () => (
-      <section id="blog" className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Tabwise Blog</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                title: "10 Ways Tabwise Boosts Your Productivity",
-                desc: "Learn how Tabwise enhances your workflow with smart tab management features.",
-                link: "/tabwise/tabwise-productivity-benefits.html",
-                image: "/tabwise/tabwise-productivity-benefits.png",
-                alt: "Tabwise blog post on productivity benefits of tab management"
-              },
-              {
-                title: "Tabwise vs OneTab: Which Is Better?",
-                desc: "Compare Tabwise and OneTab for efficient browser tab organization.",
-                link: "/tabwise/tabwise-vs-onetab-comparison.html",
-                image: "/tabwise/tabwise-vs-onetab-comparison.png",
-                alt: "Tabwise blog post comparing Tabwise and OneTab"
-              },
-              {
-                title: "Ultimate Guide to Managing Browser Tabs",
-                desc: "Master tab management with our expert strategies and tips.",
-                link: "/tabwise/browser-tab-management-guide.html",
-                image: "/tabwise/browser-tab-management-guide.png",
-                alt: "Tabwise blog post on browser tab management guide"
-              },
-              {
-                title: "Top Chrome Extensions for 2025",
-                desc: "Discover the best tools for organizing browser tabs, including Tabwise.",
-                link: "/tabwise/best-tab-extensions-chrome-2025.html",
-                image: "/tabwise/best-tab-extensions-chrome-2025.png",
-                alt: "Tabwise blog post on top Chrome extensions for 2025"
-              },
-            ].map((post, index) => (
-              <article key={index} className="bg-gray-50 p-5 rounded-lg shadow-sm">
-                <img
-                  src={post.image}
-                  alt={post.alt}
-                  className="w-full h-48 object-cover rounded-t-lg mb-4"
-                />
-                <h3 className="text-xl font-medium text-blue-900 mb-2">{post.title}</h3>
-                <p className="text-gray-600 mb-4">{post.desc}</p>
-                <a href={post.link} className="text-blue-500 hover:text-blue-600">Read More</a>
-              </article>
-            ))}
-          </div>
-          <div className="text-center mt-6">
-            <a href="/tabwise/blog.html" className="text-blue-500 hover:text-blue-600 font-medium">View All Blog Posts</a>
-          </div>
-        </div>
-      </section>
-    );
-
-    // Footer Component
-    const Footer = () => (
-      <footer className="bg-blue-900 text-white py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center mb-4 md:mb-0">
-              <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" className="h-8 w-8"/>
-              <span className="ml-2 text-lg font-medium">Tabwise</span>
-            </div>
-            <div className="flex space-x-4">
-              <a href="/tabwise/privacy.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Privacy Policy">Privacy</a>
-              <a href="/tabwise/terms.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Terms of Service">Terms</a>
-              <a href="/tabwise/contact.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Contact Us">Contact</a>
-            </div>
-          </div>
-          <p className="text-center mt-4 text-gray-400 text-sm">© 2025 Tabwise. All rights reserved.</p>
-        </div>
-      </footer>
-    );
-
-    // Main App Component
-    const App = () => (
-      <ErrorBoundary>
-        <div>
-          <Navbar />
-          <Hero />
-          <Features />
-          <Experience />
-          <Pricing />
-          <Blog />
-          <Footer />
-        </div>
-      </ErrorBoundary>
-    );
-
-    // Render the App
-    try {
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<App />);
-    } catch (err) {
-      console.error("Error rendering app:", err);
-    }
-</script>
-</body>
-</html>
+      return (
+        <section id="experience" className="py-12 bg-gradient-to-b from-gray-50 to-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Experience Tabwise</h2>
+            <p className="text-lg text-gray-600 mb-6 text-center max-w-2xl mx-auto">
+              See Tabwise in action with a quick demo video, or try its browser management features interactively. Learn more in our <a href="/tabwise/browser-tab-management-guide.html" className="text-blue-500 hover:text-blue-600">tab management guide</a>.
+            </p>
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex rounded-md shadow-sm">
+                <button
+                  onClick={() => setActiveView("interactive")}
+                  className={`px-4 py-2 text-sm font-medium rounded-l-md ${
+                    activeView === "interactive"
+                      ? "bg-blue-500 text-white hover:bg-blue-600"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-800"
+                  }`}
+                >
+                  Try It Interactively
+                </button>
+                <button
+                  onClick={() => setActiveView("video")}
+                  className={`px-4 py-2 text-sm font-medium rounded-r-md ${
+                    activeView === "video"
+                      ? "bg-blue-500 text-white hover:bg-blue-600"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-800"
+                  }`}
+                >
+                  Watch It in Action
+                </button>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              {activeView === "interactive" ? (
+                <div className={`border border-gray-200 rounded-lg shadow-sm ${theme === "dark" ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"}`}>
+                  <div className="p-4">
+                    <div style={{ width: "360px", maxHeight: "900px", overflowY: "auto" }}>
+                      <header className="flex justify-end items-center mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="relative w-40">
+                            <input
+                              id="search"
+                              type="text"
+                              placeholder="Search tabs..."
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              onMouseEnter={() => setHoverMessage("Search Bar: Find tabs by title or URL")}
+                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
+                              aria-label="Search Bar: Find tabs by title or URL"
+                              className={`w-full p-1 text-sm border rounded-md ${
+                                theme === "dark" ? "bg-gray-700 text-gray-200 border-gray-600" : "bg-white text-gray-700 border-gray-300"
+                              }`}
+                            />
+                            <svg
+                              className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4"
+                              fill={theme === "dark" ? "#bbb" : "#666"}
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <button 
+                              onClick={() => setShowSettings(!showSettings)} 
+                              onMouseEnter={() => setHoverMessage("Settings: Sort categories or manage tabs")}
+                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
+                              className="p-1"
+                              aria-label="Settings: Sort categories or manage tabs"
+                            >
+                              <svg className="w-4 h-4" fill={theme === "dark" ? "#66b0ff" : "#3B82F6"} viewBox="0 0 24 24">
+                                <path d="M4 12a2 2 0 110-4 2 2 0 010 4zm8 0a2 2 0 110-4 2 2 0 010 4zm8 0a2 2 0 110-4 2 2 0 010 4z" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div>
+                            <button 
+                              onClick={toggleTheme} 
+                              onMouseEnter={() => setHoverMessage("Theme: Toggle between light and dark mode")}
+                              onMouseLeave={() => setHoverMessage("Hover over an element to see its description")}
+                              className="p-1"
+                              aria-label="Theme: Toggle between light and dark mode"
+                            >
+                              <svg
+                                id="themeIcon"
+                                className="w-4 h-4"
+                                fill={theme === "dark" ? "#66b0ff" : "#3B82F6"}
+                                viewBox="0 0 24 24"
+                              >
+                                {theme === "light" ? (
+                                  <path d="M12 3v1m
