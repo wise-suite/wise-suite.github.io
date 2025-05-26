@@ -27,8 +27,8 @@
     <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
     <!-- Local scripts -->
     <script src="/js/babel.min.js"></script>
-    <script src="/js/react.min.js"></script>
-    <script src="/js/react-dom.min.js"></script>
+    <script src="/js/js/react.production.min.js"></script>
+    <script src="/js/react-dom.production.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -424,13 +424,13 @@
         console.log('Babel loaded successfully.');
     }
     if (typeof React === 'undefined') {
-        console.error('React failed to load. Check /js/react.min.js is present at https://wise-suite.github.io/js/react.min.js');
+        console.error('React failed to load. Check /js/js/react.production.min.js is present at https://wise-suite.github.io/js/js/react.production.min.js');
         hasErrors = true;
     } else {
         console.log('React loaded successfully.');
     }
     if (typeof ReactDOM === 'undefined') {
-        console.error('ReactDOM failed to load. Check /js/react-dom.min.js is present at https://wise-suite.github.io/js/react-dom.min.js');
+        console.error('ReactDOM failed to load. Check /js/react-dom.production.min.js is present at https://wise-suite.github.io/js/react-dom.production.min.js');
         hasErrors = true;
     } else {
         console.log('ReactDOM loaded successfully.');
@@ -821,7 +821,7 @@
     const Footer = () => (
         <footer className="footer">
             <div className="container">
-                <p>Copyright © 2025 WiseSuite</p>
+                <p>Copyright &copy; 2025 WiseSuite</p>
                 <p><a href="/blog.html">Visit Our Blog</a></p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
                     <a href="/privacy.html">Privacy</a>
@@ -850,7 +850,7 @@
     // Render
     try {
         console.log('Rendering React app...');
-        const root = ReactDOM.createRoot(document.getElementById("root"));
+        const root = ReactDOM.createRoot(document.getElementById("root'));
         root.render(<App />);
         console.log('React app rendered successfully.');
     } catch (error) {
