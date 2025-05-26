@@ -1,606 +1,860 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>WiseSuite: Elevate Your Digital Experience with Productivity Tools</title>
-    <meta name="description" content="Discover WiseSuite, a collection of intuitive digital tools designed to boost your productivity, organize your digital life, and enhance your online experience."/>
-    <meta name="keywords" content="WiseSuite, productivity tools, browser management, tab organizer, TabWise, FocusWise, TimeWise, ClipWise, EmailWise, TaskWise, BookmarkWise, Chrome extension, waitlist"/>
+    <title>WiseSuite: Productivity Tools</title>
+    <meta name="description" content="Discover WiseSuite, a collection of tools to boost productivity."/>
+    <meta name="keywords" content="WiseSuite, productivity tools, TabWise, waitlist, browser tools"/>
     <meta name="author" content="WiseSuite Team"/>
     <meta name="robots" content="index, follow"/>
     <link rel="canonical" href="https://wise-suite.github.io/"/>
-    <meta property="og:title" content="WiseSuite: Elevate Your Digital Experience with Productivity Tools"/>
-    <meta property="og:description" content="Discover WiseSuite, a suite of productivity tools starting with TabWise for effortless browser tab management. Join the waitlist for more tools!"/>
+    <meta property="og:title" content="WiseSuite: Boost Your Productivity"/>
+    <meta property="og:description" content="Join the waitlist for WiseSuite tools like TabWise."/>
     <meta property="og:image" content="https://wise-suite.github.io/wisesuite-logo.png"/>
-    <meta property="og:url" content="https://wise-suite.github.io/"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="WiseSuite: Elevate Your Digital Experience with Productivity Tools"/>
-    <meta name="twitter:description" content="Join the waitlist for WiseSuite, a collection of productivity tools to enhance your workflow."/>
-    <meta name="twitter:image" content="https://wise-suite.github.io/wisesuite-logo.png"/>
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "WiseSuite",
-      "applicationCategory": "Productivity",
-      "description": "WiseSuite is a collection of productivity tools to streamline your workflow, starting with TabWise for browser tab management."
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "WiseSuite",
+        "applicationCategory": "Productivity",
+        "description": "Tools to streamline your workflow, starting with TabWise."
+      }
     </script>
-    <!-- Load Babel first to ensure transpilation -->
-    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Jotform Embed Handler -->
+    <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
+    <!-- Local scripts -->
+    <script src="/js/babel.min.js"></script>
+    <script src="/js/react.min.js"></script>
+    <script src="/js/react-dom.min.js"></script>
     <style>
-        body { font-family: 'Inter', 'Nunito', sans-serif; }
-        .waitlist-input { transition: all 0.3s ease; }
-        .waitlist-input:focus { border-color: #3B82F6; }
-        .modal-overlay { background: rgba(0, 0, 0, 0.5); }
-        .error-boundary { color: red; text-align: center; padding: 16px; }
-        .tool-button { width: 200px; padding: 8px 16px; font-size: 14px; display: inline-block; transition: all 0.3s ease; }
-        a, button { transition: all 0.3s ease; }
-        .dark-mode { background-color: #1a202c; color: #e2e8f0; }
-        .dark-mode .bg-white { background-color: #2d3748; }
-        .dark-mode .bg-gray-50 { background-color: #1f2937; }
-        .dark-mode .bg-gray-100 { background-color: #2d3748; }
-        .dark-mode .text-gray-600 { color: #cbd5e0; }
-        .dark-mode .text-blue-900 { color: #63b3ed; }
-        .dark-mode .bg-blue-500 { background-color: #4299e1; }
-        .dark-mode .hover\:bg-blue-600:hover { background-color: #3182ce; }
-        .discover-section { background: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 50L50 0L100 50L50 100Z" fill="%23E5F3FF" fill-opacity="0.1"/%3E%3C/svg%3E'), linear-gradient(to bottom, #F0F7FF, #FFFFFF); }
-        .slider-card { transition: opacity 0.5s ease, transform 0.5s ease; }
-        .slider-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        @media (max-width: 640px) { .slider-container { grid-template-columns: 1fr; } }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: #D1D5DB; transition: background 0.3s ease; }
-        .dot.active { background: #3B82F6; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
-        .product-card { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; }
-        .button:hover { background: #2563EB; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .logo img {
+            width: 32px;
+            height: 32px;
+        }
+        .logo span {
+            margin-left: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            color: #4b5563;
+            text-decoration: none;
+            padding: 8px;
+            font-size: 16px;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            color: #2563eb;
+        }
+        .button-primary {
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .button-primary:hover {
+            background-color: #1d4ed8;
+        }
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            padding: 16px;
+            background-color: #ffffff;
+        }
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            max-width: 512px;
+            width: 100%;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #1e3a8a;
+        }
+        .close-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4b5563;
+        }
+        .close-button:hover {
+            color: #1f2937;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .form-message {
+            margin-top: 8px;
+            color: #10b981;
+        }
+        .form-error {
+            color: #dc3545;
+        }
+        .error-boundary {
+            color: #dc2626;
+            text-align: center;
+            padding: 16px;
+        }
+        .header {
+            padding-top: 80px;
+            padding-bottom: 40px;
+            background-color: #1e3a8a;
+            color: #ffffff;
+            text-align: center;
+        }
+        .header img {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+        }
+        .header h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .section {
+            padding: 48px 0;
+        }
+        .section h2 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .intro p {
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .slider-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .slider-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .slider-card svg {
+            width: 32px;
+            height: 32px;
+            color: #2563eb;
+            margin: 0 auto 12px;
+        }
+        .slider-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        .slider-card p {
+            font-size: 14px;
+            color: #374151;
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 8px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+        }
+        .slider-nav:hover {
+            background-color: #1d4ed8;
+        }
+        .slider-nav.left {
+            left: 0;
+        }
+        .slider-nav.right {
+            right: 0;
+        }
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #2563eb;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .product-card {
+            background-color: #ffffff;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+        .product-card p {
+            font-size: 16px;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        .tool-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        .tool-card .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #eab308;
+            color: #ffffff;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+        .tool-card .badge.beta {
+            background-color: #22c55e;
+        }
+        .tool-card h3 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        .tool-card p.tagline {
+            font-size: 16px;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        .tool-card p.desc {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+        .tool-button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .tool-button:hover {
+            background-color: #1d4ed8;
+        }
+        .footer {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            padding: 24px 0;
+            text-align: center;
+        }
+        .footer a {
+            color: #93c5fd;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #bfdbfe;
+        }
+        .dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        .dark-mode .navbar,
+        .dark-mode .slider-card,
+        .dark-mode .product-card,
+        .dark-mode .tool-card,
+        .dark-mode .modal-content {
+            background-color: #2d3748;
+        }
+        .dark-mode .text-gray-700 {
+            color: #d1d5db;
+        }
+        .dark-mode .text-blue-900 {
+            color: #60a5fa;
+        }
+        .dark-mode .button-primary,
+        .dark-mode .tool-button {
+            background-color: #3b82f6;
+        }
+        .dark-mode .button-primary:hover,
+        .dark-mode .tool-button:hover {
+            background-color: #2563eb;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-button {
+                display: block;
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .slider-container {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+        @media (max-width: 640px) {
+            .modal-content {
+                margin: 16px;
+            }
+            iframe {
+                height: 650px;
+            }
+        }
     </style>
 </head>
-<body className="bg-gray-50 text-gray-700">
+<body>
 <div id="root">
-    <p>Loading WiseSuite... If this persists, please enable JavaScript or check your connection.</p>
+    <p>Loading WiseSuite... Please enable JavaScript or check your connection.</p>
 </div>
 <script>
-    // Diagnostic: Check if Babel and React are loaded
+    // Enhanced Diagnostics
+    console.log('Checking dependencies at', new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    let hasErrors = false;
     if (typeof Babel === 'undefined') {
-        console.error('Babel failed to load. Check the CDN: https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js');
+        console.error('Babel failed to load. Check /js/babel.min.js is present at https://wise-suite.github.io/js/babel.min.js');
+        hasErrors = true;
+    } else {
+        console.log('Babel loaded successfully.');
     }
-    if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
-        console.error('React or ReactDOM failed to load. Check CDNs: https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js and https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js');
+    if (typeof React === 'undefined') {
+        console.error('React failed to load. Check /js/react.min.js is present at https://wise-suite.github.io/js/react.min.js');
+        hasErrors = true;
+    } else {
+        console.log('React loaded successfully.');
+    }
+    if (typeof ReactDOM === 'undefined') {
+        console.error('ReactDOM failed to load. Check /js/react-dom.min.js is present at https://wise-suite.github.io/js/react-dom.min.js');
+        hasErrors = true;
+    } else {
+        console.log('ReactDOM loaded successfully.');
+    }
+    if (!hasErrors) {
+        console.log('All dependencies loaded successfully.');
     }
 </script>
 <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Error Boundary Component
+    // Error Boundary
     class ErrorBoundary extends React.Component {
-      state = { hasError: false, error: null };
-      static getDerivedStateFromError(error) {
-        console.error("ErrorBoundary caught:", error);
-        return { hasError: true, error };
-      }
-      componentDidCatch(error, errorInfo) {
-        console.error("ErrorBoundary info:", errorInfo);
-      }
-      render() {
-        if (this.state.hasError) {
-          return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
+        state = { hasError: false, error: null };
+        static getDerivedStateFromError(error) {
+            console.error('ErrorBoundary:', error);
+            return { hasError: true, error };
         }
-        return this.props.children;
-      }
+        render() {
+            if (this.state.hasError) {
+                return <div className="error-boundary">Error: {this.state.error?.message || 'Unknown'}</div>;
+            }
+            return this.props.children;
+        }
     }
 
-    // Waitlist Modal Component
+    // Waitlist Modal
     const WaitlistModal = ({ isOpen, onClose, toolName }) => {
-      const [email, setEmail] = useState("");
-      const [message, setMessage] = useState("");
+        const [email, setEmail] = useState('');
+        const [message, setMessage] = useState('');
+        const [isError, setIsError] = useState(false);
 
-      const handleWaitlistSubmit = () => {
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          setMessage("Please enter a valid email address");
-          setTimeout(() => setMessage(""), 3000);
-          return;
-        }
-        try {
-          console.log(`Waitlist email submitted for ${toolName}:`, email);
-          setMessage(`Thank you for joining the ${toolName} waitlist!`);
-          setEmail("");
-          setTimeout(() => {
-            setMessage("");
-            onClose();
-          }, 2000);
-        } catch (error) {
-          console.error("Waitlist submission error:", error);
-          setMessage("Failed to join waitlist. Please try again.");
-          setTimeout(() => setMessage(""), 3000);
-        }
-      };
+        if (!isOpen) return null;
 
-      if (!isOpen) return null;
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            setMessage('');
+            setIsError(false);
 
-      return (
-        <div className="modal-overlay fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-blue-900">Join the {toolName} Waitlist</h3>
-              <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              </button>
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxoMEczrXFTEvfPjbPzQRJJ7T_E837lH-hFBMhW2q4LNiDQpuJ-F-4T4aHw4pQCJeE/exec';
+            const formData = new FormData();
+            formData.append('Email', email);
+            formData.append('ToolName', toolName);
+
+            console.log('Submitting form to', scriptUrl, 'with email:', email, 'toolName:', toolName);
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => {
+                    console.log('Form submission response:', response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Form submission data:', data);
+                    if (data.result === 'success') {
+                        setMessage('Thank you! Your email has been submitted.');
+                        setEmail('');
+                    } else {
+                        setMessage('Error submitting form: ' + (data.error || 'Unknown error'));
+                        setIsError(true);
+                    }
+                })
+                .catch(error => {
+                    console.error('Form submission error:', error);
+                    setMessage('Error submitting form. Please try again.');
+                    setIsError(true);
+                });
+        };
+
+        // Jotform iframe
+        const iframeSrc = `https://form.jotform.com/251448815718061?toolName=${encodeURIComponent(toolName)}`;
+
+        useEffect(() => {
+            if (window.jotformEmbedHandler) {
+                window.jotformEmbedHandler("iframe[id='JotFormIFrame-251448815718061']", "https://form.jotform.com/");
+                console.log('Jotform embed handler initialized.');
+            }
+        }, []);
+
+        return (
+            <div className="modal-overlay">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h3 className="modal-title">Join the {toolName} Waitlist</h3>
+                        <button onClick={onClose} className="close-button" aria-label="Close modal">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <form onSubmit={handleSubmit} className="form-group">
+                        <label htmlFor="email">Email Address</label>
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            required
+                        />
+                        <button type="submit" className="button-primary">Submit</button>
+                        {message && (
+                            <p className={isError ? 'form-error' : 'form-message'}>{message}</p>
+                        )}
+                    </form>
+                    {/* Jotform Iframe (commented out) */}
+                    {/*
+                    <iframe
+                        id="JotFormIFrame-251448815718061"
+                        title="WiseSuite Sign Up"
+                        src={iframeSrc}
+                        style={{ width: '100%', height: '539px', border: 'none' }}
+                        scrolling="no"
+                    ></iframe>
+                    */}
+                </div>
             </div>
-            <p className="text-gray-600 mb-4">Be the first to try {toolName} when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="waitlist-input p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4"
-            />
-            <button
-              onClick={handleWaitlistSubmit}
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-            >
-              Join Waitlist
-            </button>
-            {message && (
-              <div className={`text-center text-sm mt-2 ${message.includes("Thank") ? "text-green-600" : "text-red-500"}`}>
-                {message}
-              </div>
-            )}
-          </div>
-        </div>
-      );
+        );
     };
 
-    // Navigation Component
+    // Navbar
     const Navbar = () => {
-      const [isModalOpen, setIsModalOpen] = useState(false);
-      const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-      const [isDarkMode, setIsDarkMode] = useState(false);
+        const [isModalOpen, setIsModalOpen] = useState(false);
+        const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+        const [isDarkMode, setIsDarkMode] = useState(false);
 
-      useEffect(() => {
-        const savedMode = localStorage.getItem('darkMode');
-        if (savedMode === 'true') {
-          setIsDarkMode(true);
-          document.body.classList.add('dark-mode');
-        }
-      }, []);
+        useEffect(() => {
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'true') {
+                setIsDarkMode(true);
+                document.body.classList.add('dark-mode');
+            }
+        }, []);
 
-      const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        if (!isDarkMode) {
-          document.body.classList.add('dark-mode');
-          localStorage.setItem('darkMode', 'true');
-        } else {
-          document.body.classList.remove('dark-mode');
-          localStorage.setItem('darkMode', 'false');
-        }
-      };
+        const toggleDarkMode = () => {
+            setIsDarkMode(!isDarkMode);
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', !isDarkMode);
+        };
 
-      return (
-        <nav className="bg-white shadow-sm fixed w-full z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                {/* Updated logo link */}
-                <a href="/" className="flex-shrink-0 flex items-center">
-                  <img src="/wisesuite-logo.png" alt="WiseSuite Logo" className="h-8 w-8"/>
-                  <span className="ml-2 text-xl font-bold text-blue-900">WiseSuite</span>
-                </a>
-              </div>
-              <div className="hidden md:flex items-center space-x-4">
-                <a href="/#tools" className="text-gray-600 hover:text-blue-600" aria-label="WiseSuite Tools">Tools</a>
-                <a href="/#discover" className="text-gray-600 hover:text-blue-600" aria-label="Discover WiseSuite">Discover</a>
-                <a href="/tabwise" className="text-gray-600 hover:text-blue-600" aria-label="TabWise Features">TabWise</a>
-                <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" aria-label="WiseSuite Blog">Blog</a>
-                <button
-                  onClick={toggleDarkMode}
-                  className="text-gray-600 hover:text-blue-600 p-2"
-                  aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isDarkMode ? "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" : "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"} />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600"
-                >
-                  Join Waitlist
-                </button>
-              </div>
-              <div className="md:hidden flex items-center">
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="text-gray-600 hover:text-blue-600 focus:outline-none"
-                  aria-label="Toggle mobile menu"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            {isMobileMenuOpen && (
-              <div className="md:hidden">
-                <div className="flex flex-col space-y-2 px-4 py-2">
-                  <a href="/#tools" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Tools</a>
-                  <a href="/#discover" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Discover</a>
-                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>TabWise</a>
-                  <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
-                  <button
-                    onClick={toggleDarkMode}
-                    className="text-gray-600 hover:text-blue-600 text-left"
-                    aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                  >
-                    {isDarkMode ? "Light Mode" : "Dark Mode"}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsModalOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
-                  >
-                    Join Waitlist
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="WiseSuite" />
-        </nav>
-      );
-    };
-
-    // Header Component
-    const Header = () => (
-      <header className="pt-20 pb-10 bg-blue-900 text-white text-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <img src="/wisesuite-logo.png" alt="WiseSuite Official Logo" className="h-12 w-12 mx-auto mb-4"/>
-          <h1 className="text-4xl md:text-5xl font-bold">WiseSuite: Your Toolkit for a Smarter Digital Experience</h1>
-        </div>
-      </header>
-    );
-
-    // Intro Section
-    const Intro = () => (
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-600 mb-4 text-lg">Welcome to WiseSuite, a growing collection of innovative digital tools designed to streamline your online life and boost your productivity. In today's fast-paced digital world, managing tasks, information, and countless browser tabs can be overwhelming. WiseSuite provides intelligent, intuitive solutions to bring order, efficiency, and clarity to your daily digital experience.</p>
-          <p className="text-gray-600 text-lg">Our mission is to empower you with smart software that simplifies complex workflows, helps you stay organized, and frees up your time to focus on what truly matters.</p>
-        </div>
-      </section>
-    );
-
-    // Discover Component (Three Slides at a Time)
-    const Discover = () => {
-      const [currentSet, setCurrentSet] = useState(0);
-      const [isModalOpen, setIsModalOpen] = useState(false);
-
-      const slides = [
-        {
-          icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
-          title: "Simplify Your Digital World",
-          content: "WiseSuite is your all-in-one solution for navigating the complexities of digital life. Our intuitive tools eliminate clutter, boost productivity, and make your online experience seamless."
-        },
-        {
-          icon: "M5 13l4 4L19 7",
-          title: "Solve Everyday Challenges",
-          content: "From juggling browser tabs to managing tasks, WiseSuite tackles daily challenges with tools like <a href=\"/tabwise/\" className=\"text-blue-500 hover:text-blue-600\">TabWise</a>, designed to keep you focused and efficient."
-        },
-        {
-          icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
-          title: "Shape the Future",
-          content: "WiseSuite is growing with tools like FocusWise and TimeWise, unified by a vision to empower your digital workflow. Join our waitlist for updates!"
-        },
-        {
-          icon: "M4 6h16M4 12h16M4 18h16",
-          title: "All-in-One Productivity",
-          content: "WiseSuite integrates tools like TabWise and FocusWise into a single platform, streamlining your tasks for maximum efficiency."
-        },
-        {
-          icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4",
-          title: "Customizable Workflow",
-          content: "Tailor WiseSuite tools, starting with TabWise’s flexible tab management, to fit your unique needs and preferences."
-        },
-        {
-          icon: "M13 10V3L4 14h7v7l9-11h-7z",
-          title: "Evolving Ecosystem",
-          content: "Start with TabWise and grow with WiseSuite’s upcoming tools, designed to adapt to your changing digital demands."
-        }
-      ];
-
-      const slidesPerSet = window.innerWidth < 640 ? 1 : 3;
-      const totalSets = Math.ceil(slides.length / slidesPerSet);
-
-      useEffect(() => {
-        const timer = setInterval(() => {
-          setCurrentSet((prev) => (prev + 1) % totalSets);
-        }, 6000);
-        return () => clearInterval(timer);
-      }, [totalSets]);
-
-      const goToSet = (index) => {
-        setCurrentSet(index);
-      };
-
-      const prevSet = () => {
-        setCurrentSet((prev) => (prev - 1 + totalSets) % totalSets);
-      };
-
-      const nextSet = () => {
-        setCurrentSet((prev) => (prev + 1) % totalSets);
-      };
-
-      const currentSlides = slides.slice(
-        currentSet * slidesPerSet,
-        (currentSet + 1) * slidesPerSet
-      );
-
-      return (
-        <section id="discover" className="py-12 discover-section animate-fade-in-up">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-10">Discover WiseSuite</h2>
-            <div className="relative">
-              <div className="slider-container">
-                {currentSlides.map((slide, index) => (
-                  <div
-                    key={index}
-                    className="slider-card bg-white p-5 rounded-lg shadow-md text-center"
-                    role="group"
-                  >
-                    <div className="flex justify-center mb-3">
-                      <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
-                      </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold text-blue-900 mb-2">{slide.title}</h3>
-                    <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: slide.content }}></p>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={prevSet}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
-                aria-label="Previous slide set"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={nextSet}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
-                aria-label="Next slide set"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex justify-center mt-6 space-x-2">
-              {Array.from({ length: totalSets }).map((_, index) => (
-                <button
-                  key={index}
-                  className={`dot ${index === currentSet ? 'active' : ''}`}
-                  onClick={() => goToSet(index)}
-                  aria-label={`Go to slide set ${index + 1}`}
-                  aria-current={index === currentSet}
-                ></button>
-              ))}
-            </div>
-            <div className="text-center mt-10">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg"
-              >
-                Join the Journey
-              </button>
-            </div>
-          </div>
-          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="WiseSuite" />
-        </section>
-      );
-    };
-
-    // Products Component
-    const Products = () => {
-      const [modalState, setModalState] = useState({ isOpen: false, toolName: '' });
-
-      return (
-        <section id="products" className="py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="product-card">
-                <h3 className="text-xl font-semibold text-blue-900 mb-3">TabWise: Your Smart Tab Manager for Chrome</h3>
-                <p className="text-gray-600 mb-4">TabWise is the intelligent way to organize and manage your browser tabs. With features like content-based auto-categorization, seamless local storage, and cross-device syncing, TabWise helps you conquer tab clutter, boost focus, and enhance your browser productivity.</p>
-                <a href="https://wise-suite.github.io/tabwise" className="button">Visit TabWise Homepage</a>
-              </div>
-              <div className="product-card">
-                <h3 className="text-xl font-semibold text-blue-900 mb-3">FocusWise: Stay Focused, Block Distractions</h3>
-                <p className="text-gray-600 mb-4">FocusWise is an upcoming tool designed to enhance productivity by offering customizable website filters to block distractions and keep you on task.</p>
-                <button onClick={() => setModalState({ isOpen: true, toolName: 'FocusWise' })} className="button">Join Waitlist</button>
-              </div>
-            </div>
-          </div>
-          <WaitlistModal
-            isOpen={modalState.isOpen}
-            onClose={() => setModalState({ isOpen: false, toolName: '' })}
-            toolName={modalState.toolName}
-          />
-        </section>
-      );
-    };
-
-    // Vision Section
-    const Vision = () => (
-      <section id="vision" className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Vision</h2>
-          <p className="text-gray-600 text-lg text-center">WiseSuite envisions a digital future where tools seamlessly adapt to your needs, providing clarity and control. We are continuously researching and developing new solutions to empower individuals and teams to achieve more with less digital friction.</p>
-        </div>
-      </section>
-    );
-
-    // Tools Component
-    const Tools = () => {
-      const [modalState, setModalState] = useState({ isOpen: false, toolName: '' });
-
-      const openModal = (toolName) => {
-        setModalState({ isOpen: true, toolName });
-      };
-
-      const closeModal = () => {
-        setModalState({ isOpen: false, toolName: '' });
-      };
-
-      return (
-        <section id="tools" className="py-12 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Productivity Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "TabWise",
-                  tagline: "Smart Browser Tab Management",
-                  desc: "Effortlessly organize your browser tabs with AI-powered categorization, drag-and-drop, and session saving.",
-                  link: "/tabwise",
-                  cta: "Get TabWise",
-                  isBeta: true
-                },
-                {
-                  title: "FocusWise",
-                  tagline: "Stay Focused, Block Distractions",
-                  desc: "Boost productivity with customizable website filters to keep distractions at bay.",
-                  cta: "Join Waitlist",
-                  isComingSoon: true
-                },
-                {
-                  title: "TimeWise",
-                  tagline: "Track Time, Boost Efficiency",
-                  desc: "Monitor time spent on tasks and projects to optimize your workflow.",
-                  cta: "Join Waitlist",
-                  isComingSoon: true
-                },
-                {
-                  title: "ClipWise",
-                  tagline: "Save Web Snippets Easily",
-                  desc: "Capture and organize web content for quick reference and research.",
-                  cta: "Join Waitlist",
-                  isComingSoon: true
-                },
-                {
-                  title: "EmailWise",
-                  tagline: "Smart Inbox Organization",
-                  desc: "Streamline your email with intelligent filters and scheduling tools.",
-                  cta: "Join Waitlist",
-                  isComingSoon: true
-                },
-                {
-                  title: "TaskWise",
-                  tagline: "Seamless Task Tracking",
-                  desc: "Manage tasks with integration across your digital tools for maximum efficiency.",
-                  cta: "Join Waitlist",
-                  isComingSoon: true
-                },
-                {
-                  title: "BookmarkWise",
-                  tagline: "Organized Bookmarking",
-                  desc: "Categorize and access your bookmarks intuitively for a clutter-free experience.",
-                  cta: "Join Waitlist",
-                  isComingSoon: true
-                },
-              ].map((tool, index) => (
-                <div key={index} className="relative bg-white p-5 rounded-lg shadow-sm text-center">
-                  {tool.isComingSoon && (
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">
-                      Coming Soon
-                    </div>
-                  )}
-                  {tool.isBeta && (
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">
-                      In Beta
-                    </div>
-                  )}
-                  <h3 className="text-xl font-bold text-blue-900 mb-2">{tool.title}</h3>
-                  <p className="text-blue-600 font-medium mb-2">{tool.tagline}</p>
-                  <p className="text-gray-600 mb-4">{tool.desc}</p>
-                  {tool.link ? (
-                    <a href={tool.link} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                      {tool.cta}
+        return (
+            <nav className="navbar">
+                <div className="container navbar-content">
+                    <a href="/" className="logo">
+                        <img src="/wisesuite-logo.png" alt="WiseSuite Logo"/>
+                        <span>WiseSuite</span>
                     </a>
-                  ) : (
+                    <div className="nav-links">
+                        <a href="/#tools">Tools</a>
+                        <a href="/#discover">Discover</a>
+                        <a href="/tabwise">TabWise</a>
+                        <a href="/tabwise/blog.html">Blog</a>
+                        <button onClick={toggleDarkMode} aria-label={isDarkMode ? "Light Mode" : "Dark Mode"}>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isDarkMode ? "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" : "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"} />
+                            </svg>
+                        </button>
+                        <button onClick={() => setIsModalOpen(true)} className="button-primary">Join Waitlist</button>
+                    </div>
                     <button
-                      onClick={() => openModal(tool.title)}
-                      className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        className="mobile-menu-button"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle mobile menu"
                     >
-                      {tool.cta}
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}/>
+                        </svg>
                     </button>
-                  )}
                 </div>
-              ))}
-            </div>
-          </div>
-          <WaitlistModal
-            isOpen={modalState.isOpen}
-            onClose={closeModal}
-            toolName={modalState.toolName}
-          />
-        </section>
-      );
+                <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                    <a href="/#tools" onClick={() => setIsMobileMenuOpen(false)}>Tools</a>
+                    <a href="/#discover" onClick={() => setIsMobileMenuOpen(false)}>Discover</a>
+                    <a href="/tabwise" onClick={() => setIsMobileMenuOpen(false)}>TabWise</a>
+                    <a href="/tabwise/blog.html" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
+                    <button onClick={toggleDarkMode}>{isDarkMode ? "Light Mode" : "Dark Mode"}</button>
+                    <button
+                        onClick={() => { setIsModalOpen(true); setIsMobileMenuOpen(false); }}
+                        className="button-primary"
+                    >
+                        Join Waitlist
+                    </button>
+                </div>
+                <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="WiseSuite" />
+            </nav>
+        );
     };
 
-    // Footer Component
+    // Header
+    const Header = () => (
+        <header className="header">
+            <div className="container">
+                <img src="/wisesuite-logo.png" alt="WiseSuite Logo"/>
+                <h1>WiseSuite: Your Toolkit for a Smarter Digital Experience</h1>
+            </div>
+        </header>
+    );
+
+    // Intro
+    const Intro = () => (
+        <section className="section intro">
+            <div className="container">
+                <p>Welcome to WiseSuite, a collection of innovative tools designed to streamline your online life and boost productivity.</p>
+                <p>Our mission is to empower you with smart software that simplifies workflows and helps you focus.</p>
+            </div>
+        </section>
+    );
+
+    // Discover
+    const Discover = () => {
+        const [currentSet, setCurrentSet] = useState(0);
+        const [isModalOpen, setIsModalOpen] = useState(false);
+
+        const slides = [
+            {
+                icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+                title: "Simplify Your Digital World",
+                content: "WiseSuite is your all-in-one solution for navigating digital life."
+            },
+            {
+                icon: "M5 13l4 4L19 7",
+                title: "Solve Everyday Challenges",
+                content: "Tools like <a href=\"/tabwise/\" style=\"color: #2563eb;\">TabWise</a> keep you efficient."
+            },
+            {
+                icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
+                title: "Shape the Future",
+                content: "Join our waitlist for tools like FocusWise!"
+            }
+        ];
+
+        const slidesPerSet = window.innerWidth < 640 ? 1 : 3;
+        const totalSets = Math.ceil(slides.length / slidesPerSet);
+
+        useEffect(() => {
+            const timer = setInterval(() => {
+                setCurrentSet((prev) => (prev + 1) % totalSets);
+            }, 6000);
+            return () => clearInterval(timer);
+        }, [totalSets]);
+
+        const goToSet = (index) => setCurrentSet(index);
+        const prevSet = () => setCurrentSet((prev) => (prev - 1 + totalSets) % totalSets);
+        const nextSet = () => setCurrentSet((prev) => (prev + 1) % totalSets);
+
+        const currentSlides = slides.slice(currentSet * slidesPerSet, (currentSet + 1) * slidesPerSet);
+
+        return (
+            <section id="discover" className="section">
+                <div className="container">
+                    <h2>Discover WiseSuite</h2>
+                    <div style={{ position: 'relative' }}>
+                        <div className="slider-container">
+                            {currentSlides.map((slide, index) => (
+                                <div key={index} className="slider-card">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
+                                    </svg>
+                                    <h3>{slide.title}</h3>
+                                    <p dangerouslySetInnerHTML={{ __html: slide.content }}></p>
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={prevSet} className="slider-nav left" aria-label="Previous slide">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button onClick={nextSet} className="slider-nav right" aria-label="Next slide">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="dots">
+                        {Array.from({ length: totalSets }).map((_, index) => (
+                            <button
+                                key={index}
+                                className={`dot ${index === currentSet ? 'active' : ''}`}
+                                onClick={() => goToSet(index)}
+                                aria-label={`Slide set ${index + 1}`}
+                            ></button>
+                        ))}
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                        <button onClick={() => setIsModalOpen(true)} className="button-primary">Join the Journey</button>
+                    </div>
+                </div>
+                <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="WiseSuite" />
+            </section>
+        );
+    };
+
+    // Products
+    const Products = () => {
+        const [modalState, setModalState] = useState({ isOpen: false, toolName: '' });
+
+        return (
+            <section id="products" className="section">
+                <div className="container">
+                    <h2>Our Products</h2>
+                    <div className="product-grid">
+                        <div className="product-card">
+                            <h3>TabWise</h3>
+                            <p>Organize browser tabs with AI-powered categorization.</p>
+                            <a href="/tabwise" className="tool-button">Visit TabWise</a>
+                        </div>
+                        <div className="product-card">
+                            <h3>FocusWise</h3>
+                            <p>Block distractions with customizable filters.</p>
+                            <button
+                                onClick={() => setModalState({ isOpen: true, toolName: 'FocusWise' })}
+                                className="tool-button"
+                            >
+                                Join Waitlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <WaitlistModal
+                    isOpen={modalState.isOpen}
+                    onClose={() => setModalState({ isOpen: false, toolName: '' })}
+                    toolName={modalState.toolName}
+                />
+            </section>
+        );
+    };
+
+    // Tools
+    const Tools = () => {
+        const [modalState, setModalState] = useState({ isOpen: false, toolName: '' });
+
+        const tools = [
+            { title: "TabWise", tagline: "Tab Management", desc: "Organize tabs with AI.", link: "/tabwise", cta: "Get TabWise", isBeta: true },
+            { title: "FocusWise", tagline: "Block Distractions", desc: "Customizable filters.", cta: "Join Waitlist", isComingSoon: true },
+            { title: "TimeWise", tagline: "Track Time", desc: "Optimize workflow.", cta: "Join Waitlist", isComingSoon: true }
+        ];
+
+        return (
+            <section id="tools" className="section" style={{ backgroundColor: '#f9fafb' }}>
+                <div className="container">
+                    <h2>Our Tools</h2>
+                    <div className="tool-grid">
+                        {tools.map((tool, index) => (
+                            <div key={index} className="tool-card">
+                                {tool.isComingSoon && <div className="badge">Coming Soon</div>}
+                                {tool.isBeta && <div className="badge beta">In Beta</div>}
+                                <h3>{tool.title}</h3>
+                                <p className="tagline">{tool.tagline}</p>
+                                <p className="desc">{tool.desc}</p>
+                                {tool.link ? (
+                                    <a href={tool.link} className="tool-button">{tool.cta}</a>
+                                ) : (
+                                    <button
+                                        onClick={() => setModalState({ isOpen: true, toolName: tool.title })}
+                                        className="tool-button"
+                                    >
+                                        {tool.cta}
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <WaitlistModal
+                    isOpen={modalState.isOpen}
+                    onClose={() => setModalState({ isOpen: false, toolName: '' })}
+                    toolName={modalState.toolName}
+                />
+            </section>
+        );
+    };
+
+    // Vision
+    const Vision = () => (
+        <section id="vision" className="section">
+            <div className="container">
+                <h2>Our Vision</h2>
+                <p style={{ fontSize: '18px', textAlign: 'center' }}>
+                    WiseSuite envisions a future where tools adapt to your needs, providing clarity and control.
+                </p>
+            </div>
+        </section>
+    );
+
+    // Footer
     const Footer = () => (
-      <footer className="bg-blue-900 text-white py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="mb-2">Copyright © 2025 WiseSuite</p>
-          <p><a href="https://wise-suite.github.io/blog.html" className="text-blue-300 hover:text-blue-400">Visit Our Blog</a></p>
-          <div className="flex justify-center space-x-4 mt-4">
-            <a href="/privacy.html" className="text-blue-300 hover:text-blue-400" rel="noopener noreferrer" aria-label="Privacy Policy">Privacy</a>
-            <a href="mailto:contact@wisesuite.com" className="text-blue-300 hover:text-blue-400" aria-label="Contact Us">Contact</a>
-          </div>
-        </div>
-      </footer>
+        <footer className="footer">
+            <div className="container">
+                <p>Copyright © 2025 WiseSuite</p>
+                <p><a href="/blog.html">Visit Our Blog</a></p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
+                    <a href="/privacy.html">Privacy</a>
+                    <a href="mailto:contact@wisesuite.com">Contact</a>
+                </div>
+            </div>
+        </footer>
     );
 
-    // Main App Component
+    // App
     const App = () => (
-      <ErrorBoundary>
-        <div>
-          <Navbar />
-          <Header />
-          <Intro />
-          <Products />
-          <Discover />
-          <Tools />
-          <Vision />
-          <Footer />
-        </div>
-      </ErrorBoundary>
+        <ErrorBoundary>
+            <div>
+                <Navbar />
+                <Header />
+                <Intro />
+                <Products />
+                <Discover />
+                <Tools />
+                <Vision />
+                <Footer />
+            </div>
+        </ErrorBoundary>
     );
 
-    // Render the App with diagnostic logging
+    // Render
     try {
-      console.log('Attempting to render React app...');
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<App />);
-      console.log('React app rendered successfully.');
-    } catch (err) {
-      console.error("Error rendering app:", err);
+        console.log('Rendering React app...');
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+        console.log('React app rendered successfully.');
+    } catch (error) {
+        console.error('Error rendering app:', error);
     }
 </script>
 </body>
