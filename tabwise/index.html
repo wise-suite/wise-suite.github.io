@@ -63,7 +63,6 @@
         </a>
       </div>
       <div class="hidden md:flex items-center space-x-4">
-        {/* Links can point to general sections or specific product pages like Tabwise */}
         <a href="/#tools" class="text-gray-600 hover:text-blue-600" aria-label="WiseSuite Tools">Tools</a>
         <a href="/#discover" class="text-gray-600 hover:text-blue-600" aria-label="Discover WiseSuite">Discover</a>
         <a href="/tabwise/" class="text-gray-600 hover:text-blue-600" aria-label="TabWise Features">TabWise</a>
@@ -123,7 +122,7 @@
 
 <div id="root"></div>
 
-<footer class="bg-blue-900 text-white py-6">
+<footer id="wisesuite-footer" class="bg-blue-900 text-white py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="mb-4">
       <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center justify-center">
@@ -145,6 +144,19 @@
 </footer>
 
 <script>
+  // Prevent duplicate footer rendering
+  document.addEventListener('DOMContentLoaded', () => {
+    const footers = document.querySelectorAll('footer');
+    if (footers.length > 1) {
+      console.warn('Multiple footers detected. Keeping only the one with id="wisesuite-footer".');
+      footers.forEach(footer => {
+        if (footer.id !== 'wisesuite-footer') {
+          footer.remove();
+        }
+      });
+    }
+  });
+
   // Mobile Menu Toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -161,7 +173,6 @@
 
   // Waitlist Modal Logic
   const modal = document.getElementById('waitlist-modal');
-  // Query all buttons that can open this modal (static navbar buttons + any React buttons given a common class)
   const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile, .open-static-waitlist-modal-trigger'); 
   const closeModalButton = document.getElementById('modal-close');
   const emailInput = document.getElementById('waitlist-email');
@@ -198,7 +209,7 @@
       submitButton.disabled = true;
       submitButton.textContent = 'Submitting...';
 
-      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycustomurl/exec'; // User needs to update this
+      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycustomurl/exec';
 
       try {
         await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
@@ -206,12 +217,12 @@
           mode: 'no-cors', 
           cache: 'no-cache',
           headers: {
-             // 'Content-Type': 'application/json' 
+            // 'Content-Type': 'application/json' 
           },
-          body: JSON.stringify({ email: email, tool: 'WiseSuite' }) // Updated tool name
+          body: JSON.stringify({ email: email, tool: 'WiseSuite' })
         });
 
-        messageDiv.textContent = 'Thank you for joining the WiseSuite waitlist!'; // Updated message
+        messageDiv.textContent = 'Thank you for joining the WiseSuite waitlist!';
         messageDiv.className = 'text-center text-sm mt-2 text-green-600'; 
         emailInput.value = '';
         setTimeout(() => {
@@ -240,7 +251,6 @@
 <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Error Boundary Component (remains unchanged)
     class ErrorBoundary extends React.Component {
       state = { hasError: false, error: null };
       static getDerivedStateFromError(error) {
@@ -258,7 +268,6 @@
       }
     }
     
-    // Helper function to open the static modal (can be called from React components)
     const openStaticWaitlistModal = () => {
         const modal = document.getElementById('waitlist-modal');
         if (modal) {
@@ -268,8 +277,6 @@
         }
     };
 
-
-    // Header Component (Hero Section - remains unchanged)
     const Header = () => (
       <header className="pt-20 pb-10 bg-blue-900 text-white text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -279,7 +286,6 @@
       </header>
     );
 
-    // Intro Section (remains unchanged)
     const Intro = () => (
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -289,7 +295,6 @@
       </section>
     );
 
-    // Discover Component (Updated to use static modal)
     const Discover = () => {
       const [currentSet, setCurrentSet] = useState(0);
       
@@ -349,7 +354,7 @@
               ))}
             </div>
             <div className="text-center mt-10">
-              <button onClick={openStaticWaitlistModal} className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg open-static-waitlist-modal-trigger"> {/* Added class for static JS to pick up */}
+              <button onClick={openStaticWaitlistModal} className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg open-static-waitlist-modal-trigger">
                 Join the Journey
               </button>
             </div>
@@ -358,10 +363,9 @@
       );
     };
 
-    // Products Section (Updated to use static modal)
     const Products = () => {
-      const handleProductWaitlistOpen = (toolName) => { // toolName is for potential future use if modal becomes dynamic
-        openStaticWaitlistModal(); 
+      const handleProductWaitlistOpen = (toolName) => {
+        openStaticWaitlistModal();
       };
 
       return (
@@ -377,7 +381,7 @@
               <div className="product-card">
                 <h3 className="text-xl font-semibold text-blue-900 mb-3">FocusWise: Stay Focused, Block Distractions</h3>
                 <p className="text-gray-600 mb-4">FocusWise is an upcoming tool designed to enhance productivity by offering customizable website filters to block distractions and keep you on task.</p>
-                <button onClick={() => handleProductWaitlistOpen('FocusWise')} className="button open-static-waitlist-modal-trigger">Join Waitlist</button> {/* Added class */}
+                <button onClick={() => handleProductWaitlistOpen('FocusWise')} className="button open-static-waitlist-modal-trigger">Join Waitlist</button>
               </div>
             </div>
           </div>
@@ -385,7 +389,6 @@
       );
     };
 
-    // Vision Section (remains unchanged)
     const Vision = () => (
       <section id="vision" className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -395,9 +398,8 @@
       </section>
     );
 
-    // Tools Component (Updated to use static modal)
     const Tools = () => {
-      const handleToolWaitlistOpen = (toolName) => { // toolName for future use
+      const handleToolWaitlistOpen = (toolName) => {
         openStaticWaitlistModal();
       };
 
@@ -426,7 +428,7 @@
                   {tool.link ? (
                     <a href={tool.link} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</a>
                   ) : (
-                    <button onClick={() => handleToolWaitlistOpen(tool.title)} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600 open-static-waitlist-modal-trigger">{tool.cta}</button> /* Added class */
+                    <button onClick={() => handleToolWaitlistOpen(tool.title)} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600 open-static-waitlist-modal-trigger">{tool.cta}</button>
                   )}
                 </div>
               ))}
@@ -436,7 +438,6 @@
       );
     };
 
-    // Main App Component
     const App = () => (
       <ErrorBoundary>
         <div className="pt-24"> 
@@ -446,12 +447,10 @@
           <Discover />
           <Tools />
           <Vision />
-          {/* Static Footer is rendered outside of this React App component */}
         </div>
       </ErrorBoundary>
     );
 
-    // Render the App
     try {
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
