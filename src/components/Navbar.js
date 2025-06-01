@@ -24,46 +24,46 @@ const Navbar = () => {
             >
               Sign Up for Beta
             </button>
-            </div>
-            <div className="md:hidden flex items-center">
+          </div>
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-600 hover:text-blue-600 focus:outline-none"
+              aria-label="Toggle mobile menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-md">
+            <div className="flex flex-col space-y-2 px-4 py-2">
+              <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
+              <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+              <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Demo</a>
+              <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-600 hover:text-blue-600 focus:outline-none"
-                aria-label="Toggle mobile menu"
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
+                aria-label="Sign Up for Beta"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                  />
-                </svg>
+                Sign Up for Beta
               </button>
             </div>
           </div>
-          {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-md">
-              <div className="flex flex-col space-y-2 px-4 py-2">
-                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
-                <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
-                <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Demo</a>
-                <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
-                <button
-                  onClick={() => {
-                    setIsModalOpen(true);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
-                  aria-label="Sign Up for Beta"
-                >
-                  Sign Up for Beta
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-        <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="Tabwise" />
-      </nav>
-    );
+        )}
+      </div>
+      <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} toolName="Tabwise" />
+    </nav>
+  );
 };
