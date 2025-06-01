@@ -41,8 +41,6 @@
     .error-boundary { color: red; text-align: center; padding: 16px; }
     .waitlist-input { transition: all 0.3s ease; }
     .waitlist-input:focus { border-color: #3B82F6; }
-    /* .modal-overlay is part of the static modal HTML */
-    /* General button styling for consistency */
     .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
     .button:hover { background: #2563EB; }
     a, button { transition: all 0.3s ease; }
@@ -119,7 +117,7 @@
 
 <div id="root"></div>
 
-<footer class="bg-blue-900 text-white py-6">
+<footer id="wisesuite-footer" class="bg-blue-900 text-white py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="mb-4">
       <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center justify-center">
@@ -141,6 +139,19 @@
 </footer>
 
 <script>
+  // Prevent duplicate footer rendering
+  document.addEventListener('DOMContentLoaded', () => {
+    const footers = document.querySelectorAll('footer');
+    if (footers.length > 1) {
+      console.warn('Multiple footers detected. Keeping only the one with id="wisesuite-footer".');
+      footers.forEach(footer => {
+        if (footer.id !== 'wisesuite-footer') {
+          footer.remove();
+        }
+      });
+    }
+  });
+
   // Mobile Menu Toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -157,7 +168,7 @@
 
   // Waitlist Modal Logic
   const modal = document.getElementById('waitlist-modal');
-  const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile'); // IDs from static navbar
+  const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile');
   const closeModalButton = document.getElementById('modal-close');
   const emailInput = document.getElementById('waitlist-email');
   const submitButton = document.getElementById('waitlist-submit');
@@ -193,14 +204,14 @@
       submitButton.disabled = true;
       submitButton.textContent = 'Submitting...';
       
-      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycustomurl/exec'; // User needs to update this
+      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycustomurl/exec';
 
       try {
         await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
           method: 'POST',
-          mode: 'no-cors', 
+          mode: 'no-cors',
           cache: 'no-cache',
-          body: JSON.stringify({ email: email, tool: 'Tabwise' }) 
+          body: JSON.stringify({ email: email, tool: 'Tabwise' })
         });
 
         messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
@@ -262,7 +273,7 @@
 
     // Hero Component
     const Hero = () => (
-      <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}> {/* pt-20 is sufficient for h-16 navbar */}
+      <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Tabwise: The Smart Way to Manage Your Chrome Tabs
@@ -284,7 +295,7 @@
           </p>
           <div className="flex justify-center space-x-4 mb-8">
             <button
-              onClick={openStaticWaitlistModal} // Updated
+              onClick={openStaticWaitlistModal}
               className="bg-blue-400 text-white px-6 py-3 rounded-md hover:bg-blue-500 text-lg"
             >
               Sign Up for Beta
@@ -297,7 +308,7 @@
       </section>
     );
 
-    // Features Component
+    // Features Component (Autocategorization.gif removed)
     const Features = () => (
       <section id="features" className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -306,7 +317,7 @@
             {[
               {
                 title: "Auto-Categorize Your Tabs Effortlessly",
-                desc: "Tabwise’s smart tab manager groups Chrome tabs by topic, saving researchers time and reducing browser clutter. Ideal for managing multiple sources or projects. <a href='/tabwise/tabwise-productivity-benefits.html' class='text-blue-500 hover:text-blue-600'>Read our productivity guide</a>."
+                desc: "Tabwise’s smart tab manager groups Chrome tabs by topic, saving researchers time and reducing browser clutter. <a href='/tabwise/tabwise-productivity-benefits.html' class='text-blue-500 hover:text-blue-600'>Read our productivity guide</a>."
               },
               {
                 title: "Seamlessly Save Tabs Locally for Later",
@@ -325,9 +336,6 @@
                 </div>
                 <h3 className="text-xl font-medium text-blue-900 mb-2">{feature.title}</h3>
                 <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: feature.desc }}></p>
-                {index === 0 && (
-                  <img src="/tabwise/Autocategorization.gif" alt="Tabwise screenshot showing auto-categorized Chrome tabs" className="mt-4 mx-auto max-w-full h-auto"/>
-                )}
               </div>
             ))}
           </div>
@@ -335,7 +343,7 @@
       </section>
     );
 
-    // Experience Component (fixed SVG paths and YouTube URL)
+    // Experience Component (Updated with YouTube video ID)
     const Experience = () => {
       const [activeView, setActiveView] = useState("interactive");
       const [categories, setCategories] = useState([
@@ -354,25 +362,24 @@
       const [hoverMessage, setHoverMessage] = useState("Hover over an element to see its description");
 
       const showError = (message) => { setError(message); setTimeout(() => setError(""), 3000); };
-      const applySort = (cats) => { /* ... sorting logic ... */ return [...cats].sort((a,b) => sortPreference === "name-asc" ? a.name.localeCompare(b.name) : sortPreference === "name-desc" ? b.name.localeCompare(a.name) : sortPreference === "tabs-asc" ? a.tabs.length - b.tabs.length : b.tabs.length - a.tabs.length); };
-      const updateCategoryDropdown = () => { /* ... unchanged ... */ const dropdown = document.getElementById("addToCategory"); if (!dropdown) { console.warn("addToCategory dropdown not found"); return; } try { dropdown.innerHTML = '<option value="">Select category to add tabs</option>'; categories.forEach((cat, index) => { const option = document.createElement("option"); option.value = index; option.textContent = cat.name; dropdown.appendChild(option); }); } catch (err) { console.error("Error updating category dropdown:", err); }};
-      const deduplicateTabs = (existingTabs, newTabs) => { /* ... unchanged ... */ const existingUrls = new Set(existingTabs.map(tab => tab.url)); const uniqueTabs = newTabs.filter(tab => !existingUrls.has(tab.url)); const skippedCount = newTabs.length - uniqueTabs.length; return { uniqueTabs, skippedCount }; };
-      const toggleCategory = (categoryName) => { /* ... unchanged ... */ const newCollapsed = new Set(collapsedCategories); if (newCollapsed.has(categoryName)) { newCollapsed.delete(categoryName); } else { newCollapsed.add(categoryName); } setCollapsedCategories(newCollapsed); };
-      const addCategory = () => { /* ... unchanged ... */ const nameInput = document.getElementById("newCategory"); const name = nameInput?.value?.trim(); if (!name) { showError("Please enter a category name"); return; } try { const newCategories = [...categories, { name, tabs: [] }]; setCategories(newCategories); setFilteredCategories(applySort(newCategories)); nameInput.value = ""; setActiveTab("create"); updateCategoryDropdown(); } catch (err) { console.error("Error adding category:", err); showError("Failed to add category"); } };
-      const deleteCategory = (catIndex) => { /* ... unchanged ... */ if (window.confirm("Delete this category?")) { try { const category = categories[catIndex]; setLastAction({ type: "delete-category", index: catIndex, category, wasCollapsed: collapsedCategories.has(category.name), }); const newCategories = categories.filter((_, i) => i !== catIndex); const newCollapsed = new Set(collapsedCategories); newCollapsed.delete(category.name); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setCollapsedCategories(newCollapsed); updateCategoryDropdown(); setTimeout(() => setLastAction(null), 5000); } catch (err) { console.error("Error deleting category:", err); showError("Failed to delete category"); } } };
-      const editCategoryName = (catIndex) => { /* ... unchanged ... */ try { const oldName = categories[catIndex].name; const newName = prompt("Enter new category name:", oldName); if (newName && newName.trim()) { const newCategories = [...categories]; newCategories[catIndex].name = newName.trim(); const newCollapsed = new Set(collapsedCategories); if (newCollapsed.has(oldName)) { newCollapsed.delete(oldName); newCollapsed.add(newName.trim()); } setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setCollapsedCategories(newCollapsed); updateCategoryDropdown(); } } catch (err) { console.error("Error editing category name:", err); showError("Failed to edit category name"); } };
-      const addTabsToCategory = (catIndex) => { /* ... unchanged ... */ try { const newTabs = [ { title: `Sample Tab ${categories[catIndex].tabs.length + 1}`, url: `https://example.com/sample${Date.now()}`, note: "" }, ]; const { uniqueTabs, skippedCount } = deduplicateTabs(categories[catIndex].tabs, newTabs); const newCategories = [...categories]; newCategories[catIndex].tabs.push(...uniqueTabs); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setActiveTab("create"); if (skippedCount > 0) { showError(`Skipped ${skippedCount} duplicate tab(s)`); } } catch (err) { console.error("Error adding tabs to category:", err); showError("Failed to add tabs"); } };
-      const deleteTab = (catIndex, tabIndex) => { /* ... unchanged ... */ if (window.confirm("Remove this tab?")) { try { setLastAction({ type: "delete-tabs", catIndex, deletedTabs: [{ index: tabIndex, tab: categories[catIndex].tabs[tabIndex] }], }); const newCategories = [...categories]; newCategories[catIndex].tabs.splice(tabIndex, 1); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setTimeout(() => setLastAction(null), 5000); } catch (err) { console.error("Error deleting tab:", err); showError("Failed to delete tab"); } } };
-      const editTabNote = (catIndex, tabIndex) => { /* ... unchanged ... */ try { const tab = categories[catIndex].tabs[tabIndex]; const newNote = prompt("Enter note for this tab:", tab.note || ""); if (newNote !== null) { const newCategories = [...categories]; newCategories[catIndex].tabs[tabIndex].note = newNote.trim(); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); } } catch (err) { console.error("Error editing tab note:", err); showError("Failed to edit tab note"); } };
-      const handleDragStart = (e, type, catIndex, tabIndex = null) => { /* ... unchanged ... */ try { e.currentTarget.classList.add("dragging"); e.dataTransfer.setData("text/plain", JSON.stringify({ type, catIndex, tabIndex })); } catch (err) { console.error("Error in drag start:", err); } };
-      const handleDragEnd = (e) => { /* ... unchanged ... */ try { e.currentTarget.classList.remove("dragging"); document.querySelectorAll(".drop-target").forEach(el => el.classList.remove("drop-target")); } catch (err) { console.error("Error in drag end:", err); } };
-      const handleDragOver = (e) => { /* ... unchanged ... */ try { e.preventDefault(); e.currentTarget.classList.add("drop-target"); } catch (err) { console.error("Error in drag over:", err); } };
-      const handleDragLeave = (e) => { /* ... unchanged ... */ try { e.currentTarget.classList.remove("drop-target"); } catch (err) { console.error("Error in drag leave:", err); } };
-      const handleDrop = (e, toCatIndex, toTabIndex = null) => { /* ... unchanged ... */ try { e.preventDefault(); e.currentTarget.classList.remove("drop-target"); const data = JSON.parse(e.dataTransfer.getData("text/plain")); const newCategories = [...categories]; if (data.type === "category") { const fromIndex = data.catIndex; if (fromIndex !== toCatIndex) { const [moved] = newCategories.splice(fromIndex, 1); newCategories.splice(toCatIndex, 0, moved); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); } } else if (data.type === "tab") { const { catIndex: fromCatIndex, tabIndex: fromTabIndex } = data; if (fromCatIndex !== toCatIndex || (toTabIndex !== null && fromTabIndex !== toTabIndex)) { const [moved] = newCategories[fromCatIndex].tabs.splice(fromTabIndex, 1); if (fromCatIndex === toCatIndex && toTabIndex !== null) { newCategories[toCatIndex].tabs.splice(toTabIndex, 0, moved); } else { newCategories[toCatIndex].tabs.push(moved); } setCategories(newCategories); setFilteredCategories(applySort(newCategories)); } } } catch (err) { console.error("Error in drop handler:", err); showError("Failed to reorder items"); } };
-      const searchCategories = () => { /* ... unchanged ... */ try { if (!searchQuery) { setFilteredCategories(applySort(categories)); } else { const query = searchQuery.toLowerCase().trim(); const filtered = categories .map(category => ({ ...category, tabs: category.tabs.filter(tab => tab.title.toLowerCase().includes(query) || tab.url.toLowerCase().includes(query) || (tab.note && tab.note.toLowerCase().includes(query)) ), })) .filter(category => category.name.toLowerCase().includes(query) || category.tabs.length > 0); setFilteredCategories(applySort(filtered)); } } catch (err) { console.error("Error in searchCategories:", err); showError("Failed to search categories"); } };
-      const toggleTheme = () => { /* ... unchanged ... */ try { setTheme(theme === "light" ? "dark" : "light"); } catch (err) { console.error("Error toggling theme:", err); } };
-      useEffect(() => { /* ... unchanged ... */ try { searchCategories(); updateCategoryDropdown(); } catch (err) { console.error("Error in useEffect:", err); } }, [searchQuery, categories, sortPreference]);
-      // --- End of Experience logic ---
+      const applySort = (cats) => { return [...cats].sort((a,b) => sortPreference === "name-asc" ? a.name.localeCompare(b.name) : sortPreference === "name-desc" ? b.name.localeCompare(a.name) : sortPreference === "tabs-asc" ? a.tabs.length - b.tabs.length : b.tabs.length - a.tabs.length); };
+      const updateCategoryDropdown = () => { const dropdown = document.getElementById("addToCategory"); if (!dropdown) { console.warn("addToCategory dropdown not found"); return; } try { dropdown.innerHTML = '<option value="">Select category to add tabs</option>'; categories.forEach((cat, index) => { const option = document.createElement("option"); option.value = index; option.textContent = cat.name; dropdown.appendChild(option); }); } catch (err) { console.error("Error updating category dropdown:", err); }};
+      const deduplicateTabs = (existingTabs, newTabs) => { const existingUrls = new Set(existingTabs.map(tab => tab.url)); const uniqueTabs = newTabs.filter(tab => !existingUrls.has(tab.url)); const skippedCount = newTabs.length - uniqueTabs.length; return { uniqueTabs, skippedCount }; };
+      const toggleCategory = (categoryName) => { const newCollapsed = new Set(collapsedCategories); if (newCollapsed.has(categoryName)) { newCollapsed.delete(categoryName); } else { newCollapsed.add(categoryName); } setCollapsedCategories(newCollapsed); };
+      const addCategory = () => { const nameInput = document.getElementById("newCategory"); const name = nameInput?.value?.trim(); if (!name) { showError("Please enter a category name"); return; } try { const newCategories = [...categories, { name, tabs: [] }]; setCategories(newCategories); setFilteredCategories(applySort(newCategories)); nameInput.value = ""; setActiveTab("create"); updateCategoryDropdown(); } catch (err) { console.error("Error adding category:", err); showError("Failed to add category"); } };
+      const deleteCategory = (catIndex) => { if (window.confirm("Delete this category?")) { try { const category = categories[catIndex]; setLastAction({ type: "delete-category", index: catIndex, category, wasCollapsed: collapsedCategories.has(category.name), }); const newCategories = categories.filter((_, i) => i !== catIndex); const newCollapsed = new Set(collapsedCategories); newCollapsed.delete(category.name); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setCollapsedCategories(newCollapsed); updateCategoryDropdown(); setTimeout(() => setLastAction(null), 5000); } catch (err) { console.error("Error deleting category:", err); showError("Failed to delete category"); } } };
+      const editCategoryName = (catIndex) => { try { const oldName = categories[catIndex].name; const newName = prompt("Enter new category name:", oldName); if (newName && newName.trim()) { const newCategories = [...categories]; newCategories[catIndex].name = newName.trim(); const newCollapsed = new Set(collapsedCategories); if (newCollapsed.has(oldName)) { newCollapsed.delete(oldName); newCollapsed.add(newName.trim()); } setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setCollapsedCategories(newCollapsed); updateCategoryDropdown(); } } catch (err) { console.error("Error editing category name:", err); showError("Failed to edit category name"); } };
+      const addTabsToCategory = (catIndex) => { try { const newTabs = [ { title: `Sample Tab ${categories[catIndex].tabs.length + 1}`, url: `https://example.com/sample${Date.now()}`, note: "" }, ]; const { uniqueTabs, skippedCount } = deduplicateTabs(categories[catIndex].tabs, newTabs); const newCategories = [...categories]; newCategories[catIndex].tabs.push(...uniqueTabs); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setActiveTab("create"); if (skippedCount > 0) { showError(`Skipped ${skippedCount} duplicate tab(s)`); } } catch (err) { console.error("Error adding tabs to category:", err); showError("Failed to add tabs"); } };
+      const deleteTab = (catIndex, tabIndex) => { if (window.confirm("Remove this tab?")) { try { setLastAction({ type: "delete-tabs", catIndex, deletedTabs: [{ index: tabIndex, tab: categories[catIndex].tabs[tabIndex] }], }); const newCategories = [...categories]; newCategories[catIndex].tabs.splice(tabIndex, 1); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); setTimeout(() => setLastAction(null), 5000); } catch (err) { console.error("Error deleting tab:", err); showError("Failed to delete tab"); } } };
+      const editTabNote = (catIndex, tabIndex) => { try { const tab = categories[catIndex].tabs[tabIndex]; const newNote = prompt("Enter note for this tab:", tab.note || ""); if (newNote !== null) { const newCategories = [...categories]; newCategories[catIndex].tabs[tabIndex].note = newNote.trim(); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); } } catch (err) { console.error("Error editing tab note:", err); showError("Failed to edit tab note"); } };
+      const handleDragStart = (e, type, catIndex, tabIndex = null) => { try { e.currentTarget.classList.add("dragging"); e.dataTransfer.setData("text/plain", JSON.stringify({ type, catIndex, tabIndex })); } catch (err) { console.error("Error in drag start:", err); } };
+      const handleDragEnd = (e) => { try { e.currentTarget.classList.remove("dragging"); document.querySelectorAll(".drop-target").forEach(el => el.classList.remove("drop-target")); } catch (err) { console.error("Error in drag end:", err); } };
+      const handleDragOver = (e) => { try { e.preventDefault(); e.currentTarget.classList.add("drop-target"); } catch (err) { console.error("Error in drag over:", err); } };
+      const handleDragLeave = (e) => { try { e.currentTarget.classList.remove("drop-target"); } catch (err) { console.error("Error in drag leave:", err); } };
+      const handleDrop = (e, toCatIndex, toTabIndex = null) => { try { e.preventDefault(); e.currentTarget.classList.remove("drop-target"); const data = JSON.parse(e.dataTransfer.getData("text/plain")); const newCategories = [...categories]; if (data.type === "category") { const fromIndex = data.catIndex; if (fromIndex !== toCatIndex) { const [moved] = newCategories.splice(fromIndex, 1); newCategories.splice(toCatIndex, 0, moved); setCategories(newCategories); setFilteredCategories(applySort(newCategories)); } } else if (data.type === "tab") { const { catIndex: fromCatIndex, tabIndex: fromTabIndex } = data; if (fromCatIndex !== toCatIndex || (toTabIndex !== null && fromTabIndex !== toTabIndex)) { const [moved] = newCategories[fromCatIndex].tabs.splice(fromTabIndex, 1); if (fromCatIndex === toCatIndex && toTabIndex !== null) { newCategories[toCatIndex].tabs.splice(toTabIndex, 0, moved); } else { newCategories[toCatIndex].tabs.push(moved); } setCategories(newCategories); setFilteredCategories(applySort(newCategories)); } } } catch (err) { console.error("Error in drop handler:", err); showError("Failed to reorder items"); } };
+      const searchCategories = () => { try { if (!searchQuery) { setFilteredCategories(applySort(categories)); } else { const query = searchQuery.toLowerCase().trim(); const filtered = categories .map(category => ({ ...category, tabs: category.tabs.filter(tab => tab.title.toLowerCase().includes(query) || tab.url.toLowerCase().includes(query) || (tab.note && tab.note.toLowerCase().includes(query)) ), })) .filter(category => category.name.toLowerCase().includes(query) || category.tabs.length > 0); setFilteredCategories(applySort(filtered)); } } catch (err) { console.error("Error in searchCategories:", err); showError("Failed to search categories"); } };
+      const toggleTheme = () => { try { setTheme(theme === "light" ? "dark" : "light"); } catch (err) { console.error("Error toggling theme:", err); } };
+      useEffect(() => { try { searchCategories(); updateCategoryDropdown(); } catch (err) { console.error("Error in useEffect:", err); } }, [searchQuery, categories, sortPreference]);
 
       return (
         <section id="experience" className="py-12 bg-gradient-to-b from-gray-50 to-gray-100">
@@ -409,7 +416,7 @@
               {activeView === "interactive" ? (
                 <div className={`border border-gray-200 rounded-lg shadow-sm ${theme === "dark" ? "bg-gray-800 text-gray-200" : "bg-white text-gray-700"}`}>
                   <div className="p-4">
-                    <div style={{ width: "360px", maxHeight: "600px", overflowY: "auto" }}> {/* Adjusted maxHeight */}
+                    <div style={{ width: "360px", maxHeight: "600px", overflowY: "auto" }}>
                       <header className="flex justify-end items-center mb-2">
                         <div className="flex items-center gap-2">
                           <div className="relative w-40">
@@ -435,7 +442,7 @@
                   <div className="relative" style={{ paddingBottom: "56.25%", height: 0 }}>
                     <iframe
                       className="absolute top-0 left-0 w-full h-full"
-                      src="https://www.youtube.com/embed/VIDEO_ID_HERE" // Replace VIDEO_ID_HERE with your actual YouTube video ID
+                      src="https://www.youtube.com/embed/JU6mgACS5Eo"
                       title="Tabwise Demo Video"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -455,10 +462,10 @@
 
     // Pricing Component
     const Pricing = () => {
-      const [pricingTier, setPricingTier] = useState("monthly"); 
+      const [pricingTier, setPricingTier] = useState("monthly");
 
       return (
-        <section id="pricing" className="py-12 bg-white"> {/* Changed background to white for contrast */}
+        <section id="pricing" className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-blue-900 mb-4">Choose Your Tabwise Plan</h2>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -476,8 +483,7 @@
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Free Tier */}
-              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200"> {/* Lightened background */}
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200">
                 <h3 className="text-2xl font-bold text-blue-900 mb-2">Basic (Always Free)</h3>
                 <p className="text-gray-600 mb-4">Great for casual users</p>
                 <p className="text-4xl font-bold text-blue-900 mb-6"> $0<span className="text-lg text-gray-500">/month</span> </p>
@@ -489,8 +495,7 @@
                 </ul>
                 <button onClick={openStaticWaitlistModal} className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"> Start Free (Beta) </button>
               </div>
-              {/* Pro Tier */}
-              <div className="bg-blue-50 p-6 rounded-lg shadow-lg border-2 border-blue-500 transform scale-105"> {/* Highlighted Pro */}
+              <div className="bg-blue-50 p-6 rounded-lg shadow-lg border-2 border-blue-500 transform scale-105">
                 <h3 className="text-2xl font-bold text-blue-900 mb-2">Pro</h3>
                 <p className="text-gray-600 mb-4">For power users and professionals</p>
                 <p className="text-4xl font-bold text-blue-900 mb-6"> {pricingTier === "monthly" && "$4.99"} {pricingTier === "yearly" && "$45"} {pricingTier === "lifetime" && "$199"} <span className="text-lg text-gray-500"> {pricingTier === "monthly" && "/month"} {pricingTier === "yearly" && "/year"} {pricingTier === "lifetime" && " (One-time)"} </span> </p>
@@ -502,8 +507,7 @@
                 </ul>
                 <button onClick={openStaticWaitlistModal} className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"> Get Pro (Beta) </button>
               </div>
-              {/* Teams Tier */}
-              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200"> {/* Lightened background */}
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200">
                 <h3 className="text-2xl font-bold text-blue-900 mb-2">Teams</h3>
                 <p className="text-gray-600 mb-4">Collaborate with your team</p>
                 <p className="text-4xl font-bold text-blue-900 mb-6"> {pricingTier === "monthly" && "$9.99"} {pricingTier === "yearly" && "$95.90"} {pricingTier === "lifetime" && "Custom"} <span className="text-lg text-gray-500"> {pricingTier === "monthly" && "/user/month"} {pricingTier === "yearly" && "/user/year"} {pricingTier === "lifetime" && ""} </span> </p>
@@ -521,7 +525,7 @@
       );
     };
     
-    // Blog Component (From original landing page)
+    // Blog Component
     const Blog = () => (
       <section id="blog" className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -550,13 +554,11 @@
     // Main App Component
     const App = () => (
       <ErrorBoundary>
-        {/* Static Navbar is outside React root */}
         <Hero />
         <Features />
         <Experience />
         <Pricing />
         <Blog />
-        {/* Static Footer is outside React root */}
       </ErrorBoundary>
     );
 
