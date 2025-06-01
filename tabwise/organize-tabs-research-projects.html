@@ -33,12 +33,12 @@
       "dateModified": "2025-05-27",
       "author": {
         "@type": "Organization",
-        "name": "tabwise Team",
+        "name": "tabwise Team", 
         "url": "https://wise-suite.github.io/tabwise"
       },
       "publisher": {
         "@type": "Organization",
-        "name": "tabwise",
+        "name": "tabwise", 
         "logo": {
           "@type": "ImageObject",
           "url": "https://wise-suite.github.io/tabwise/logo.png"
@@ -61,10 +61,11 @@
         .error-boundary { color: red; text-align: center; padding: 16px; }
         .waitlist-input { transition: all 0.3s ease; }
         .waitlist-input:focus { border-color: #3B82F6; }
-        .modal-overlay { background: rgba(0, 0, 0, 0.5); }
+        /* .modal-overlay is part of the static modal HTML */
         .prose h2 { font-size: 1.5rem; font-weight: 600; color: #1E3A8A; margin-top: 2rem; margin-bottom: 1rem; }
+        .prose h3 { font-size: 1.25rem; font-weight: 600; color: #1E3A8A; margin-top: 1.5rem; margin-bottom: 0.75rem; }
         .prose p { margin-bottom: 1rem; line-height: 1.75; }
-        .prose a { color: #3B82F6; text-decoration: underline; }
+        .prose a { color: #3B82F6; text-decoration: underline; transition: color 0.3s ease; }
         .prose a:hover { color: #2563EB; }
         .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
         /* Custom focus style for accessibility */
@@ -72,10 +73,194 @@
           outline: none;
           box-shadow: 0 0 0 2px #bfdbfe, 0 0 0 4px #3b82f6; /* Equivalent to focus:ring-2 focus:ring-blue-500 */
         }
+        /* General button styling for consistency */
+        .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .button:hover { background: #2563EB; }
+        a, button { transition: all 0.3s ease; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-700">
+
+<nav class="bg-white shadow-sm fixed w-full z-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex">
+        <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center">
+          <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" class="h-8 w-8">
+          <span class="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
+        </a>
+      </div>
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
+        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
+        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
+        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
+        <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Sign Up for Beta">
+          Sign Up for Beta
+        </button>
+      </div>
+      <div class="md:hidden flex items-center">
+        <button id="mobile-menu-toggle" class="text-gray-600 hover:text-blue-600 focus-visible-ring" aria-label="Toggle mobile menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mobile-icon-path" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
+      <div class="flex flex-col space-y-2 px-4 py-2">
+        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
+        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
+        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
+        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600">Blog</a>
+        <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Sign Up for Beta">
+          Sign Up for Beta
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="waitlist-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
+      <button id="modal-close" class="text-gray-600 hover:text-gray-800 focus-visible-ring">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <p class="text-gray-600 mb-4">Be the first to try Tabwise when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
+    <input
+      type="email"
+      id="waitlist-email"
+      placeholder="Enter your email"
+      class="p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4 waitlist-input"
+    />
+    <button
+      id="waitlist-submit"
+      class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus-visible-ring"
+    >
+      Join Waitlist
+    </button>
+    <div id="waitlist-message" class="text-center text-sm mt-2 hidden"></div>
+  </div>
+</div>
+
 <div id="root"></div>
+
+<footer class="bg-blue-900 text-white py-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="mb-4">
+      <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center justify-center focus-visible-ring rounded">
+        <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6">
+        <span class="ml-2 text-lg font-semibold">Tabwise</span>
+      </a>
+    </div>
+    <div class="flex flex-wrap justify-center space-x-6 mb-4">
+      <a href="/tabwise/#features" class="text-white hover:text-gray-200 focus-visible-ring rounded">Features</a>
+      <a href="/tabwise/#pricing" class="text-white hover:text-gray-200 focus-visible-ring rounded">Pricing</a>
+      <a href="/tabwise/#experience" class="text-white hover:text-gray-200 focus-visible-ring rounded">Demo</a>
+      <a href="/tabwise/blog.html" class="text-white hover:text-gray-200 focus-visible-ring rounded">Blog</a>
+      <a href="/tabwise/terms.html" class="text-white hover:text-gray-200 focus-visible-ring rounded">Terms of Service</a>
+      <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200 focus-visible-ring rounded">Privacy Policy</a>
+      <a href="https://wise-suite.github.io/" class="text-white hover:text-gray-200 focus-visible-ring rounded">Wise Suite</a>
+    </div>
+    <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile Menu Toggle
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileIconPath = document.getElementById('mobile-icon-path');
+  if (mobileMenuToggle && mobileMenu && mobileIconPath) {
+    mobileMenuToggle.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      mobileIconPath.setAttribute('d', isOpen ? 'M4 6h16M4 12h16M4 18h16' : 'M6 18L18 6M6 6l12 12');
+    });
+  } else {
+    console.error("Mobile menu elements not found for event listener setup.");
+  }
+
+  // Waitlist Modal Logic
+  const modal = document.getElementById('waitlist-modal');
+  // Query all buttons that should open the waitlist modal
+  const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile, .open-static-waitlist-modal-trigger'); 
+  const closeModalButton = document.getElementById('modal-close');
+  const emailInput = document.getElementById('waitlist-email');
+  const submitButton = document.getElementById('waitlist-submit');
+  const messageDiv = document.getElementById('waitlist-message');
+
+  if (modal && closeModalButton && emailInput && submitButton && messageDiv) {
+    openModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+      });
+    });
+
+    closeModalButton.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      emailInput.value = '';
+      messageDiv.classList.add('hidden');
+      messageDiv.textContent = '';
+      messageDiv.className = 'text-center text-sm mt-2 hidden';
+    });
+
+    submitButton.addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        messageDiv.textContent = 'Please enter a valid email address.';
+        messageDiv.className = 'text-center text-sm mt-2 text-red-500';
+        setTimeout(() => {
+            messageDiv.classList.add('hidden');
+            messageDiv.className = 'text-center text-sm mt-2 hidden';
+        }, 3000);
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting...';
+      
+      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycustomurl/exec'; // User needs to update this
+
+      try {
+        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors', 
+          cache: 'no-cache',
+          body: JSON.stringify({ email: email, tool: 'Tabwise' }) 
+        });
+
+        messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
+        messageDiv.className = 'text-center text-sm mt-2 text-green-600';
+        emailInput.value = '';
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          messageDiv.classList.add('hidden');
+          messageDiv.className = 'text-center text-sm mt-2 hidden';
+        }, 2000);
+      } catch (error) {
+        console.error("Waitlist submission error:", error);
+        messageDiv.textContent = 'Failed to join waitlist. Please try again later.';
+        messageDiv.className = 'text-center text-sm mt-2 text-red-500';
+        setTimeout(() => {
+            messageDiv.classList.add('hidden');
+            messageDiv.className = 'text-center text-sm mt-2 hidden';
+        }, 3000);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Join Waitlist';
+      }
+    });
+  } else {
+      console.error("One or more waitlist modal elements not found for event listener setup.");
+  }
+</script>
+
 <script type="text/babel">
     const { useState } = React;
 
@@ -96,172 +281,27 @@
         return this.props.children;
       }
     }
-
-    // Waitlist Modal Component
-    const WaitlistModal = ({ isOpen, onClose, toolName }) => {
-      const [email, setEmail] = useState("");
-      const [message, setMessage] = useState("");
-      const [isLoading, setIsLoading] = useState(false); // New state for loading
-
-      const handleWaitlistSubmit = async () => { // Made async
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          setMessage("Please enter a valid email address.");
-          setTimeout(() => setMessage(""), 3000);
-          return;
+    
+    // Helper function to open the static modal (can be called from React components)
+    const openStaticWaitlistModal = () => {
+        const modal = document.getElementById('waitlist-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+        } else {
+            console.error("Static modal #waitlist-modal not found.");
         }
-
-        setIsLoading(true); // Start loading
-        setMessage(""); // Clear previous messages
-
-        // IMPORTANT: Replace with your actual Google Apps Script Web App URL
-        const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec"; // Make sure to update this!
-
-        try {
-          const response = await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
-              method: 'POST',
-              mode: 'no-cors', // Use no-cors for Google Apps Script to avoid CORS issues
-              cache: 'no-cache',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email: email, tool: toolName }) // Send data as JSON, including toolName
-          });
-
-          // Since mode: 'no-cors', we can't check response.ok or response.status.
-          // We assume success if no network error occurred.
-          setMessage(`Thank you for joining the ${toolName} waitlist!`);
-          setEmail("");
-          setTimeout(() => {
-            setMessage("");
-            onClose();
-          }, 2000);
-
-        } catch (error) {
-          console.error("Waitlist submission error:", error);
-          setMessage("Failed to join waitlist. Please try again later.");
-          setTimeout(() => setMessage(""), 3000);
-        } finally {
-            setIsLoading(false); // End loading
-        }
-      };
-
-      if (!isOpen) return null;
-
-      return (
-        <div className="modal-overlay fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-medium text-blue-900">Join the {toolName} Waitlist</h3>
-              <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
-            <p className="text-gray-600 mb-4">Be the first to try {toolName} when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="waitlist-input p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4"
-            />
-            <button
-              onClick={handleWaitlistSubmit}
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading}
-            >
-              {isLoading ? "Submitting..." : "Join Waitlist"}
-            </button>
-            {message && (
-              <div className={`text-center text-sm mt-2 ${message.includes("Thank") ? "text-green-600" : "text-red-500"}`}>
-                {message}
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    };
-    // Navigation Component
-    const Navbar = () => {
-      const [isModalOpen, setIsModalOpen] = useState(false);
-      const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-      return (
-        <nav className="bg-white shadow-sm fixed w-full z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                <a href="/tabwise/" className="flex-shrink-0 flex items-center">
-                  <img src="/tabwise/logo.png" alt="tabwise Logo for Browser Management" className="h-8 w-8"/>
-                  <span className="ml-2 text-xl font-bold text-blue-900">tabwise</span>
-                </a>
-              </div>
-              <div className="hidden md:flex items-center space-x-4">
-                <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
-                <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
-                <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
-                <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600"
-                >
-                  Join Waitlist
-                </button>
-              </div>
-              <div className="md:hidden flex items-center">
-                {/* Accessibility: Removed focus:outline-none and added focus-visible-ring */}
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="text-gray-600 hover:text-blue-600 focus-visible-ring"
-                  aria-label="Toggle mobile menu"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            {isMobileMenuOpen && (
-              <div className="md:hidden">
-                <div className="flex flex-col space-y-2 px-4 py-2">
-                  <a href="/tabwise/#features" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
-                  <a href="/tabwise/#pricing" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
-                  <a href="/tabwise/#experience" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Demo</a>
-                  <a href="/tabwise/blog.html" className="text-gray-600 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
-                  <button
-                    onClick={() => {
-                      setIsModalOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 w-full text-left"
-                  >
-                    Join Waitlist
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-        </nav>
-      );
     };
 
     // Article Content Component
     const ArticleContent = () => {
-      const [isModalOpen, setIsModalOpen] = useState(false);
+      // Removed isModalOpen state as static modal is used
 
       return (
-        <section className="pt-24 pb-16 bg-gray-50">
+        <section className="pt-24 pb-16 bg-gray-50"> {/* pt-24 for fixed navbar */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="lg:w-2/3">
-                <a href="/tabwise/blog.html" className="text-blue-500 hover:text-blue-600 mb-4 inline-block">
+                <a href="/tabwise/blog.html" className="text-blue-500 hover:text-blue-600 mb-4 inline-block focus-visible-ring rounded">
                   ← Back to Blog
                 </a>
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">How to Organize Tabs for Research Projects with Tab Management</h1>
@@ -273,19 +313,19 @@
                 <img
                   src="/tabwise/organize-tabs-research-projects.png"
                   alt="Organize tabs for research projects with tabwise"
-                  className="w-full h-64 object-cover rounded-lg mb-6 shadow-sm"
+                  className="w-full h-auto max-h-96 object-cover rounded-lg mb-6 shadow-sm"
                 />
-                <div className="prose prose-blue">
-                  <p className="text-gray-600 mb-8">Research projects often involve juggling dozens of browser tabs—articles, datasets, references, and more. Without proper tab management and tab organization, this can lead to chaos and lost productivity on <a href="https://www.google.com/chrome" target="_blank" rel="noopener noreferrer">Google Chrome</a>. In this guide, we’ll show you how to organize tabs for research projects using tabwise, a powerful Chrome extension designed to streamline your tab organization process. Learn more about <a href="/tabwise/why-tabwise-matters-2025.html">why tab management matters</a> in 2025.</p>
+                <div className="prose prose-blue max-w-none"> {/* Added max-w-none */}
+                  <p className="text-gray-600 mb-8">Research projects often involve juggling dozens of browser tabs—articles, datasets, references, and more. Without proper tab management and tab organization, this can lead to chaos and lost productivity on <a href="https://www.google.com/chrome" target="_blank" rel="noopener noreferrer" className="focus-visible-ring rounded">Google Chrome</a>. In this guide, we’ll show you how to organize tabs for research projects using tabwise, a powerful Chrome extension designed to streamline your tab organization process. Learn more about <a href="/tabwise/why-tab-management-matters-2025.html" className="focus-visible-ring rounded">why tab management matters</a> in 2025.</p>
 
                   <h2>Why Tab Management Is Essential for Research Projects</h2>
                   <p>Effective tab management is crucial for researchers. With the average research project requiring access to 20-50 tabs, poor tab organization can lead to wasted time searching for lost tabs, browser lag, and mental overload. tabwise helps by offering tools to categorize, save, and sync your tabs, ensuring seamless tab organization across devices.</p>
 
                   <h2>Step 1: Categorize Tabs by Research Topic</h2>
-                  <p>The first step in tab organization is grouping tabs by topic. tabwise’s AI-powered tab categorization automatically sorts your tabs into categories like "Literature Review," "Data Sources," or "Analysis Tools." This tab management feature ensures you can focus on your research without getting overwhelmed by clutter. Check out all <a href="/tabwise/#features">tabwise features</a>.</p>
+                  <p>The first step in tab organization is grouping tabs by topic. tabwise’s AI-powered tab categorization automatically sorts your tabs into categories like "Literature Review," "Data Sources," or "Analysis Tools." This tab management feature ensures you can focus on your research without getting overwhelmed by clutter. Check out all <a href="/tabwise/#features" className="focus-visible-ring rounded">tabwise features</a>.</p>
 
                   <h2>Step 2: Save Sessions for Each Research Phase</h2>
-                  <p>Research projects often have distinct phases—planning, data collection, analysis, and writing. With tabwise, you can save tab sessions for each phase, making tab organization effortless. For example, save all your data collection tabs in one session and switch to your writing tabs when drafting your paper. Learn more about session saving in our <a href="/tabwise/productivity-tabwise-categorization.html">10 Ways tabwise Boosts Productivity</a>.</p>
+                  <p>Research projects often have distinct phases—planning, data collection, analysis, and writing. With tabwise, you can save tab sessions for each phase, making tab organization effortless. For example, save all your data collection tabs in one session and switch to your writing tabs when drafting your paper. Learn more about session saving in our <a href="/tabwise/tabwise-productivity-benefits.html" className="focus-visible-ring rounded">10 Ways tabwise Boosts Productivity</a>.</p> {/* Corrected link */}
 
                   <h2>Step 3: Use Cloud Sync for Cross-Device Tab Organization</h2>
                   <p>Researchers often work on multiple devices—a laptop at the office, a tablet at home, or a desktop in the lab. tabwise’s cloud sync ensures your tab organization stays consistent across all devices, so you can pick up right where you left off, no matter where you are.</p>
@@ -300,7 +340,7 @@
                   <p>For power users, tabwise offers keyboard shortcuts to speed up tab organization. For example, quickly categorize tabs or switch between sessions with a few keystrokes, making your tab management process even more efficient.</p>
 
                   <h2>Conclusion: Master Tab Organization with tabwise</h2>
-                  <p>Organizing tabs for research projects doesn’t have to be overwhelming. With tabwise’s advanced tab management and tab organization features, you can keep your research tabs structured, accessible, and clutter-free. Pair it with other <a href="https://www.zotero.org" target="_blank" rel="noopener noreferrer">research tools</a> like Zotero for maximum efficiency. Ready to streamline your research workflow? <a href="/tabwise/#experience">Try tabwise today</a> and take your tab organization to the next level!</p>
+                  <p>Organizing tabs for research projects doesn’t have to be overwhelming. With tabwise’s advanced tab management and tab organization features, you can keep your research tabs structured, accessible, and clutter-free. Pair it with other <a href="https://www.zotero.org" target="_blank" rel="noopener noreferrer" className="focus-visible-ring rounded">research tools</a> like Zotero for maximum efficiency. Ready to streamline your research workflow? <a href="/tabwise/#experience" className="focus-visible-ring rounded">Try tabwise today</a> and take your tab organization to the next level!</p>
                 </div>
               </div>
               <div className="lg:w-1/3">
@@ -308,34 +348,39 @@
                   <h3 className="text-xl font-medium text-blue-900 mb-4">More on Tab Management</h3>
                   <ul className="space-y-4">
                     <li>
-                      <a href="/tabwise/why-tabwise-matters-2025.html" className="text-blue-500 hover:text-blue-600">
+                      <a href="/tabwise/why-tab-management-matters-2025.html" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded"> 
                         Why Tab Management Matters in 2025
                       </a>
                       <p className="text-sm text-gray-500 mt-1">May 10, 2025</p>
                     </li>
                     <li>
-                      <a href="/tabwise/productivity-tabwise-categorization.html" className="text-blue-500 hover:text-blue-600">
+                      <a href="/tabwise/tabwise-productivity-benefits.html" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded"> {/* Corrected link */}
                         10 Ways tabwise Boosts Productivity with Tab Management and Categorization
                       </a>
                       <p className="text-sm text-gray-500 mt-1">May 15, 2025</p>
                     </li>
                     <li>
-                      <a href="/tabwise/tabwise-vs-onetab-best-tabwise.html" className="text-blue-500 hover:text-blue-600">
+                      <a href="/tabwise/tabwise-vs-onetab-comparison.html" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded"> {/* Corrected link */}
                         tabwise vs OneTab: Best Chrome Tab Management Extension
                       </a>
                       <p className="text-sm text-gray-500 mt-1">May 20, 2025</p>
                     </li>
                     <li>
-                      <a href="/tabwise/best-tab-extensions-chrome-2025.html" className="text-blue-500 hover:text-blue-600">
+                      <a href="/tabwise/best-tab-extensions-chrome-2025.html" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">
                         Top Chrome Extensions for Organizing Tabs in 2025
                       </a>
                       <p className="text-sm text-gray-500 mt-1">April 30, 2025</p>
                     </li>
+                     <li>
+                      <a href="https://wise-suite.github.io/" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded" target="_blank" rel="noopener noreferrer">
+                        Visit Wise-Suite Homepage
+                      </a>
+                    </li>
                   </ul>
                   <div className="mt-6">
                     <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                      onClick={openStaticWaitlistModal} // Updated to call helper
+                      className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus-visible-ring"
                     >
                       Join the Waitlist
                     </button>
@@ -344,38 +389,17 @@
               </div>
             </div>
           </div>
-          <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
       );
     };
 
-    // Footer Component
-    const Footer = () => (
-      <footer className="bg-blue-900 text-white py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center mb-4 md:mb-0">
-              <img src="/tabwise/logo.png" alt="tabwise Logo for Browser Organization" className="h-8 w-8"/>
-              <span className="ml-2 text-lg font-medium">tabwise</span>
-            </div>
-            <div className="flex space-x-4">
-              <a href="/tabwise/privacy.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Privacy Policy">Privacy</a>
-              <a href="/tabwise/terms.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Terms of Service">Terms</a>
-              <a href="/tabwise/contact.html" className="hover:text-blue-300" rel="noopener noreferrer" aria-label="Contact Us">Contact</a>
-            </div>
-          </div>
-          <p className="text-center mt-4 text-gray-400 text-sm">© 2025 tabwise. All rights reserved.</p>
-        </div>
-      </footer>
-    );
-
     // Main App Component
     const App = () => (
       <ErrorBoundary>
-        <div>
-          <Navbar />
+        <div> {/* Main container for React content */}
+          {/* Static Navbar is rendered outside this React component */}
           <ArticleContent />
-          <Footer />
+          {/* Static Footer is rendered outside this React component */}
         </div>
       </ErrorBoundary>
     );
@@ -386,6 +410,10 @@
       root.render(<App />);
     } catch (err) {
       console.error("Error rendering app:", err);
+      const rootDiv = document.getElementById("root");
+      if (rootDiv) {
+        rootDiv.innerHTML = '<div class="error-boundary">Failed to load the application. Please check the console for errors.</div>';
+      }
     }
 </script>
 </body>
