@@ -1,33 +1,83 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Page Not Found - Redirecting</title>
-    <!-- Fallback meta refresh to the new homepage after a short delay -->
-    <meta http-equiv="refresh" content="7; url=https://thewisesuite.com/" />
+    <title>Page Not Found - Redirecting to thewisesuite.com</title>
+    <!-- Fallback meta refresh to the new homepage after a slightly longer delay -->
+    <meta http-equiv="refresh" content="10; url=https://thewisesuite.com/" />
+    <style>
+      body { font-family: sans-serif; padding: 20px; text-align: center; }
+      a { color: #007bff; }
+      #attempted-url-info { font-size: 0.9em; color: #6c757d; margin-top: 10px; }
+    </style>
     <script type="text/javascript">
-      var newDomain = "https://thewisesuite.com";
-      var oldPath = window.location.pathname; // This should be the path that triggered the 404
-      var newUrl = newDomain + oldPath + window.location.search + window.location.hash;
+      document.addEventListener("DOMContentLoaded", function() {
+        var newDomain = "https://thewisesuite.com";
+        
+        // On GitHub Pages, for a 404, window.location.pathname might be the path
+        // that was attempted, or it could be just "/" or "/404.html" depending on configuration
+        // and how the user landed there.
+        var attemptedPath = window.location.pathname;
+        var attemptedSearch = window.location.search;
+        var attemptedHash = window.location.hash;
 
-      // Update the message and link dynamically
-      var messageElement = document.getElementById("redirect-message-text");
-      var linkElement = document.getElementById("redirect-link");
+        // Construct the new URL.
+        // If your GitHub Pages site was like username.github.io/repo-name/, 
+        // you might need to strip "/repo-name" from attemptedPath if your new site doesn't use it.
+        // Example: var basePathToRemove = "/your-repo-name"; 
+        // if (attemptedPath.startsWith(basePathToRemove)) { 
+        //   attemptedPath = attemptedPath.substring(basePathToRemove.length); 
+        // }
+        // For wise-suite.github.io directly, this might not be needed unless there was a base path.
 
-      if (messageElement) {
-        messageElement.textContent = "The page you are looking for may have moved. We'll try to redirect you to the new location: ";
-      }
-      if (linkElement) {
-        linkElement.href = newUrl;
-        linkElement.textContent = newUrl;
-      }
-      
-      // Redirect after a short delay so the user can see the message
-      setTimeout(function() {
-        window.location.href = newUrl;
-      }, 5000); // 5-second delay
+        var newUrl = newDomain + attemptedPath + attemptedSearch + attemptedHash;
+
+        var messageTextElement = document.getElementById("redirect-message-text");
+        var linkElement = document.getElementById("redirect-link");
+        var attemptedUrlElement = document.getElementById("attempted-url-display");
+
+        if (attemptedUrlElement) {
+            // Display the URL the user tried to reach for clarity
+            attemptedUrlElement.textContent = window.location.href; 
+        }
+        
+        if (messageTextElement) {
+            messageTextElement.textContent = "The page you were looking for has moved or does not exist. We will attempt to redirect you to the equivalent page on our new domain: ";
+        }
+        
+        if (linkElement) {
+            linkElement.href = newUrl;
+            linkElement.textContent = newUrl;
+        }
+
+        // Log for debugging in browser console
+        console.log("GitHub Pages 404 Handler:");
+        console.log("Original URL that led to 404 (referrer, if available):", document.referrer);
+        console.log("Current URL of this 404 page:", window.location.href);
+        console.log("Pathname on 404 page being used for redirect:", attemptedPath);
+        console.log("Calculated new redirect URL:", newUrl);
+
+        // Redirect after a delay so the user can see the message and the link
+        setTimeout(function() {
+          // A simple check: if newUrl is just the new domain root or its 404 page,
+          // and the original path was something more specific, this might indicate
+          // an issue with path detection. The meta refresh will still go to the new homepage.
+          if (newUrl === newDomain + "/" || newUrl === newDomain + "/404.html") {
+            console.log("Redirecting to new homepage as path detection might be off or it's a root/404 path.");
+            window.location.href = newDomain + "/"; // Default to new homepage
+          } else {
+            window.location.href = newUrl;
+          }
+        }, 7000); // 7-second delay
+      });
     </script>
   </head>
   <body>
-    <p id="redirect-message-text">The page you are looking for has moved. If you are not redirected automatically, please <a id="redirect-link" href="https://thewisesuite.com/">click here to go to thewisesuite.com</a>.</p>
+    <p>
+      <span id="redirect-message-text">The page you are looking for has moved or does not exist. If you are not redirected automatically, please </span>
+      <a id="redirect-link" href="https://thewisesuite.com/">click here to go to thewisesuite.com</a>.
+    </p>
+    <p id="attempted-url-info">
+      Attempted URL: <span id="attempted-url-display"></span>
+    </p>
   </body>
 </html>
