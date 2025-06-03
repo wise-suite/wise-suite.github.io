@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=/" />
-    <script>
-      // JavaScript fallback
-      window.location.replace("/");
+    <title>Page Not Found - Redirecting</title>
+    <!-- Fallback meta refresh to the new homepage after a short delay -->
+    <meta http-equiv="refresh" content="7; url=https://thewisesuite.com/" />
+    <script type="text/javascript">
+      var newDomain = "https://thewisesuite.com";
+      var oldPath = window.location.pathname; // This should be the path that triggered the 404
+      var newUrl = newDomain + oldPath + window.location.search + window.location.hash;
+
+      // Update the message and link dynamically
+      var messageElement = document.getElementById("redirect-message-text");
+      var linkElement = document.getElementById("redirect-link");
+
+      if (messageElement) {
+        messageElement.textContent = "The page you are looking for may have moved. We'll try to redirect you to the new location: ";
+      }
+      if (linkElement) {
+        linkElement.href = newUrl;
+        linkElement.textContent = newUrl;
+      }
+      
+      // Redirect after a short delay so the user can see the message
+      setTimeout(function() {
+        window.location.href = newUrl;
+      }, 5000); // 5-second delay
     </script>
   </head>
   <body>
-    <p>If you are not redirected automatically, <a href="/">click here</a>.</p>
+    <p id="redirect-message-text">The page you are looking for has moved. If you are not redirected automatically, please <a id="redirect-link" href="https://thewisesuite.com/">click here to go to thewisesuite.com</a>.</p>
   </body>
 </html>
