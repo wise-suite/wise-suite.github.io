@@ -8,16 +8,46 @@
     <meta name="keywords" content="Tabwise privacy policy, browser management privacy, tab organization data, Chrome extension privacy"/>
     <meta name="author" content="Tabwise Team"/>
     <meta name="robots" content="index, follow"/>
-    <link rel="canonical" href="https://www.tabwise.app/tabwise/privacy.html"/>
+    <!-- Updated canonical URL -->
+    <link rel="canonical" href="https://thewisesuite.com/tabwise/privacy.html"/>
     <meta property="og:title" content="Tabwise Privacy Policy - Your Data, Our Responsibility"/>
     <meta property="og:description" content="Learn how Tabwise protects your data in our Chrome extension for browser management."/>
-    <meta property="og:image" content="https://www.tabwise.app/tabwise/logo.png"/>
-    <meta property="og:url" content="https://www.tabwise.app/tabwise/privacy.html"/>
+    <!-- Updated OG image URL -->
+    <meta property="og:image" content="https://thewisesuite.com/tabwise/logo.png"/>
+    <!-- Updated OG URL -->
+    <meta property="og:url" content="https://thewisesuite.com/tabwise/privacy.html"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="Tabwise Privacy Policy - Your Data, Our Responsibility"/>
     <meta name="twitter:description" content="Understand how Tabwise handles your data with our Chrome extension."/>
-    <meta name="twitter:image" content="https://www.tabwise.app/tabwise/logo.png"/>
+    <!-- Updated Twitter image URL -->
+    <meta name="twitter:image" content="https://thewisesuite.com/tabwise/logo.png"/>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage", // Changed from BlogPosting to WebPage as it's a policy page
+      "name": "Tabwise Privacy Policy",
+      "description": "Read Tabwise's Privacy Policy to understand how we handle your data while using our Chrome extension for browser management and organization.",
+      // "image": "https://thewisesuite.com/tabwise/logo.png", // Optional: image for the page itself
+      "url": "https://thewisesuite.com/tabwise/privacy.html",
+      "datePublished": "2025-05-23", // Assuming a publish date for the policy
+      "dateModified": "2025-05-23", // Assuming last modified date
+      "author": {
+        "@type": "Organization",
+        "name": "Tabwise Team",
+        "url": "https://thewisesuite.com/tabwise/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tabwise",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://thewisesuite.com/tabwise/logo.png"
+        }
+      }
+    }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
@@ -37,8 +67,8 @@
         .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
         /* Custom focus style for accessibility */
         .focus-visible-ring:focus-visible {
-          outline: none;
-          box-shadow: 0 0 0 2px #bfdbfe, 0 0 0 4px #3b82f6; /* Equivalent to focus:ring-2 focus:ring-blue-500 */
+          outline: 2px solid #3B82F6; /* Tailwind's ring-blue-500 equivalent */
+          outline-offset: 2px;
         }
         /* General button styling for consistency */
         .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
@@ -48,39 +78,44 @@
 </head>
 <body class="bg-gray-50 text-gray-700">
 
+<!-- Navigation Bar -->
 <nav class="bg-white shadow-sm fixed w-full z-10">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex">
-        <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center">
-          <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" class="h-8 w-8">
+        <!-- Updated logo link to Tabwise page on new domain -->
+        <a href="https://thewisesuite.com/tabwise/" class="flex-shrink-0 flex items-center focus-visible-ring rounded">
+          <!-- Assuming /tabwise/logo.png is at thewisesuite.com/tabwise/logo.png -->
+          <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" class="h-8 w-8" onerror="this.onerror=null; this.src='https://placehold.co/32x32/0284C7/FFFFFF?text=TW';">
           <span class="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
         </a>
       </div>
       <div class="hidden md:flex items-center space-x-4">
-        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
-        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
-        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
-        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
-        <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Sign Up for Beta">
+        <!-- Relative links, should work if this page is at /tabwise/ on the new domain -->
+        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded" aria-label="Features">Features</a>
+        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded" aria-label="Pricing">Pricing</a>
+        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded" aria-label="Demo">Demo</a>
+        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded" aria-label="Blog">Blog</a>
+        <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 focus-visible-ring" aria-label="Sign Up for Beta">
           Sign Up for Beta
         </button>
       </div>
       <div class="md:hidden flex items-center">
-        <button id="mobile-menu-toggle" class="text-gray-600 hover:text-blue-600 focus-visible-ring" aria-label="Toggle mobile menu">
+        <button id="mobile-menu-toggle" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded" aria-label="Toggle mobile menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mobile-icon-path" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
     </div>
+    <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
       <div class="flex flex-col space-y-2 px-4 py-2">
-        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
-        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
-        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
-        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600">Blog</a>
-        <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Sign Up for Beta">
+        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded">Features</a>
+        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded">Pricing</a>
+        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded">Demo</a>
+        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600 focus-visible-ring rounded">Blog</a>
+        <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left focus-visible-ring" aria-label="Sign Up for Beta">
           Sign Up for Beta
         </button>
       </div>
@@ -88,11 +123,12 @@
   </div>
 </nav>
 
+<!-- Waitlist Modal (remains unchanged) -->
 <div id="waitlist-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
   <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
     <div class="flex justify-between items-center mb-4">
       <h3 class="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
-      <button id="modal-close" class="text-gray-600 hover:text-gray-800 focus-visible-ring">
+      <button id="modal-close" class="text-gray-600 hover:text-gray-800 focus-visible-ring rounded">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
@@ -115,13 +151,17 @@
   </div>
 </div>
 
+<!-- React Root Element -->
 <div id="root"></div>
 
+<!-- Footer -->
 <footer class="bg-blue-900 text-white py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="mb-4">
-      <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center justify-center focus-visible-ring rounded">
-        <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6">
+      <!-- Updated logo link to Tabwise page on new domain -->
+      <a href="https://thewisesuite.com/tabwise/" class="flex-shrink-0 flex items-center justify-center focus-visible-ring rounded">
+        <!-- Assuming /tabwise/logo.png is at thewisesuite.com/tabwise/logo.png -->
+        <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=TW';">
         <span class="ml-2 text-lg font-semibold">Tabwise</span>
       </a>
     </div>
@@ -132,7 +172,8 @@
       <a href="/tabwise/blog.html" class="text-white hover:text-gray-200 focus-visible-ring rounded">Blog</a>
       <a href="/tabwise/terms.html" class="text-white hover:text-gray-200 focus-visible-ring rounded">Terms of Service</a>
       <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200 focus-visible-ring rounded">Privacy Policy</a>
-      <a href="https://wise-suite.github.io/" class="text-white hover:text-gray-200 focus-visible-ring rounded">Wise Suite</a>
+      <!-- Updated link to WiseSuite main page -->
+      <a href="https://thewisesuite.com/" class="text-white hover:text-gray-200 focus-visible-ring rounded">Wise Suite</a>
     </div>
     <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p>
   </div>
@@ -155,6 +196,7 @@
 
   // Waitlist Modal Logic
   const modal = document.getElementById('waitlist-modal');
+  // Query all buttons that should open the waitlist modal
   const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile, .open-static-waitlist-modal-trigger'); 
   const closeModalButton = document.getElementById('modal-close');
   const emailInput = document.getElementById('waitlist-email');
@@ -191,6 +233,7 @@
       submitButton.disabled = true;
       submitButton.textContent = 'Submitting...';
       
+      // IMPORTANT: User needs to replace with their actual Google Apps Script Web App URL
       const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec';
 
       try {
@@ -249,7 +292,7 @@
     }
     
     // Privacy Component (Main content for the privacy policy page)
-    const PrivacyContent = () => ( // Renamed to avoid conflict if 'Privacy' is a reserved keyword or for clarity
+    const PrivacyContent = () => ( 
       <section className="pt-24 pb-12 bg-gray-50"> {/* Added pt-24 for fixed navbar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold text-blue-900 text-center mb-8">Privacy Policy</h1>
@@ -298,7 +341,7 @@
               You have control over your data:
             </p>
             <ul>
-              <li>You can request deletion of your waitlist email by contacting us at <a href="mailto:wisesuitecontact@gmail.com" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">wisesuitecontact@gmail.com</a>. (Note: Email updated to wisesuitecontact@gmail.com for consistency with other pages).</li>
+              <li>You can request deletion of your waitlist email by contacting us at <a href="mailto:wisesuitecontact@gmail.com" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">wisesuitecontact@gmail.com</a>.</li>
               <li>Tab data stored locally can be cleared by uninstalling the Tabwise extension or by using the extension's built-in options to clear data (where available).</li>
               <li>For Pro users with cloud sync, you can delete your synced data through your account settings or by contacting support.</li>
             </ul>
@@ -310,7 +353,7 @@
             
             <h2>Contact Us</h2>
             <p>
-              If you have questions about this policy, please reach out to us at <a href="mailto:wisesuitecontact@gmail.com" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">wisesuitecontact@gmail.com</a>. (Note: Email updated for consistency).
+              If you have questions about this policy, please reach out to us at <a href="mailto:wisesuitecontact@gmail.com" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">wisesuitecontact@gmail.com</a>.
             </p>
           </div>
         </div>
