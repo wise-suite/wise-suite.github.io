@@ -8,16 +8,20 @@
     <meta name="keywords" content="Tabwise contact, browser management support, tab organization help, Chrome extension support"/>
     <meta name="author" content="Tabwise Team"/>
     <meta name="robots" content="index, follow"/>
-    <link rel="canonical" href="https://www.tabwise.app/tabwise/contact.html"/>
+    <!-- Updated canonical URL -->
+    <link rel="canonical" href="https://thewisesuite.com/tabwise/contact.html"/>
     <meta property="og:title" content="Contact Tabwise - Get in Touch for Support"/>
     <meta property="og:description" content="Reach out to the Tabwise team for help with our browser management and organization Chrome extension."/>
-    <meta property="og:image" content="https://www.tabwise.app/tabwise/logo.png"/>
-    <meta property="og:url" content="https://www.tabwise.app/tabwise/contact.html"/>
+    <!-- Updated OG image URL -->
+    <meta property="og:image" content="https://thewisesuite.com/tabwise/logo.png"/>
+    <!-- Updated OG URL -->
+    <meta property="og:url" content="https://thewisesuite.com/tabwise/contact.html"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="Contact Tabwise - Get in Touch for Support"/>
     <meta name="twitter:description" content="Contact the Tabwise team for support with our browser management Chrome extension."/>
-    <meta name="twitter:image" content="https://www.tabwise.app/tabwise/logo.png"/>
+    <!-- Updated Twitter image URL -->
+    <meta name="twitter:image" content="https://thewisesuite.com/tabwise/logo.png"/>
 
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
@@ -38,27 +42,26 @@
         .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
         .button:hover { background: #2563EB; }
         a, button { transition: all 0.3s ease; } 
-        /* Custom styles for form elements if needed, though Tailwind handles most */
-        .form-input, .form-textarea {
-            @apply w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
-        }
-        .form-label {
-            @apply block text-sm font-medium text-gray-700 mb-1;
-        }
+        /* Removed @apply rules as they won't work directly with CDN Tailwind in <style> block. 
+           Equivalent classes will be applied directly in JSX. */
     </style>
 </head>
 <body class="bg-gray-50 text-gray-700">
 
+<!-- Navigation Bar -->
 <nav class="bg-white shadow-sm fixed w-full z-10">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex">
-        <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center">
-          <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" class="h-8 w-8">
+        <!-- Updated logo link to Tabwise page on new domain -->
+        <a href="https://thewisesuite.com/tabwise/" class="flex-shrink-0 flex items-center">
+          <!-- Assuming /tabwise/logo.png is at thewisesuite.com/tabwise/logo.png -->
+          <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" class="h-8 w-8" onerror="this.onerror=null; this.src='https://placehold.co/32x32/0284C7/FFFFFF?text=TW';">
           <span class="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
         </a>
       </div>
       <div class="hidden md:flex items-center space-x-4">
+        <!-- Relative links, should work if /tabwise/ is a path on the new domain -->
         <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
         <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
         <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
@@ -75,6 +78,7 @@
         </button>
       </div>
     </div>
+    <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
       <div class="flex flex-col space-y-2 px-4 py-2">
         <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
@@ -89,6 +93,7 @@
   </div>
 </nav>
 
+<!-- Waitlist Modal (remains unchanged) -->
 <div id="waitlist-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
   <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
     <div class="flex justify-between items-center mb-4">
@@ -116,13 +121,17 @@
   </div>
 </div>
 
+<!-- React Root Element -->
 <div id="root"></div>
 
+<!-- Footer -->
 <footer class="bg-blue-900 text-white py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="mb-4">
-      <a href="https://wise-suite.github.io/" class="flex-shrink-0 flex items-center justify-center">
-        <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6">
+      <!-- Updated logo link to Tabwise page on new domain -->
+      <a href="https://thewisesuite.com/tabwise/" class="flex-shrink-0 flex items-center justify-center">
+        <!-- Assuming /tabwise/logo.png is at thewisesuite.com/tabwise/logo.png -->
+        <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=TW';">
         <span class="ml-2 text-lg font-semibold">Tabwise</span>
       </a>
     </div>
@@ -133,7 +142,8 @@
       <a href="/tabwise/blog.html" class="text-white hover:text-gray-200">Blog</a>
       <a href="/tabwise/terms.html" class="text-white hover:text-gray-200">Terms of Service</a>
       <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200">Privacy Policy</a>
-      <a href="https://wise-suite.github.io/" class="text-white hover:text-gray-200">Wise Suite</a>
+      <!-- Updated link to WiseSuite main page -->
+      <a href="https://thewisesuite.com/" class="text-white hover:text-gray-200">Wise Suite</a>
     </div>
     <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p>
   </div>
@@ -156,7 +166,8 @@
 
   // Waitlist Modal Logic (shared by navbar and contact page button)
   const modal = document.getElementById('waitlist-modal');
-  const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile, #open-waitlist-contact'); // Added contact page button ID
+  // Ensure all buttons that should open this modal are included in the selector
+  const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile, #open-waitlist-contact'); 
   const closeModalButton = document.getElementById('modal-close');
   const emailInput = document.getElementById('waitlist-email');
   const submitButton = document.getElementById('waitlist-submit');
@@ -192,14 +203,15 @@
       submitButton.disabled = true;
       submitButton.textContent = 'Submitting...';
       
-      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec';
+      // IMPORTANT: User needs to replace with their actual Google Apps Script Web App URL for the waitlist
+      const GOOGLE_SHEETS_WEB_APP_URL_WAITLIST = 'https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec';
 
       try {
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+        await fetch(GOOGLE_SHEETS_WEB_APP_URL_WAITLIST, { // Using waitlist URL for this modal
           method: 'POST',
           mode: 'no-cors', 
           cache: 'no-cache',
-          body: JSON.stringify({ email: email, tool: 'Tabwise Waitlist/Contact' }) // Generic tool name for this modal
+          body: JSON.stringify({ email: email, tool: 'Tabwise Waitlist/Contact Modal' }) 
         });
 
         messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
@@ -211,7 +223,7 @@
           messageDiv.className = 'text-center text-sm mt-2 hidden';
         }, 2000);
       } catch (error) {
-        console.error("Submission error:", error);
+        console.error("Waitlist modal submission error:", error);
         messageDiv.textContent = 'Failed to submit. Please try again later.';
         messageDiv.className = 'text-center text-sm mt-2 text-red-500';
         setTimeout(() => {
@@ -258,7 +270,7 @@
         subject: '',
         message: ''
       });
-      const [formMessage, setFormMessage] = useState('');
+      const [formMessage, setFormMessage] = useState({ text: '', type: '' }); // Changed to object for type
       const [isFormLoading, setIsFormLoading] = useState(false);
 
       const handleInputChange = (e) => {
@@ -270,20 +282,20 @@
         e.preventDefault(); // Prevent default form submission
         if (!formData.name || !formData.email || !formData.subject || !formData.message) {
           setFormMessage({ text: 'Please fill in all fields.', type: 'error' });
-          setTimeout(() => setFormMessage(''), 3000);
+          setTimeout(() => setFormMessage({ text: '', type: '' }), 3000);
           return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
           setFormMessage({ text: 'Please enter a valid email address.', type: 'error' });
-          setTimeout(() => setFormMessage(''), 3000);
+          setTimeout(() => setFormMessage({ text: '', type: '' }), 3000);
           return;
         }
 
         setIsFormLoading(true);
-        setFormMessage('');
+        setFormMessage({ text: '', type: '' }); // Clear previous message
 
-        // IMPORTANT: Replace with your actual Google Apps Script Web App URL
-        const GOOGLE_SHEETS_WEB_APP_URL_CONTACT = 'https://script.google.com/macros/s/AKfycustomurl/exec'; // User needs to update this, could be same or different from waitlist
+        // IMPORTANT: User needs to replace with their actual Google Apps Script Web App URL for contact form
+        const GOOGLE_SHEETS_WEB_APP_URL_CONTACT = 'https://script.google.com/macros/s/AKfycustomurl/exec'; // Placeholder URL
 
         try {
           const payload = {
@@ -302,12 +314,12 @@
           // Assuming success due to 'no-cors'
           setFormMessage({ text: 'Thank you for your message! We will get back to you soon.', type: 'success' });
           setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
-          setTimeout(() => setFormMessage(''), 5000);
+          setTimeout(() => setFormMessage({ text: '', type: '' }), 5000);
 
         } catch (error) {
           console.error("Contact form submission error:", error);
           setFormMessage({ text: 'Failed to send message. Please try again later or email us directly.', type: 'error' });
-          setTimeout(() => setFormMessage(''), 5000);
+          setTimeout(() => setFormMessage({ text: '', type: '' }), 5000);
         } finally {
           setIsFormLoading(false);
         }
@@ -321,6 +333,10 @@
           console.error("Static modal 'waitlist-modal' not found from ContactContent.");
         }
       };
+
+      // Define Tailwind classes for form elements to replace @apply rules
+      const formInputClasses = "w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+      const formLabelClasses = "block text-sm font-medium text-gray-700 mb-1";
 
       return (
         <section className="pt-24 pb-12 bg-gray-50"> {/* Added pt-24 for fixed navbar */}
@@ -336,20 +352,20 @@
                 <h2 className="text-2xl font-semibold text-blue-800 mb-6">Send us a Message</h2>
                 <form onSubmit={handleContactFormSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="form-label">Full Name</label>
-                    <input type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} className="form-input" required />
+                    <label htmlFor="name" className={formLabelClasses}>Full Name</label>
+                    <input type="text" name="name" id="name" value={formData.name} onChange={handleInputChange} className={formInputClasses} required />
                   </div>
                   <div>
-                    <label htmlFor="email" className="form-label">Email Address</label>
-                    <input type="email" name="email" id="email" value={formData.email} onChange={handleInputChange} className="form-input" required />
+                    <label htmlFor="email" className={formLabelClasses}>Email Address</label>
+                    <input type="email" name="email" id="email" value={formData.email} onChange={handleInputChange} className={formInputClasses} required />
                   </div>
                   <div>
-                    <label htmlFor="subject" className="form-label">Subject</label>
-                    <input type="text" name="subject" id="subject" value={formData.subject} onChange={handleInputChange} className="form-input" required />
+                    <label htmlFor="subject" className={formLabelClasses}>Subject</label>
+                    <input type="text" name="subject" id="subject" value={formData.subject} onChange={handleInputChange} className={formInputClasses} required />
                   </div>
                   <div>
-                    <label htmlFor="message" className="form-label">Message</label>
-                    <textarea name="message" id="message" rows="4" value={formData.message} onChange={handleInputChange} className="form-textarea" required></textarea>
+                    <label htmlFor="message" className={formLabelClasses}>Message</label>
+                    <textarea name="message" id="message" rows="4" value={formData.message} onChange={handleInputChange} className={formInputClasses + " resize-y"} required></textarea> {/* Added resize-y */}
                   </div>
                   <div>
                     <button 
@@ -415,7 +431,7 @@
     try {
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
-    } catch (err) {
+    } catch (err) { // Added opening curly brace here
       console.error("Error rendering app:", err);
       const rootDiv = document.getElementById("root");
       if (rootDiv) {
