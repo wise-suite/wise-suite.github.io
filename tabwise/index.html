@@ -3,24 +3,20 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Tabwise: Smart Tab Manager for Chrome - Auto-Categorize & Sync Tabs</title>
-    <meta name="description" content="Tabwise auto-categorizes Chrome tabs, saves sessions locally, and syncs across devices for seamless productivity."/>
-    <meta name="keywords" content="Tabwise, tab manager, tab organizer, chrome extension, browser productivity, auto-categorization, session saving, cloud sync, browser management"/>
+    <title>🧠 Tabwise: Chrome Tab Manager to Save, Group & Restore Tabs</title>
+    <meta name="description" content="Tabwise is the smart, fast, and secure Chrome tab manager that helps you group tabs by category, save them with notes, and restore them across sessions."/>
+    <meta name="keywords" content="Tabwise, chrome tab manager, group tabs, save tabs, restore tabs, session manager, Workona alternative, OneTab alternative, productivity, AI tab manager"/>
     <meta name="author" content="Tabwise Team"/>
     <meta name="robots" content="index, follow"/>
-    <!-- Updated canonical URL -->
     <link rel="canonical" href="https://thewisesuite.com/tabwise/"/>
-    <meta property="og:title" content="Tabwise: Smart Tab Manager for Chrome"/>
-    <meta property="og:description" content="Tabwise auto-categorizes Chrome tabs, saves sessions, and syncs across devices. Join the waitlist for smarter Browse!"/>
-    <!-- Updated OG image URL -->
+    <meta property="og:title" content="🧠 Tabwise: Chrome Tab Manager to Save, Group & Restore Tabs"/>
+    <meta property="og:description" content="Tabwise helps you group tabs by category, save them with notes, and restore them across sessions. Built for productivity, privacy, and peace of mind."/>
     <meta property="og:image" content="https://thewisesuite.com/tabwise/logo.png"/>
-    <!-- Updated OG URL -->
     <meta property="og:url" content="https://thewisesuite.com/tabwise/"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="Tabwise: Smart Tab Manager for Chrome"/>
-    <meta name="twitter:description" content="Tabwise auto-categorizes Chrome tabs, saves sessions, and syncs across devices. Join the waitlist for smarter Browse!"/>
-    <!-- Updated Twitter image URL -->
+    <meta name="twitter:title" content="🧠 Tabwise: Chrome Tab Manager to Save, Group & Restore Tabs"/>
+    <meta name="twitter:description" content="Tabwise helps you group tabs by category, save them with notes, and restore them across sessions."/>
     <meta name="twitter:image" content="https://thewisesuite.com/tabwise/logo.png"/>
     <script type="application/ld+json">
     {
@@ -29,8 +25,7 @@
       "name": "Tabwise",
       "operatingSystem": "Chrome",
       "applicationCategory": "Productivity",
-      "description": "Tabwise is a Chrome extension for tab management, offering auto-categorization, session saving, and cloud sync to boost productivity."
-      // No direct URLs here to update, but if "url" or "image" properties were present, they'd need updating.
+      "description": "Tabwise is a Chrome tab manager for grouping, saving, and restoring tabs with enhanced features like notes, password protection, and export options."
     }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
@@ -49,6 +44,54 @@
         .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
         .button:hover { background: #2563EB; }
         a, button { transition: all 0.3s ease; }
+
+        /* Styles for the features slider */
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-250px * 9)); } /* 250px card width * 9 cards */
+        }
+        .slider {
+          height: 180px;
+          margin: auto;
+          overflow: hidden;
+          position: relative;
+          width: 100%;
+        }
+        .slider::before,
+        .slider::after {
+          background: linear-gradient(to right, rgba(249,250,251,1) 0%, rgba(249,250,251,0) 100%);
+          content: "";
+          height: 100%;
+          position: absolute;
+          width: 15%;
+          z-index: 2;
+        }
+        .slider::before {
+            left: 0;
+            top: 0;
+        }
+        .slider::after {
+            right: 0;
+            top: 0;
+            transform: rotateZ(180deg);
+        }
+        .slider .slide-track {
+          animation: scroll 40s linear infinite;
+          display: flex;
+          width: calc(250px * 18); /* 2x the number of cards */
+        }
+        .slider:hover .slide-track {
+            animation-play-state: paused;
+        }
+        .slider .slide {
+          height: 150px;
+          width: 250px;
+          padding: 15px;
+          perspective: 100px;
+          margin: 0 1rem;
+        }
+        .faq-question { cursor: pointer; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-700">
@@ -58,21 +101,20 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex">
-        <!-- Updated logo link to Tabwise page on new domain -->
         <a href="https://thewisesuite.com/tabwise/" class="flex-shrink-0 flex items-center">
-          <!-- Assuming /tabwise/logo.png is at thewisesuite.com/tabwise/logo.png -->
           <img src="/tabwise/logo.png" alt="Tabwise Logo - Smart Tab Manager" class="h-8 w-8" onerror="this.onerror=null; this.src='https://placehold.co/32x32/0284C7/FFFFFF?text=TW';">
           <span class="ml-2 text-xl font-bold text-blue-900">Tabwise</span>
         </a>
       </div>
       <div class="hidden md:flex items-center space-x-4">
-        <!-- Relative links, should work if this page is at /tabwise/ on the new domain -->
-        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
-        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
-        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
-        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
-        <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Sign Up for Beta">
-          Sign Up for Beta
+        <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
+        <a href="#compare" class="text-gray-600 hover:text-blue-600">Compare</a>
+        <a href="#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
+        <a href="#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
+        <a href="#faq" class="text-gray-600 hover:text-blue-600">FAQ</a>
+        <a href="#blog" class="text-gray-600 hover:text-blue-600">Blog</a>
+        <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600">
+          Join the Waitlist →
         </button>
       </div>
       <div class="md:hidden flex items-center">
@@ -86,12 +128,14 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
       <div class="flex flex-col space-y-2 px-4 py-2">
-        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
-        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
-        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
-        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600">Blog</a>
-        <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Sign Up for Beta">
-          Sign Up for Beta
+        <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
+        <a href="#compare" class="text-gray-600 hover:text-blue-600">Compare</a>
+        <a href="#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
+        <a href="#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
+        <a href="#faq" class="text-gray-600 hover:text-blue-600">FAQ</a>
+        <a href="#blog" class="text-gray-600 hover:text-blue-600">Blog</a>
+        <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left">
+          Join the Waitlist
         </button>
       </div>
     </div>
@@ -104,24 +148,12 @@
     <div class="flex justify-between items-center mb-4">
       <h3 class="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
       <button id="modal-close" class="text-gray-600 hover:text-gray-800">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-    <p class="text-gray-600 mb-4">Be the first to try Tabwise when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
-    <input
-      type="email"
-      id="waitlist-email"
-      placeholder="Enter your email"
-      class="p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4 waitlist-input"
-    />
-    <button
-      id="waitlist-submit"
-      class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-    >
-      Join Waitlist
-    </button>
+    <p class="text-gray-600 mb-4">Be the first to try Tabwise when it launches! We’ll notify you when it’s ready.</p>
+    <input type="email" id="waitlist-email" placeholder="Enter your email" class="p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4 waitlist-input"/>
+    <button id="waitlist-submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Join Waitlist</button>
     <div id="waitlist-message" class="text-center text-sm mt-2 hidden"></div>
   </div>
 </div>
@@ -133,41 +165,26 @@
 <footer id="wisesuite-footer" class="bg-blue-900 text-white py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="mb-4">
-      <!-- Updated logo link to Tabwise page on new domain -->
       <a href="https://thewisesuite.com/tabwise/" class="flex-shrink-0 flex items-center justify-center">
-        <!-- Assuming /tabwise/logo.png is at thewisesuite.com/tabwise/logo.png -->
         <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=TW';">
         <span class="ml-2 text-lg font-semibold">Tabwise</span>
       </a>
     </div>
     <div class="flex flex-wrap justify-center space-x-6 mb-4">
-      <a href="/tabwise/#features" class="text-white hover:text-gray-200">Features</a>
-      <a href="/tabwise/#pricing" class="text-white hover:text-gray-200">Pricing</a>
-      <a href="/tabwise/#experience" class="text-white hover:text-gray-200">Demo</a>
-      <a href="/tabwise/blog.html" class="text-white hover:text-gray-200">Blog</a>
-      <a href="/tabwise/terms.html" class="text-white hover:text-gray-200">Terms of Service</a>
-      <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200">Privacy Policy</a>
-      <!-- Updated link to WiseSuite main page -->
-      <a href="https://thewisesuite.com/" class="text-white hover:text-gray-200">Wise Suite</a>
+      <a href="#features" class="text-white hover:text-gray-200">Features</a>
+      <a href="#compare" class="text-white hover:text-gray-200">Compare</a>
+      <a href="#experience" class="text-white hover:text-gray-200">Demo</a>
+      <a href="#pricing" class="text-white hover:text-gray-200">Pricing</a>
+      <a href="#faq" class="text-white hover:text-gray-200">FAQ</a>
+      <a href="#blog" class="text-white hover:text-gray-200">Blog</a>
+      <a href="/tabwise/terms.html" class="text-white hover:text-gray-200">Terms</a>
+      <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200">Privacy</a>
     </div>
     <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
-  // Prevent duplicate footer rendering (if this script is included on multiple pages that might be aggregated)
-  document.addEventListener('DOMContentLoaded', () => {
-    const footers = document.querySelectorAll('footer');
-    if (footers.length > 1) {
-      console.warn('Multiple footers detected. Keeping only the one with id="wisesuite-footer".');
-      footers.forEach(footer => {
-        if (footer.id !== 'wisesuite-footer') {
-          footer.remove();
-        }
-      });
-    }
-  });
-
   // Mobile Menu Toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -178,9 +195,12 @@
       mobileMenu.classList.toggle('hidden');
       mobileIconPath.setAttribute('d', isOpen ? 'M4 6h16M4 12h16M4 18h16' : 'M6 18L18 6M6 6l12 12');
     });
-  } else {
-    console.error("Mobile menu elements not found for event listener setup.");
   }
+  
+  const openStaticWaitlistModal = () => {
+    const modal = document.getElementById('waitlist-modal');
+    if (modal) modal.classList.remove('hidden');
+  };
 
   // Waitlist Modal Logic
   const modal = document.getElementById('waitlist-modal');
@@ -191,69 +211,35 @@
   const messageDiv = document.getElementById('waitlist-message');
 
   if (modal && closeModalButton && emailInput && submitButton && messageDiv) {
-    openModalButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-      });
-    });
-
-    closeModalButton.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      emailInput.value = '';
-      messageDiv.classList.add('hidden');
-      messageDiv.textContent = '';
-      messageDiv.className = 'text-center text-sm mt-2 hidden';
-    });
+    openModalButtons.forEach(button => button.addEventListener('click', openStaticWaitlistModal));
+    closeModalButton.addEventListener('click', () => modal.classList.add('hidden'));
 
     submitButton.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
+       const email = emailInput.value.trim();
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         messageDiv.textContent = 'Please enter a valid email address.';
         messageDiv.className = 'text-center text-sm mt-2 text-red-500';
-        setTimeout(() => {
-            messageDiv.classList.add('hidden');
-            messageDiv.className = 'text-center text-sm mt-2 hidden';
-        }, 3000);
+        messageDiv.classList.remove('hidden');
         return;
       }
-
       submitButton.disabled = true;
       submitButton.textContent = 'Submitting...';
-      
-      // IMPORTANT: User needs to replace with their actual Google Apps Script Web App URL
       const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec';
-
       try {
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          cache: 'no-cache',
-          body: JSON.stringify({ email: email, tool: 'Tabwise' })
-        });
-
+        await fetch(GOOGLE_SHEETS_WEB_APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: email, tool: 'Tabwise' }) });
         messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
         messageDiv.className = 'text-center text-sm mt-2 text-green-600';
         emailInput.value = '';
-        setTimeout(() => {
-          modal.classList.add('hidden');
-          messageDiv.classList.add('hidden');
-          messageDiv.className = 'text-center text-sm mt-2 hidden';
-        }, 2000);
+        setTimeout(() => modal.classList.add('hidden'), 2000);
       } catch (error) {
-        console.error("Waitlist submission error:", error);
         messageDiv.textContent = 'Failed to join waitlist. Please try again later.';
         messageDiv.className = 'text-center text-sm mt-2 text-red-500';
-        setTimeout(() => {
-            messageDiv.classList.add('hidden');
-            messageDiv.className = 'text-center text-sm mt-2 hidden';
-        }, 3000);
       } finally {
         submitButton.disabled = false;
         submitButton.textContent = 'Join Waitlist';
+        setTimeout(() => messageDiv.classList.add('hidden'), 3000);
       }
     });
-  } else {
-      console.error("One or more waitlist modal elements not found for event listener setup.");
   }
 </script>
 
@@ -262,33 +248,33 @@
 
     // Error Boundary Component
     class ErrorBoundary extends React.Component {
-      state = { hasError: false, error: null };
-      static getDerivedStateFromError(error) {
-        console.error("ErrorBoundary caught:", error);
-        return { hasError: true, error };
-      }
-      componentDidCatch(error, errorInfo) {
-        console.error("ErrorBoundary info:", errorInfo);
-      }
+      state = { hasError: false };
+      static getDerivedStateFromError(error) { return { hasError: true }; }
       render() {
-        if (this.state.hasError) {
-          return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
-        }
+        if (this.state.hasError) return <div className="error-boundary">Something went wrong.</div>;
         return this.props.children;
       }
     }
     
-    // Helper function to open the static modal
-    const openStaticWaitlistModal = () => {
-        const modal = document.getElementById('waitlist-modal');
-        if (modal) {
-            modal.classList.remove('hidden');
-        } else {
-            console.error("Static modal #waitlist-modal not found.");
-        }
+    // --- REACT COMPONENTS WITH UPDATED CONTENT ---
+    
+    // NEW: Robust Image Component to handle errors gracefully
+    const ImageWithFallback = ({ src, fallbackSrc, alt, className }) => {
+        const [currentSrc, setCurrentSrc] = useState(src);
+
+        useEffect(() => {
+            setCurrentSrc(src);
+        }, [src]);
+
+        const handleError = () => {
+            setCurrentSrc(fallbackSrc);
+        };
+
+        return <img src={currentSrc} onError={handleError} alt={alt} className={className} />;
     };
 
-    // Hero Component
+
+   // Hero Component
     const Hero = () => (
       <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
@@ -327,39 +313,104 @@
       </section>
     );
 
-    // Features Component
-    const Features = () => (
-      <section id="features" className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Why Choose Tabwise?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Auto-Categorize Your Tabs Effortlessly",
-                desc: "Tabwise’s smart tab manager groups Chrome tabs by topic, saving researchers time and reducing browser clutter. <a href='/tabwise/tabwise-productivity-benefits.html' class='text-blue-500 hover:text-blue-600'>Read our productivity guide</a>."
-              },
-              {
-                title: "Seamlessly Save Tabs Locally for Later",
-                desc: "Save sessions locally with Tabwise’s Chrome extension to revisit them anytime. Perfect for students organizing study materials without slowing your browser. <a href='/tabwise/terms.html' class='text-blue-500 hover:text-blue-600'>See our Terms</a>."
-              },
-              {
-                title: "Sync Tabs Across Devices",
-                desc: "Access tabs anywhere with cloud syncing. Developers can streamline workflows by keeping project tabs consistent across devices. <a href='/tabwise/browser-tab-management-guide.html' class='text-blue-500 hover:text-blue-600'>Learn more</a>."
-              }
-            ].map((feature, index) => (
-              <div key={index} className="bg-white p-5 rounded-lg shadow-sm text-center">
-                <div className="h-12 w-12 mx-auto mb-3 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg className="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium text-blue-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: feature.desc }}></p>
+    // Features Component (UPDATED with slider)
+    const Features = () => {
+      const featureList = [
+        { icon: '🗂️', title: 'Group Tabs into Custom Categories' },
+        { icon: '📝', title: 'Add Notes and Tags to Tabs' },
+        { icon: '🔐', title: 'Secure Sensitive Categories' },
+        { icon: '💾', title: 'Auto-Save on Close' },
+        { icon: '🔄', title: 'Restore Tabs Instantly' },
+        { icon: '📤', title: 'Export to Excel or Notion' },
+        { icon: '🔍', title: 'Quick Search (Ctrl+K)' },
+        { icon: ' ', title: 'Smart Nudges' },
+        { icon: '🧭', title: 'Multi-Window Aware' },
+      ];
+      
+      return (
+        <section id="features" className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">✨ Key Features at a Glance</h2>
+            <div className="slider">
+              <div className="slide-track">
+                {[...featureList, ...featureList].map((feature, index) => (
+                  <div key={index} className="slide">
+                    <div className="bg-white p-4 rounded-lg shadow-md text-center h-full flex flex-col justify-center items-center">
+                      <div className="text-3xl mb-2">{feature.icon}</div>
+                      <h3 className="text-md font-medium text-blue-900 leading-tight">{feature.title}</h3>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Comparison Table Component
+    const Comparison = () => (
+      <section id="compare" className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">⚔️ Tabwise vs. The Competition</h2>
+          <div className="overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="min-w-full text-center divide-y divide-gray-200">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                  <th className="px-6 py-3 text-xs font-medium text-blue-700 uppercase tracking-wider">Tabwise</th>
+                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Workona</th>
+                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">OneTab</th>
+                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Chrome Groups</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {[
+                  { feature: 'Group tabs into categories', tabwise: '✅', workona: '✅', onetab: '❌', chrome: '✅' },
+                  { feature: 'Add notes per tab', tabwise: '✅', workona: '❌', onetab: '❌', chrome: '❌' },
+                  { feature: 'Secure categories with password', tabwise: '✅ (bcrypt)', workona: '❌', onetab: '❌', chrome: '❌' },
+                  { feature: 'Auto-save & restore sessions', tabwise: '✅', workona: '✅', onetab: '❌', chrome: '❌' },
+                  { feature: 'Export/import tabs (Excel)', tabwise: '✅', workona: '❌', onetab: '❌', chrome: '❌' },
+                  { feature: 'Export to Notion/Markdown', tabwise: '✅', workona: '❌', onetab: '❌', chrome: '❌' },
+                  { feature: 'Cross-window tab management', tabwise: '✅', workona: '❌', onetab: '❌', chrome: '❌' },
+                  { feature: 'Fast search with Ctrl+K', tabwise: '✅', workona: '✅', onetab: '❌', chrome: '❌' },
+                  { feature: 'Minimal UI / Focus mode', tabwise: '✅', workona: '❌', onetab: '❌', chrome: '❌' },
+                ].map((row, index) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">{row.feature}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-bold">{row.tabwise}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.workona}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.onetab}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.chrome}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
+    );
+    
+    // WhoIsItFor Component
+    const WhoIsItFor = () => (
+        <section id="who-for" className="py-12 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">🎯 Who Tabwise is For</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    {[
+                        { icon: '👩‍💻', title: 'Freelancers & Developers' },
+                        { icon: '📚', title: 'Students & Researchers' },
+                        { icon: '✍️', title: 'Writers & Content Creators' },
+                        { icon: '🧠', title: 'Productivity Nerds' },
+                    ].map(person => (
+                        <div key={person.title} className="bg-white p-6 rounded-lg shadow-sm">
+                            <div className="text-4xl mb-3">{person.icon}</div>
+                            <h3 className="text-lg font-medium text-blue-900 mb-1">{person.title}</h3>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 
     // Experience Component
@@ -479,7 +530,7 @@ Watch It in Action
         </section>
       );
     };
-
+    
     // Pricing Component
     const Pricing = () => {
       const [pricingTier, setPricingTier] = useState("monthly");
@@ -544,7 +595,71 @@ Watch It in Action
         </section>
       );
     };
+
+    // FAQ Component
+    const FAQItem = ({ q, a }) => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <div className="border-b border-gray-200 py-4">
+          <div className="faq-question flex justify-between items-center" onClick={() => setIsOpen(!isOpen)}>
+            <h4 className="text-lg font-medium text-blue-900">{q}</h4>
+            <span className="text-2xl text-blue-500 font-light transform transition-transform duration-300" style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0)' }}>+</span>
+          </div>
+          <div className="faq-answer" style={{ maxHeight: isOpen ? '200px' : '0' }}>
+            <p className="pt-3 text-gray-600">{a}</p>
+          </div>
+        </div>
+      );
+    };
+
+    const FAQ = () => {
+        const faqData = [
+            {
+                category: "Getting Started",
+                questions: [
+                    { q: "What does a tab manager do?", a: "A tab manager helps you organize, group, save, search, and restore browser tabs efficiently to reduce clutter and improve productivity." },
+                    { q: "Is it free?", a: "Yes! Tabwise is 100% free with no login required." },
+                    { q: "How do I open the tab manager?", a: "Simply install the Tabwise extension from the Chrome Web Store and click the Tabwise icon in your Chrome toolbar to open it." },
+                    { q: "What is tab settings?", a: "Tab settings let you control how tabs are displayed and managed. Tabwise enhances this by offering advanced settings like locking, tagging, and exporting."}
+                ]
+            },
+            {
+                category: "Features & How-To",
+                questions: [
+                    { q: "How do I manage tabs in Chrome?", a: "You can drag and drop tabs manually, or use an extension like Tabwise to powerfully group, save, and restore them with one click." },
+                    { q: "How to save all tabs in Chrome without bookmarks?", a: "Tabwise lets you save all open tabs into a named category with a single click — no messy bookmarks required." },
+                    { q: "How to save Chrome tabs after closing?", a: "Enable the auto-save feature in Tabwise, and your session will always be backed up, even if you close Chrome or it crashes." },
+                    { q: "How to get Chrome tabs back to normal?", a: "With Tabwise, you can restore a previously saved session in one click to get your tabs exactly how you left them." }
+                ]
+            },
+            {
+                category: "Comparisons",
+                questions: [
+                    { q: "What is the best tab manager?", a: "For users who need powerful features like session saving, notes, password protection, and exporting, Tabwise is a leading choice." },
+                    { q: "How is this different from Chrome’s built-in Tab Groups or OneTab?", a: "Tabwise offers robust features that others lack, including notes per tab, password-protected groups, advanced search, and exporting options." },
+                    { q: "What is the best AI tab manager?", a: "Tabwise includes smart nudges to help you clean up old tabs. We are continuously developing more AI-powered tools to make it the smartest tab manager available." },
+                    { q: "What is the best new tab extension for Chrome?", a: "While Tabwise isn't a 'new tab' page replacement, it works perfectly alongside them to manage your saved tabs, providing a complete productivity workflow." }
+                ]
+            }
+        ];
     
+        return (
+          <section id="faq" className="py-12 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl font-bold text-blue-900 text-center mb-12">❓ Frequently Asked Questions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
+                  {faqData.map(category => (
+                      <div key={category.category}>
+                          <h3 className="text-2xl font-semibold text-blue-800 mb-4 border-l-4 border-blue-500 pl-3">{category.category}</h3>
+                          {category.questions.map(item => <FAQItem key={item.q} q={item.q} a={item.a} />)}
+                      </div>
+                  ))}
+              </div>
+            </div>
+          </section>
+        );
+    };
+
     // Blog Component
     const Blog = () => (
       <section id="blog" className="py-12 bg-gray-50">
@@ -574,18 +689,43 @@ Watch It in Action
       </section>
     );
 
+    // Call To Action Component
+    const CallToAction = () => (
+        <section id="cta" className="py-12 bg-blue-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                <h2 className="text-3xl font-bold mb-4">📥 Ready to Try Tabwise?</h2>
+                <p className="text-lg text-blue-100 mb-6">Join us for launch day and bring peace to your tab chaos.</p>
+                <div className="flex justify-center items-center space-x-6 text-lg mb-8 font-semibold">
+                    <span>✅ Free</span>
+                    <span>✅ Private</span>
+                    <span>✅ Powerful</span>
+                </div>
+                <button
+                    onClick={openStaticWaitlistModal}
+                    className="bg-white text-blue-600 px-8 py-3 rounded-md hover:bg-gray-200 text-lg font-bold"
+                >
+                    Join the Waitlist →
+                </button>
+            </div>
+        </section>
+    );
+
     // Main App Component
     const App = () => (
       <ErrorBoundary>
         <Hero />
         <Features />
+        <Comparison />
+        <WhoIsItFor />
         <Experience />
         <Pricing />
+        <FAQ />
         <Blog />
+        <CallToAction />
       </ErrorBoundary>
     );
 
-    // Updated to React 18 createRoot API
+    // Render the app
     try {
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
@@ -593,7 +733,7 @@ Watch It in Action
       console.error("Error rendering React app:", err);
       const rootDiv = document.getElementById("root");
       if (rootDiv) {
-        rootDiv.innerHTML = '<div class="error-boundary">Failed to load the application. Please check the console for errors.</div>';
+        rootDiv.innerHTML = '<div class="error-boundary">Failed to load application.</div>';
       }
     }
 </script>
