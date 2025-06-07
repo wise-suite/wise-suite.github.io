@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://wisesuite.netlify.app/*"
+  to = "https://thewisesuite.com/:splat"
+  status = 301
+  force = true
