@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="refresh" content="0; url=https://thewisesuite.com/">
-    <link rel="canonical" href="https://thewisesuite.com/">
-    <title>Redirecting to TheWiseSuite</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>WiseSuite: Elevate Your Digital Experience with Productivity Tools</title>
     <meta name="description" content="Discover WiseSuite, a collection of intuitive digital tools designed to boost your productivity, organize your digital life, and enhance your online experience."/>
@@ -38,12 +35,9 @@
         body { font-family: 'Inter', 'Nunito', sans-serif; }
         .waitlist-input { transition: all 0.3s ease; }
         .waitlist-input:focus { border-color: #3B82F6; }
-        /* Modal overlay style from original, ensure it's compatible or use new one if provided */
-        /* .modal-overlay { background: rgba(0, 0, 0, 0.5); } */
         .error-boundary { color: red; text-align: center; padding: 16px; }
         .tool-button { width: 200px; padding: 8px 16px; font-size: 14px; display: inline-block; transition: all 0.3s ease; }
         a, button { transition: all 0.3s ease; }
-        /* Dark mode styles from original - note: dark mode toggle functionality is removed */
         .dark-mode { background-color: #1a202c; color: #e2e8f0; }
         .dark-mode .bg-white { background-color: #2d3748; }
         .dark-mode .bg-gray-50 { background-color: #1f2937; }
@@ -68,75 +62,72 @@
 <body class="bg-gray-50 text-gray-700">
 <!-- Navigation Bar -->
 <nav class="bg-white shadow-sm fixed w-full z-10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex">
-        <!-- Updated link to new domain -->
-        <a href="https://thewisesuite.com/" class="flex-shrink-0 flex items-center">
-          <!-- Assuming wisesuite-logo.png is at the root of the new domain -->
-          <img src="/wisesuite-logo.png" alt="WiseSuite Logo - Smart Productivity Tools" class="h-8 w-8" onerror="this.onerror=null; this.src='https://placehold.co/32x32/0284C7/FFFFFF?text=WS';">
-          <span class="ml-2 text-xl font-bold text-blue-900">WiseSuite</span>
-        </a>
-      </div>
-      <div class="hidden md:flex items-center space-x-4">
-        <!-- Relative links, should work if /tabwise/ is a path on the new domain -->
-        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
-        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
-        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
-        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
-        <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Sign Up for Beta">
-          Sign Up for Beta
-        </button>
-      </div>
-      <div class="md:hidden flex items-center">
-        <button id="mobile-menu-toggle" class="text-gray-600 hover:text-blue-600 focus:outline-none" aria-label="Toggle mobile menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mobile-icon-path" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <a href="https://thewisesuite.com/" class="flex-shrink-0 flex items-center">
+                    <img src="/wisesuite-logo.png" alt="WiseSuite Logo - Smart Productivity Tools" class="h-8 w-8" onerror="this.onerror=null; this.src='https://placehold.co/32x32/0284C7/FFFFFF?text=WS';">
+                    <span class="ml-2 text-xl font-bold text-blue-900">WiseSuite</span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
+                <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
+                <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
+                <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
+                <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Sign Up for Beta">
+                    Sign Up for Beta
+                </button>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-toggle" class="text-gray-600 hover:text-blue-600 focus:outline-none" aria-label="Toggle mobile menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mobile-icon-path" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
+            <div class="flex flex-col space-y-2 px-4 py-2">
+                <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
+                <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
+                <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
+                <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600">Blog</a>
+                <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Sign Up for Beta">
+                    Sign Up for Beta
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
-      <div class="flex flex-col space-y-2 px-4 py-2">
-        <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
-        <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
-        <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
-        <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600">Blog</a>
-        <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Sign Up for Beta">
-          Sign Up for Beta
-        </button>
-      </div>
-    </div>
-  </div>
 </nav>
 
 <!-- Waitlist Modal -->
 <div id="waitlist-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
-      <button id="modal-close" class="text-gray-600 hover:text-gray-800">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
+            <button id="modal-close" class="text-gray-600 hover:text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <p class="text-gray-600 mb-4">Be the first to try Tabwise when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
+        <input
+            type="email"
+            id="waitlist-email"
+            placeholder="Enter your email"
+            class="p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4 waitlist-input"
+        />
+        <button
+            id="waitlist-submit"
+            class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
+            Join Waitlist
+        </button>
+        <div id="waitlist-message" class="text-center text-sm mt-2 hidden"></div>
     </div>
-    <p class="text-gray-600 mb-4">Be the first to try Tabwise when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
-    <input
-      type="email"
-      id="waitlist-email"
-      placeholder="Enter your email"
-      class="p-2 w-full text-sm border rounded-md bg-white text-gray-700 border-gray-300 focus:outline-none focus:border-blue-600 mb-4 waitlist-input"
-    />
-    <button
-      id="waitlist-submit"
-      class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-    >
-      Join Waitlist
-    </button>
-    <div id="waitlist-message" class="text-center text-sm mt-2 hidden"></div>
-  </div>
 </div>
 
 <!-- React Root Element -->
@@ -144,377 +135,341 @@
 
 <!-- Footer -->
 <footer class="bg-blue-900 text-white py-6">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div class="mb-4">
-      <!-- Updated link to new domain -->
-      <a href="https://thewisesuite.com/" class="flex-shrink-0 flex items-center justify-center">
-        <!-- Assuming /tabwise/logo.png is a valid path on the new domain -->
-        <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=TW';">
-        <span class="ml-2 text-lg font-semibold">Tabwise</span> <!-- This seems to be Tabwise specific, not WiseSuite -->
-      </a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-4">
+            <a href="https://thewisesuite.com/" class="flex-shrink-0 flex items-center justify-center">
+                <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=TW';">
+                <span class="ml-2 text-lg font-semibold">Tabwise</span>
+            </a>
+        </div>
+        <div class="flex flex-wrap justify-center space-x-6 mb-4">
+            <a href="/tabwise/#features" class="text-white hover:text-gray-200">Features</a>
+            <a href="/tabwise/#pricing" class="text-white hover:text-gray-200">Pricing</a>
+            <a href="/tabwise/#experience" class="text-white hover:text-gray-200">Demo</a>
+            <a href="/tabwise/blog.html" class="text-white hover:text-gray-200">Blog</a>
+            <a href="/tabwise/terms.html" class="text-white hover:text-gray-200">Terms of Service</a>
+            <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200">Privacy Policy</a>
+            <a href="https://thewisesuite.com/" class="text-white hover:text-gray-200">Wise Suite</a>
+        </div>
+        <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p>
     </div>
-    <div class="flex flex-wrap justify-center space-x-6 mb-4">
-      <a href="/tabwise/#features" class="text-white hover:text-gray-200">Features</a>
-      <a href="/tabwise/#pricing" class="text-white hover:text-gray-200">Pricing</a>
-      <a href="/tabwise/#experience" class="text-white hover:text-gray-200">Demo</a>
-      <a href="/tabwise/blog.html" class="text-white hover:text-gray-200">Blog</a>
-      <a href="/tabwise/terms.html" class="text-white hover:text-gray-200">Terms of Service</a>
-      <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200">Privacy Policy</a>
-      <!-- Updated link to new domain -->
-      <a href="https://thewisesuite.com/" class="text-white hover:text-gray-200">Wise Suite</a>
-    </div>
-    <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p> <!-- Copyright is for Tabwise, not WiseSuite -->
-  </div>
 </footer>
 
 <script>
-  // Mobile Menu Toggle
-  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileIconPath = document.getElementById('mobile-icon-path');
-  if (mobileMenuToggle && mobileMenu && mobileIconPath) { // Ensure elements exist
-    mobileMenuToggle.addEventListener('click', () => {
-      const isOpen = !mobileMenu.classList.contains('hidden');
-      mobileMenu.classList.toggle('hidden');
-      mobileIconPath.setAttribute('d', isOpen ? 'M4 6h16M4 12h16M4 18h16' : 'M6 18L18 6M6 6l12 12');
-    });
-  } else {
-    console.error("Mobile menu elements not found for event listener setup.");
-  }
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileIconPath = document.getElementById('mobile-icon-path');
+    if (mobileMenuToggle && mobileMenu && mobileIconPath) {
+        mobileMenuToggle.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            mobileIconPath.setAttribute('d', isOpen ? 'M4 6h16M4 12h16M4 18h16' : 'M6 18L18 6M6 6l12 12');
+        });
+    } else {
+        console.error("Mobile menu elements not found for event listener setup.");
+    }
 
+    // Waitlist Modal Logic
+    const modal = document.getElementById('waitlist-modal');
+    const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile');
+    const closeModalButton = document.getElementById('modal-close');
+    const emailInput = document.getElementById('waitlist-email');
+    const submitButton = document.getElementById('waitlist-submit');
+    const messageDiv = document.getElementById('waitlist-message');
 
-  // Waitlist Modal Logic
-  const modal = document.getElementById('waitlist-modal');
-  const openModalButtons = document.querySelectorAll('#open-waitlist-modal, #open-waitlist-mobile');
-  const closeModalButton = document.getElementById('modal-close');
-  const emailInput = document.getElementById('waitlist-email');
-  const submitButton = document.getElementById('waitlist-submit');
-  const messageDiv = document.getElementById('waitlist-message');
-
-  if (modal && closeModalButton && emailInput && submitButton && messageDiv) { // Ensure elements exist
-    openModalButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-      });
-    });
-
-    closeModalButton.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      emailInput.value = '';
-      messageDiv.classList.add('hidden');
-      messageDiv.textContent = '';
-      messageDiv.className = 'text-center text-sm mt-2 hidden'; // Reset classes
-    });
-
-    submitButton.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        messageDiv.textContent = 'Please enter a valid email address.';
-        messageDiv.className = 'text-center text-sm mt-2 text-red-500'; // Show and style
-        setTimeout(() => {
-            messageDiv.classList.add('hidden');
-            messageDiv.className = 'text-center text-sm mt-2 hidden'; // Reset classes
-        }, 3000);
-        return;
-      }
-
-      submitButton.disabled = true;
-      submitButton.textContent = 'Submitting...';
-
-      // IMPORTANT: Replace with your actual Google Apps Script Web App URL
-      const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec'; 
-
-      try {
-        // Using fetch with a POST request.
-        // For Google Apps Script 'no-cors' is often used if the script isn't set up for CORS.
-        // However, 'no-cors' means you can't read the response status directly.
-        // The Apps Script should be deployed to allow anonymous access and handle POST requests.
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('tool', 'Tabwise'); // Hardcoded tool name
-
-        await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
-          method: 'POST',
-          mode: 'no-cors', // This means we won't get a real response back to check success/failure from server
-          cache: 'no-cache',
-          headers: {
-            // 'Content-Type': 'application/json' // With 'no-cors', Content-Type might be restricted by browser
-          },
-          body: JSON.stringify({ email: email, tool: 'Tabwise' }) // Sending as JSON
+    if (modal && closeModalButton && emailInput && submitButton && messageDiv) {
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
         });
 
-        // Since it's 'no-cors', we assume success if no network error.
-        messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
-        messageDiv.className = 'text-center text-sm mt-2 text-green-600'; // Show and style
-        emailInput.value = '';
-        setTimeout(() => {
-          modal.classList.add('hidden');
-          messageDiv.classList.add('hidden');
-          messageDiv.className = 'text-center text-sm mt-2 hidden'; // Reset classes
-        }, 2000);
-      } catch (error) {
-        console.error("Waitlist submission error:", error);
-        messageDiv.textContent = 'Failed to join waitlist. Please try again later.';
-        messageDiv.className = 'text-center text-sm mt-2 text-red-500'; // Show and style
-        setTimeout(() => {
+        closeModalButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            emailInput.value = '';
             messageDiv.classList.add('hidden');
-            messageDiv.className = 'text-center text-sm mt-2 hidden'; // Reset classes
-        }, 3000);
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Join Waitlist';
-      }
-    });
-  } else {
-      console.error("One or more waitlist modal elements not found for event listener setup.");
-  }
+            messageDiv.textContent = '';
+            messageDiv.className = 'text-center text-sm mt-2 hidden';
+        });
+
+        submitButton.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                messageDiv.textContent = 'Please enter a valid email address.';
+                messageDiv.className = 'text-center text-sm mt-2 text-red-500';
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                    messageDiv.className = 'text-center text-sm mt-2 hidden';
+                }, 3000);
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzICyMu6vkDPBLyb3ReWdLKbtLmoB0A7UYCZRmDyW3DxTEjme8YS1dzStuc1MnXJFI/exec';
+
+            try {
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('tool', 'Tabwise');
+
+                await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    body: JSON.stringify({ email: email, tool: 'Tabwise' })
+                });
+
+                messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
+                messageDiv.className = 'text-center text-sm mt-2 text-green-600';
+                emailInput.value = '';
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    messageDiv.classList.add('hidden');
+                    messageDiv.className = 'text-center text-sm mt-2 hidden';
+                }, 2000);
+            } catch (error) {
+                console.error("Waitlist submission error:", error);
+                messageDiv.textContent = 'Failed to join waitlist. Please try again later.';
+                messageDiv.className = 'text-center text-sm mt-2 text-red-500';
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                    messageDiv.className = 'text-center text-sm mt-2 hidden';
+                }, 3000);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Join Waitlist';
+            }
+        });
+    } else {
+        console.error("One or more waitlist modal elements not found for event listener setup.");
+    }
 </script>
 
 <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Error Boundary Component (remains unchanged)
     class ErrorBoundary extends React.Component {
-      state = { hasError: false, error: null };
-      static getDerivedStateFromError(error) {
-        console.error("ErrorBoundary caught:", error);
-        return { hasError: true, error };
-      }
-      componentDidCatch(error, errorInfo) {
-        console.error("ErrorBoundary info:", errorInfo);
-      }
-      render() {
-        if (this.state.hasError) {
-          return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
+        state = { hasError: false, error: null };
+        static getDerivedStateFromError(error) {
+            console.error("ErrorBoundary caught:", error);
+            return { hasError: true, error };
         }
-        return this.props.children;
-      }
+        componentDidCatch(error, errorInfo) {
+            console.error("ErrorBoundary info:", errorInfo);
+        }
+        render() {
+            if (this.state.hasError) {
+                return <div className="error-boundary">Something went wrong: {this.state.error?.message || 'Unknown error'}</div>;
+            }
+            return this.props.children;
+        }
     }
 
-    // Header Component (Hero Section - remains unchanged, assuming /wisesuite-hero-image.png is correct for new domain)
     const Header = () => (
-      <header className="pt-20 pb-10 bg-blue-900 text-white text-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold">WiseSuite: Your Toolkit for a Smarter Digital Experience</h1>
-          {/* Assuming wisesuite-hero-image.png is at the root of the new domain */}
-          <img src="/wisesuite-hero-image.png" alt="WiseSuite Hero image for smarter productivity" className="h-auto max-w-full mx-auto mb-4 sm:max-w-md md:max-w-lg" onerror="this.onerror=null; this.src='https://placehold.co/512x384/1E3A8A/FFFFFF?text=WiseSuite+Hero';"/>
-        </div>
-      </header>
+        <header className="pt-20 pb-10 bg-blue-900 text-white text-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-4xl md:text-5xl font-bold">WiseSuite: Your Toolkit for a Smarter Digital Experience</h1>
+                <img src="/wisesuite-hero-image.png" alt="WiseSuite Hero image for smarter productivity" className="h-auto max-w-full mx-auto mb-4 sm:max-w-md md:max-w-lg" onerror="this.onerror=null; this.src='https://placehold.co/512x384/1E3A8A/FFFFFF?text=WiseSuite+Hero';"/>
+            </div>
+        </header>
     );
 
-    // Intro Section (remains unchanged)
     const Intro = () => (
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-600 mb-4 text-lg">Welcome to WiseSuite, a growing collection of innovative digital tools designed to streamline your online life and boost your productivity. In today's fast-paced digital world, managing tasks, information, and countless browser tabs can be overwhelming. WiseSuite provides intelligent, intuitive solutions to bring order, efficiency, and clarity to your daily digital experience.</p>
-          <p className="text-gray-600 text-lg">Our mission is to empower you with smart software that simplifies complex workflows, helps you stay organized, and frees up your time to focus on what truly matters.</p>
-        </div>
-      </section>
+        <section className="py-12 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p className="text-gray-600 mb-4 text-lg">Welcome to WiseSuite, a growing collection of innovative digital tools designed to streamline your online life and boost your productivity. In today's fast-paced digital world, managing tasks, information, and countless browser tabs can be overwhelming. WiseSuite provides intelligent, intuitive solutions to bring order, efficiency, and clarity to your daily digital experience.</p>
+                <p className="text-gray-600 text-lg">Our mission is to empower you with smart software that simplifies complex workflows, helps you stay organized, and frees up your time to focus on what truly matters.</p>
+            </div>
+        </section>
     );
 
-    // Discover Component (Updated to use static modal, relative links like /tabwise/ are fine)
     const Discover = () => {
-      const [currentSet, setCurrentSet] = useState(0);
-      // Removed isModalOpen state and WaitlistModal instance
+        const [currentSet, setCurrentSet] = useState(0);
 
-      const slides = [
-        { icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", title: "Simplify Your Digital World", content: "WiseSuite is your all-in-one solution for navigating the complexities of digital life. Our intuitive tools eliminate clutter, boost productivity, and make your online experience seamless." },
-        { icon: "M5 13l4 4L19 7", title: "Solve Everyday Challenges", content: "From juggling browser tabs to managing tasks, WiseSuite tackles daily challenges with tools like <a href=\"/tabwise/\" className=\"text-blue-500 hover:text-blue-600\">TabWise</a>, designed to keep you focused and efficient." },
-        { icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", title: "Shape the Future", content: "WiseSuite is growing with tools like FocusWise and TimeWise, unified by a vision to empower your digital workflow. Join our waitlist for updates!" },
-        { icon: "M4 6h16M4 12h16M4 18h16", title: "All-in-One Productivity", content: "WiseSuite integrates tools like TabWise and FocusWise into a single platform, streamlining your tasks for maximum efficiency." },
-        { icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4", title: "Customizable Workflow", content: "Tailor WiseSuite tools, starting with TabWise’s flexible tab management, to fit your unique needs and preferences." },
-        { icon: "M13 10V3L4 14h7v7l9-11h-7z", title: "Evolving Ecosystem", content: "Start with TabWise and grow with WiseSuite’s upcoming tools, designed to adapt to your changing digital demands." }
-      ];
+        const slides = [
+            { icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", title: "Simplify Your Digital World", content: "WiseSuite is your all-in-one solution for navigating the complexities of digital life. Our intuitive tools eliminate clutter, boost productivity, and make your online experience seamless." },
+            { icon: "M5 13l4 4L19 7", title: "Solve Everyday Challenges", content: "From juggling browser tabs to managing tasks, WiseSuite tackles daily challenges with tools like <a href=\"/tabwise/\" className=\"text-blue-500 hover:text-blue-600\">TabWise</a>, designed to keep you focused and efficient." },
+            { icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", title: "Shape the Future", content: "WiseSuite is growing with tools like FocusWise and TimeWise, unified by a vision to empower your digital workflow. Join our waitlist for updates!" },
+            { icon: "M4 6h16M4 12h16M4 18h16", title: "All-in-One Productivity", content: "WiseSuite integrates tools like TabWise and FocusWise into a single platform, streamlining your tasks for maximum efficiency." },
+            { icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4", title: "Customizable Workflow", content: "Tailor WiseSuite tools, starting with TabWise’s flexible tab management, to fit your unique needs and preferences." },
+            { icon: "M13 10V3L4 14h7v7l9-11h-7z", title: "Evolving Ecosystem", content: "Start with TabWise and grow with WiseSuite’s upcoming tools, designed to adapt to your changing digital demands." }
+        ];
 
-      const slidesPerSet = window.innerWidth < 640 ? 1 : 3; // Consider making this responsive to resize events
-      const totalSets = Math.ceil(slides.length / slidesPerSet);
+        const slidesPerSet = window.innerWidth < 640 ? 1 : 3;
+        const totalSets = Math.ceil(slides.length / slidesPerSet);
 
-      useEffect(() => {
-        const timer = setInterval(() => {
-          setCurrentSet((prev) => (prev + 1) % totalSets);
-        }, 6000);
-        return () => clearInterval(timer);
-      }, [totalSets]);
+        useEffect(() => {
+            const timer = setInterval(() => {
+                setCurrentSet((prev) => (prev + 1) % totalSets);
+            }, 6000);
+            return () => clearInterval(timer);
+        }, [totalSets]);
 
-      const goToSet = (index) => setCurrentSet(index);
-      const prevSet = () => setCurrentSet((prev) => (prev - 1 + totalSets) % totalSets);
-      const nextSet = () => setCurrentSet((prev) => (prev + 1) % totalSets);
+        const goToSet = (index) => setCurrentSet(index);
+        const prevSet = () => setCurrentSet((prev) => (prev - 1 + totalSets) % totalSets);
+        const nextSet = () => setCurrentSet((prev) => (prev + 1) % totalSets);
 
-      const currentSlides = slides.slice(currentSet * slidesPerSet, (currentSet + 1) * slidesPerSet);
+        const currentSlides = slides.slice(currentSet * slidesPerSet, (currentSet + 1) * slidesPerSet);
 
-      const handleJoinJourneyClick = () => {
-        const staticModal = document.getElementById('waitlist-modal');
-        if (staticModal) {
-          staticModal.classList.remove('hidden');
-        } else {
-          console.error("Static modal 'waitlist-modal' not found.");
-        }
-      };
+        const handleJoinJourneyClick = () => {
+            const staticModal = document.getElementById('waitlist-modal');
+            if (staticModal) {
+                staticModal.classList.remove('hidden');
+            } else {
+                console.error("Static modal 'waitlist-modal' not found.");
+            }
+        };
 
-      return (
-        <section id="discover" className="py-12 discover-section animate-fade-in-up">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-10">Discover WiseSuite</h2>
-            <div className="relative">
-              <div className="slider-container">
-                {currentSlides.map((slide, index) => (
-                  <div key={index} className="slider-card bg-white p-5 rounded-lg shadow-md text-center" role="group">
-                    <div className="flex justify-center mb-3">
-                      <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
-                      </svg>
+        return (
+            <section id="discover" className="py-12 discover-section animate-fade-in-up">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-10">Discover WiseSuite</h2>
+                    <div className="relative">
+                        <div className="slider-container">
+                            {currentSlides.map((slide, index) => (
+                                <div key={index} className="slider-card bg-white p-5 rounded-lg shadow-md text-center" role="group">
+                                    <div className="flex justify-center mb-3">
+                                        <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
+                                        </svg>
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-blue-900 mb-2">{slide.title}</h3>
+                                    <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: slide.content }}></p>
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={prevSet} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" aria-label="Previous slide set">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+                        </button>
+                        <button onClick={nextSet} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" aria-label="Next slide set">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                        </button>
                     </div>
-                    <h3 className="text-lg font-semibold text-blue-900 mb-2">{slide.title}</h3>
-                    <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: slide.content }}></p>
-                  </div>
-                ))}
-              </div>
-              <button onClick={prevSet} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" aria-label="Previous slide set">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-              </button>
-              <button onClick={nextSet} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" aria-label="Next slide set">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
-              </button>
-            </div>
-            <div className="flex justify-center mt-6 space-x-2">
-              {Array.from({ length: totalSets }).map((_, index) => (
-                <button key={index} className={`dot ${index === currentSet ? 'active' : ''}`} onClick={() => goToSet(index)} aria-label={`Go to slide set ${index + 1}`} aria-current={index === currentSet}></button>
-              ))}
-            </div>
-            <div className="text-center mt-10">
-              <button onClick={handleJoinJourneyClick} className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">
-                Join the Journey
-              </button>
-            </div>
-          </div>
-          {/* Static modal is now outside React components */}
-        </section>
-      );
-    };
-
-    // Products Section (Updated to use static modal, relative link /tabwise is fine)
-    const Products = () => {
-      // Removed modalState and WaitlistModal instance
-
-      const handleProductWaitlistOpen = (toolName) => {
-        // toolName is effectively ignored by the static modal, which is hardcoded for "Tabwise"
-        const staticModal = document.getElementById('waitlist-modal');
-        if (staticModal) {
-          staticModal.classList.remove('hidden');
-          // console.log(`Waitlist for ${toolName} requested, but static modal is for Tabwise.`);
-        } else {
-          console.error("Static modal 'waitlist-modal' not found.");
-        }
-      };
-
-      return (
-        <section id="products" className="py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="product-card">
-                <h3 className="text-xl font-semibold text-blue-900 mb-3">TabWise: Your Smart Tab Manager for Chrome</h3>
-                <p className="text-gray-600 mb-4">TabWise is the intelligent way to organize and manage your browser tabs. With features like content-based auto-categorization, seamless local storage, and cross-device syncing, TabWise helps you conquer tab clutter, boost focus, and enhance your browser productivity.</p>
-                <a href="/tabwise" className="button">Visit TabWise Homepage</a>
-              </div>
-              <div className="product-card">
-                <h3 className="text-xl font-semibold text-blue-900 mb-3">FocusWise: Stay Focused, Block Distractions</h3>
-                <p className="text-gray-600 mb-4">FocusWise is an upcoming tool designed to enhance productivity by offering customizable website filters to block distractions and keep you on task.</p>
-                <button onClick={() => handleProductWaitlistOpen('FocusWise')} className="button">Join Waitlist</button>
-              </div>
-            </div>
-          </div>
-          {/* Static modal is now outside React components */}
-        </section>
-      );
-    };
-
-    // Vision Section (remains unchanged)
-    const Vision = () => (
-      <section id="vision" className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Vision</h2>
-          <p className="text-gray-600 text-lg text-center">WiseSuite envisions a digital future where tools seamlessly adapt to your needs, providing clarity and control. We are continuously researching and developing new solutions to empower individuals and teams to achieve more with less digital friction.</p>
-        </div>
-      </section>
-    );
-
-    // Tools Component (Updated to use static modal, relative link /tabwise/ is fine)
-    const Tools = () => {
-      // Removed modalState and WaitlistModal instance
-
-      const handleToolWaitlistOpen = (toolName) => {
-        // toolName is effectively ignored by the static modal
-        const staticModal = document.getElementById('waitlist-modal');
-        if (staticModal) {
-          staticModal.classList.remove('hidden');
-          // console.log(`Waitlist for ${toolName} requested, but static modal is for Tabwise.`);
-        } else {
-          console.error("Static modal 'waitlist-modal' not found.");
-        }
-      };
-
-      const toolData = [
-        { title: "TabWise", tagline: "Smart Browser Tab Management", desc: "Effortlessly organize your browser tabs with AI-powered categorization, drag-and-drop, and session saving.", link: "/tabwise/", cta: "Get TabWise", isBeta: true },
-        { title: "FocusWise", tagline: "Stay Focused, Block Distractions", desc: "Boost productivity with customizable website filters to keep distractions at bay.", cta: "Join Waitlist", isComingSoon: true },
-        { title: "TimeWise", tagline: "Track Time, Boost Efficiency", desc: "Monitor time spent on tasks and projects to optimize your workflow.", cta: "Join Waitlist", isComingSoon: true },
-        { title: "ClipWise", tagline: "Save Web Snippets Easily", desc: "Capture and organize web content for quick reference and research.", cta: "Join Waitlist", isComingSoon: true },
-        { title: "EmailWise", tagline: "Smart Inbox Organization", desc: "Streamline your email with intelligent filters and scheduling tools.", cta: "Join Waitlist", isComingSoon: true },
-        { title: "TaskWise", tagline: "Seamless Task Tracking", desc: "Manage tasks with integration across your digital tools for maximum efficiency.", cta: "Join Waitlist", isComingSoon: true },
-        { title: "BookmarkWise", tagline: "Organized Bookmarking", desc: "Categorize and access your bookmarks intuitively for a clutter-free experience.", cta: "Join Waitlist", isComingSoon: true },
-      ];
-
-      return (
-        <section id="tools" className="py-12 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Productivity Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {toolData.map((tool, index) => (
-                <div key={index} className="relative bg-white p-5 rounded-lg shadow-sm text-center">
-                  {tool.isComingSoon && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">Coming Soon</div>}
-                  {tool.isBeta && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">In Beta</div>}
-                  <h3 className="text-xl font-bold text-blue-900 mb-2">{tool.title}</h3>
-                  <p className="text-blue-600 font-medium mb-2">{tool.tagline}</p>
-                  <p className="text-gray-600 mb-4">{tool.desc}</p>
-                  {tool.link ? (
-                    <a href={tool.link} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</a>
-                  ) : (
-                    <button onClick={() => handleToolWaitlistOpen(tool.title)} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</button>
-                  )}
+                    <div className="flex justify-center mt-6 space-x-2">
+                        {Array.from({ length: totalSets }).map((_, index) => (
+                            <button key={index} className={`dot ${index === currentSet ? 'active' : ''}`} onClick={() => goToSet(index)} aria-label={`Go to slide set ${index + 1}`} aria-current={index === currentSet}></button>
+                        ))}
+                    </div>
+                    <div className="text-center mt-10">
+                        <button onClick={handleJoinJourneyClick} className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">
+                            Join the Journey
+                        </button>
+                    </div>
                 </div>
-              ))}
-            </div>
-          </div>
-          {/* Static modal is now outside React components */}
-        </section>
-      );
+            </section>
+        );
     };
 
-    // Main App Component (Updated: Navbar and Footer removed, pt-24 added)
-    const App = () => (
-      <ErrorBoundary>
-        <div className="pt-24"> {/* Added pt-24 for fixed navbar */}
-          <Header />
-          <Intro />
-          <Products />
-          <Discover />
-          <Tools />
-          <Vision />
-          {/* Footer component is removed, static HTML footer is used */}
-        </div>
-      </ErrorBoundary>
+    const Products = () => {
+        const handleProductWaitlistOpen = (toolName) => {
+            const staticModal = document.getElementById('waitlist-modal');
+            if (staticModal) {
+                staticModal.classList.remove('hidden');
+            } else {
+                console.error("Static modal 'waitlist-modal' not found.");
+            }
+        };
+
+        return (
+            <section id="products" className="py-12 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Products</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="product-card">
+                            <h3 className="text-xl font-semibold text-blue-900 mb-3">TabWise: Your Smart Tab Manager for Chrome</h3>
+                            <p className="text-gray-600 mb-4">TabWise is the intelligent way to organize and manage your browser tabs. With features like content-based auto-categorization, seamless local storage, and cross-device syncing, TabWise helps you conquer tab clutter, boost focus, and enhance your browser productivity.</p>
+                            <a href="/tabwise" className="button">Visit TabWise Homepage</a>
+                        </div>
+                        <div className="product-card">
+                            <h3 className="text-xl font-semibold text-blue-900 mb-3">FocusWise: Stay Focused, Block Distractions</h3>
+                            <p className="text-gray-600 mb-4">FocusWise is an upcoming tool designed to enhance productivity by offering customizable website filters to block distractions and keep you on task.</p>
+                            <button onClick={() => handleProductWaitlistOpen('FocusWise')} className="button">Join Waitlist</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+    };
+
+    const Vision = () => (
+        <section id="vision" className="py-12 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Vision</h2>
+                <p className="text-gray-600 text-lg text-center">WiseSuite envisions a digital future where tools seamlessly adapt to your needs, providing clarity and control. We are continuously researching and developing new solutions to empower individuals and teams to achieve more with less digital friction.</p>
+            </div>
+        </section>
     );
 
-    // Render the App
+    const Tools = () => {
+        const handleToolWaitlistOpen = (toolName) => {
+            const staticModal = document.getElementById('waitlist-modal');
+            if (staticModal) {
+                staticModal.classList.remove('hidden');
+            } else {
+                console.error("Static modal 'waitlist-modal' not found.");
+            }
+        };
+
+        const toolData = [
+            { title: "TabWise", tagline: "Smart Browser Tab Management", desc: "Effortlessly organize your browser tabs with AI-powered categorization, drag-and-drop, and session saving.", link: "/tabwise/", cta: "Get TabWise", isBeta: true },
+            { title: "FocusWise", tagline: "Stay Focused, Block Distractions", desc: "Boost productivity with customizable website filters to keep distractions at bay.", cta: "Join Waitlist", isComingSoon: true },
+            { title: "TimeWise", tagline: "Track Time, Boost Efficiency", desc: "Monitor time spent on tasks and projects to optimize your workflow.", cta: "Join Waitlist", isComingSoon: true },
+            { title: "ClipWise", tagline: "Save Web Snippets Easily", desc: "Capture and organize web content for quick reference and research.", cta: "Join Waitlist", isComingSoon: true },
+            { title: "EmailWise", tagline: "Smart Inbox Organization", desc: "Streamline your email with intelligent filters and scheduling tools.", cta: "Join Waitlist", isComingSoon: true },
+            { title: "TaskWise", tagline: "Seamless Task Tracking", desc: "Manage tasks with integration across your digital tools for maximum efficiency.", cta: "Join Waitlist", isComingSoon: true },
+            { title: "BookmarkWise", tagline: "Organized Bookmarking", desc: "Categorize and access your bookmarks intuitively for a clutter-free experience.", cta: "Join Waitlist", isComingSoon: true },
+        ];
+
+        return (
+            <section id="tools" className="py-12 bg-gray-100">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Productivity Tools</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {toolData.map((tool, index) => (
+                            <div key={index} className="relative bg-white p-5 rounded-lg shadow-sm text-center">
+                                {tool.isComingSoon && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">Coming Soon</div>}
+                                {tool.isBeta && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">In Beta</div>}
+                                <h3 className="text-xl font-bold text-blue-900 mb-2">{tool.title}</h3>
+                                <p className="text-blue-600 font-medium mb-2">{tool.tagline}</p>
+                                <p className="text-gray-600 mb-4">{tool.desc}</p>
+                                {tool.link ? (
+                                    <a href={tool.link} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</a>
+                                ) : (
+                                    <button onClick={() => handleToolWaitlistOpen(tool.title)} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+    };
+
+    const App = () => (
+        <ErrorBoundary>
+            <div className="pt-24">
+                <Header />
+                <Intro />
+                <Products />
+                <Discover />
+                <Tools />
+                <Vision />
+            </div>
+        </ErrorBoundary>
+    );
+
     try {
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<App />);
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
     } catch (err) {
-      console.error("Failed to render React app:", err);
-      const rootDiv = document.getElementById("root");
-      if (rootDiv) {
-        rootDiv.innerHTML = '<div class="error-boundary">Failed to load the application. Please check the console for errors.</div>';
-      }
+        console.error("Failed to render React app:", err);
+        const rootDiv = document.getElementById("root");
+        if (rootDiv) {
+            rootDiv.innerHTML = '<div className="error-boundary">Failed to load the application. Please check the console for errors.</div>';
+        }
     }
 </script>
 </body>
