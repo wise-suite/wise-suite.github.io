@@ -27,6 +27,12 @@
       "description": "WiseSuite is a collection of productivity tools to streamline your workflow, starting with TabWise for browser tab management."
     }
     </script>
+    <script>
+        // Redirect wise-suite.github.io to thewisesuite.com
+        if (window.location.hostname === 'wise-suite.github.io') {
+            window.location.replace('https://thewisesuite.com/');
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
@@ -427,7 +433,7 @@
             <section id="tools" className="py-12 bg-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Productivity Tools</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {toolData.map((tool, index) => (
                             <div key={index} className="relative bg-white p-5 rounded-lg shadow-sm text-center">
                                 {tool.isComingSoon && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">Coming Soon</div>}
