@@ -55,6 +55,13 @@
       }
     }
     </script>
+    <script>
+        // Redirect wise-suite.github.io to thewisesuite.com, preserving the page path
+        if (window.location.hostname === 'wise-suite.github.io') {
+            const newUrl = 'https://thewisesuite.com' + window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(newUrl);
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
