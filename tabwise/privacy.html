@@ -307,61 +307,73 @@
             At Tabwise, we value your privacy. This policy explains how we handle your data while using our Chrome extension for browser management.
           </p>
           <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg prose prose-blue max-w-none"> {/* Added md:p-8 and max-w-none */}
-            <p className="text-sm text-gray-500 mb-4">Last Updated: May 23, 2025</p>
+            <p className="text-sm text-gray-500 mb-4">Last Updated: June 13, 2025</p>
             
-            <h2>Data We Collect</h2>
-            <p>
-              We collect minimal data to provide Tabwise’s functionality:
-            </p>
-            <ul>
-              <li><strong>Email Address:</strong> When you join our waitlist, we collect your email to notify you of Tabwise’s launch.</li>
-              <li><strong>Tab Data:</strong> Tabwise stores your browser tabs locally on your device. For Pro users, this data is synced via cloud with end-to-end encryption. This includes tab URLs, titles, and any notes you add.</li>
-              <li><strong>Usage Data:</strong> We may collect anonymized usage statistics to improve Tabwise, such as feature usage frequency, performance metrics, and error reports. This data is aggregated and does not personally identify you.</li>
-            </ul>
-            
-            <h2>How We Use Your Data</h2>
-            <p>
-              Your data is used solely to enhance your experience with Tabwise:
-            </p>
-            <ul>
-              <li>To provide core functionality like tab categorization, session saving, and tab organization.</li>
-              <li>To sync your tabs across devices if you are a Pro user with cloud sync enabled.</li>
-              <li>To send you updates about Tabwise, including new features, beta program progress, and official launch information, if you’ve joined our waitlist or opted into communications.</li>
-              <li>To analyze usage patterns and improve the stability, performance, and features of the Tabwise extension.</li>
-            </ul>
+                <h2>1. Introduction</h2>
+                <p>
+                    Welcome to Tabwise ("we," "our," or "us"). We are committed to protecting your privacy and handling your data in an open and transparent manner. This Privacy Policy details how the Tabwise Chrome Extension (the "Extension") collects, stores, and uses your information. Our core philosophy is that your data is yours and should remain under your control. This Extension is designed to function without requiring us to store your personal browsing data on our servers.
+                </p>
 
-            <h2>Data Sharing and Disclosure</h2>
-            <p>
-                We do not sell, trade, or rent your personal identification information to others. We may share generic aggregated demographic information not linked to any personal identification information regarding visitors and users with our business partners, trusted affiliates, and advertisers for the purposes outlined above.
-            </p>
-            <p>
-                We may use third-party service providers to help us operate our business and the Site or administer activities on our behalf, such as sending out newsletters or surveys. We may share your information with these third parties for those limited purposes provided that you have given us your permission.
-            </p>
-            
-            <h2>Data Security</h2>
-            <p>
-                We adopt appropriate data collection, storage, and processing practices and security measures to protect against unauthorized access, alteration, disclosure, or destruction of your personal information, username, password, transaction information, and data stored on our Site and within the Tabwise extension. End-to-end encryption is used for cloud sync features for Pro users.
-            </p>
+                <h2>2. Data Storage and Security</h2>
+                <p>Tabwise utilizes two different storage mechanisms provided by the Google Chrome browser, each with distinct privacy characteristics:</p>
+                <ul>
+                    <li>
+                        <strong>Synced Data (`chrome.storage.sync`):</strong> This includes all the content you create within the extension: your category names, tab lists (URLs and titles), notes, and tags. This data is securely managed by Google and is automatically synchronized across all devices where you are logged into the same Google Chrome account. We do not have access to this data; it is tied directly to your personal Google account's storage.
+                    </li>
+                    <li>
+                        <strong>Local Data (`chrome.storage.local`):</strong> The only piece of information stored this way is your encrypted Master Password (the "hash"). This data is stored **only on the specific computer** where you set the password. It is never transmitted over the internet and is not synced between your devices. This ensures that your password remains private to each individual machine.
+                    </li>
+                </ul>
+                <h3>2.1. Master Password Security</h3>
+                <p>
+                    When you set a Master Password, we do not store the password itself. We store a cryptographically-generated "hash" of your password using the industry-standard **bcrypt** algorithm. This means it is computationally infeasible for anyone, including us, to reverse the process and discover your original password. Consequently, if you forget your Master Password, **we have no way to recover it for you**. You will be unable to access your locked categories.
+                </p>
 
-            <h2>Your Rights</h2>
-            <p>
-              You have control over your data:
-            </p>
-            <ul>
-              <li>You can request deletion of your waitlist email by contacting us at <a href="mailto:wisesuitecontact@gmail.com" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">wisesuitecontact@gmail.com</a>.</li>
-              <li>Tab data stored locally can be cleared by uninstalling the Tabwise extension or by using the extension's built-in options to clear data (where available).</li>
-              <li>For Pro users with cloud sync, you can delete your synced data through your account settings or by contacting support.</li>
-            </ul>
+                <h2>3. Permissions Requested</h2>
+                <p>
+                    The Chrome Web Store requires extensions to declare the permissions they need to function. Below is a detailed list of the permissions Tabwise requests and a clear explanation for why each one is necessary.
+                </p>
+                <ul>
+                    <li>
+                        <strong>`storage`</strong>: This is the most fundamental permission. It allows Tabwise to save your categories and settings using Chrome's secure `sync` and `local` storage areas. Without this, the extension cannot save any of your work.
+                    </li>
+                    <li>
+                        <strong>`tabs`</strong>: This allows the extension to get the list of your currently open tabs. This is essential for features like "Add Tabs to Category" and "Auto-Categorize Tabs," which need to know what pages are currently open.
+                    </li>
+                    <li>
+                        <strong>`scripting`</strong> and <strong>`host_permissions` on `&lt;all_urls&gt;`</strong>: These powerful permissions are required for one key feature: fetching page details. When you add a tab to a category, especially via the right-click menu, Tabwise briefly runs a script on that page to read its title and meta description. This provides a better user experience by automatically populating this information for you. The script only runs for this specific purpose and does not read or alter any other content on the page. We require `&lt;all_urls&gt;` because you could be on any website when you decide to save a tab.
+                    </li>
+                    <li>
+                        <strong>`contextMenus`</strong>: This allows the extension to add the "Add to [Category Name]" option when you right-click on a webpage, providing a convenient shortcut.
+                    </li>
+                    <li>
+                        <strong>`downloads`</strong>: This permission is used exclusively for the "Export" feature. It allows you to save a backup of your data as an Excel or JSON file directly to your computer. Tabwise does not initiate any downloads without your explicit action.
+                    </li>
+                    <li>
+                        <strong>`sidePanel`</strong>: This allows the extension to be opened in the browser's side panel, offering a flexible and persistent view of your categories alongside your browsing.
+                    </li>
+                </ul>
 
-            <h2>Changes to This Privacy Policy</h2>
-            <p>
-                Tabwise has the discretion to update this privacy policy at any time. When we do, we will revise the updated date at the bottom of this page. We encourage Users to frequently check this page for any changes to stay informed about how we are helping to protect the personal information we collect. You acknowledge and agree that it is your responsibility to review this privacy policy periodically and become aware of modifications.
-            </p>
-            
-            <h2>Contact Us</h2>
-            <p>
-              If you have questions about this policy, please reach out to us at <a href="mailto:wisesuitecontact@gmail.com" className="text-blue-500 hover:text-blue-600 focus-visible-ring rounded">wisesuitecontact@gmail.com</a>.
-            </p>
+                <h2>4. Data We Do Not Collect</h2>
+                <p>
+                    To be perfectly clear, Tabwise is architected to avoid collecting personal and sensitive data. We **do not** collect, store, transmit, or sell any of the following:
+                </p>
+                <ul>
+                    <li>Your browsing history.</li>
+                    <li>Personal analytics, tracking cookies, or advertising identifiers.</li>
+                    <li>The content of the web pages you visit, beyond the title and meta description fetched upon saving a tab.</li>
+                    <li>Any personal information that you do not explicitly enter into the extension (such as in a note or category title).</li>
+                </ul>
+
+                <h2>5. Changes to This Privacy Policy</h2>
+                <p>
+                    As we add new features to Tabwise, we may need to update this policy to reflect changes in how data is handled. When we do, we will revise the "Last Updated" date at the top of this page. We encourage you to review this page periodically to stay informed.
+                </p>
+                
+                <h2>6. Contact Us</h2>
+                <p>
+                    Your privacy and trust are paramount to us. If you have any questions, concerns, or suggestions regarding this Privacy Policy or our practices, please do not hesitate to contact us at <a href="mailto:wisesuitecontact@gmail.com">wisesuitecontact@gmail.com</a>.
+                </p>
           </div>
         </div>
       </section>
