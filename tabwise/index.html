@@ -296,24 +296,24 @@
       <section className="pt-20 pb-10" style={{ backgroundColor: '#1E3A8A' }}>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tabwise: The Smart Way to Manage Your Chrome Tabs
+            Tabwise: The Ultimate Chrome Tab Manager
           </h1>
           <div className="flex flex-row justify-center space-x-2 mt-4 sm:mt-6 md:mt-8 mb-12">
             <img
               src="/tabwise/hero-image.png"
-              alt="Tabwise screenshot showing auto-categorized Chrome tabs"
+              alt="Tabwise, the ultimate tab manager, screenshot showing auto-categorized Chrome tabs"
               className="w-full max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-lg max-h-[150px] sm:max-h-[300px] md:max-h-[400px] lg:max-h-[450px] rounded-lg shadow-sm object-contain"
               onerror="this.onerror=null; this.src='https://placehold.co/400x450/1E3A8A/FFFFFF?text=Hero+1';"
             />
             <img
               src="/tabwise/hero-image-2.png"
-              alt="Animated GIF showing Tabwise session saving feature"
+              alt="Animated GIF showing Tabwise, the ultimate tab manager, session saving feature"
               className="w-full max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-lg max-h-[150px] sm:max-h-[300px] md:max-h-[400px] lg:max-h-[450px] rounded-lg shadow-sm object-contain"
               onerror="this.onerror=null; this.src='https://placehold.co/400x450/1E3A8A/FFFFFF?text=Hero+2';"
             />
           </div>
           <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-2xl mx-auto">
-            Tabwise’s Chrome extension auto-categorizes tabs, saves sessions locally, and syncs across devices. Perfect for researchers, developers, and students. <a href="/tabwise/blog.html" className="text-blue-300 hover:text-blue-400">Explore our blog</a> for tips.
+            Tabwise’s Chrome extension auto-categorizes tabs, saves sessions locally, and syncs across devices. Perfect tab manager for researchers, developers, and students. <a href="/tabwise/blog.html" className="text-blue-300 hover:text-blue-400">Explore our blog</a> for tips.
           </p>
           <div className="flex justify-center space-x-4 mb-8">
             <button
@@ -330,7 +330,7 @@
       </section>
     );
 
-    // Features Component (UPDATED with slider)
+    // Features Component
     const Features = () => {
       const featureList = [
         { icon: '🗂️', title: 'Group Tabs into Custom Categories' },
@@ -347,7 +347,7 @@
       return (
         <section id="features" className="py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">✨ Key Features at a Glance</h2>
+            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">✨ Explore Our Tab Manager's Key Features</h2>
             <div className="slider">
               <div className="slide-track">
                 {[...featureList, ...featureList].map((feature, index) => (
@@ -369,7 +369,7 @@
     const Comparison = () => (
       <section id="compare" className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">⚔️ Tabwise vs. The Competition</h2>
+          <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">⚔️ Tabwise vs. Other Tab Management Tools</h2>
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <table className="min-w-full text-center divide-y divide-gray-200">
               <thead className="bg-gray-100">
@@ -412,7 +412,7 @@
     const WhoIsItFor = () => (
         <section id="who-for" className="py-12 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">🎯 Who Tabwise is For</h2>
+                <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">🎯 The Perfect Tab Manager For</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     {[
                         { icon: '👩‍💻', title: 'Freelancers & Developers' },
@@ -471,9 +471,9 @@
       return (
         <section id="experience" className="py-12 bg-gradient-to-b from-gray-50 to-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Experience Tabwise</h2>
+            <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">See the ultimate tab manager in action</h2>
             <p className="text-lg text-gray-600 mb-6 text-center max-w-2xl mx-auto">
-              See Tabwise in action with a quick demo video, or try its browser management features interactively. Learn more in our <a href="/tabwise/browser-tab-management-guide.html" className="text-blue-500 hover:text-blue-600">tab management guide</a>.
+              See Tabwise, the ultimate tab manager, in action with a quick demo video, or try its browser management features interactively. Learn more in our <a href="/tabwise/browser-tab-management-guide.html" className="text-blue-500 hover:text-blue-600">tab management guide</a>.
             </p>
             <div className="flex justify-center mb-6">
               <div className="inline-flex rounded-md shadow-sm">
@@ -485,7 +485,7 @@
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-800"
                   }`}
                 >
-                  Try It Interactively
+                  Try Tabwise, the ultimate tab manager, interactively
                 </button>
                 <button
                   onClick={() => setActiveView("video")}
@@ -495,7 +495,7 @@
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-800"
                   }`}
                 >
-Watch It in Action
+Watch, the ultimate tab manager, in Action
                 </button>
               </div>
             </div>
@@ -530,7 +530,7 @@ Watch It in Action
                     {/* User needs to replace YOUR_VIDEO_ID_HERE with their actual YouTube video ID */}
                     <iframe
                       className="absolute top-0 left-0 w-full h-full"
-                      src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                      src="https://youtu.be/JU6mgACS5Eo" 
                       title="Tabwise Demo Video"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -557,7 +557,7 @@ Watch It in Action
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-blue-900 mb-4">Choose Your Tabwise Plan</h2>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Experience clutter-free productivity with Tabwise. All plans include auto-categorization and local session saving.
+              Experience clutter-free productivity with Tabwise, the ultimate tab manager. All plans include auto-categorization and local session saving.
             </p>
             <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 mb-8 rounded-md max-w-2xl mx-auto" role="alert">
               <p className="font-bold">Currently in Beta!</p>
@@ -635,26 +635,26 @@ Watch It in Action
                 category: "Getting Started",
                 questions: [
                     { q: "What does a tab manager do?", a: "A tab manager helps you organize, group, save, search, and restore browser tabs efficiently to reduce clutter and improve productivity." },
-                    { q: "Is it free?", a: "Yes! Tabwise is 100% free with no login required." },
-                    { q: "How do I open the tab manager?", a: "Simply install the Tabwise extension from the Chrome Web Store and click the Tabwise icon in your Chrome toolbar to open it." },
-                    { q: "What is tab settings?", a: "Tab settings let you control how tabs are displayed and managed. Tabwise enhances this by offering advanced settings like locking, tagging, and exporting."}
+                    { q: "Is it free?", a: "Yes! Tabwise, the ultimate tab manager, is 100% free with no login required." },
+                    { q: "How do I open the tab manager?", a: "Simply install the Tabwise, the ultimate tab manager, extension from the Chrome Web Store and click the Tabwise icon in your Chrome toolbar to open it." },
+                    { q: "What is tab settings?", a: "Tab settings let you control how tabs are displayed and managed. Tabwise, the ultimate tab manager, enhances this by offering advanced settings like locking, tagging, and exporting."}
                 ]
             },
             {
                 category: "Features & How-To",
                 questions: [
-                    { q: "How do I manage tabs in Chrome?", a: "You can drag and drop tabs manually, or use an extension like Tabwise to powerfully group, save, and restore them with one click." },
-                    { q: "How to save all tabs in Chrome without bookmarks?", a: "Tabwise lets you save all open tabs into a named category with a single click — no messy bookmarks required." },
-                    { q: "How to save Chrome tabs after closing?", a: "Enable the auto-save feature in Tabwise, and your session will always be backed up, even if you close Chrome or it crashes." },
-                    { q: "How to get Chrome tabs back to normal?", a: "With Tabwise, you can restore a previously saved session in one click to get your tabs exactly how you left them." }
+                    { q: "How do I manage tabs in Chrome?", a: "You can drag and drop tabs manually, or use an extension like Tabwise, the ultimate tab manager, to powerfully group, save, and restore them with one click." },
+                    { q: "How to save all tabs in Chrome without bookmarks?", a: "Tabwise, the ultimate tab manager, lets you save all open tabs into a named category with a single click — no messy bookmarks required." },
+                    { q: "How to save Chrome tabs after closing?", a: "Enable the auto-save feature in Tabwise, the ultimate tab manager, and your session will always be backed up, even if you close Chrome or it crashes." },
+                    { q: "How to get Chrome tabs back to normal?", a: "With Tabwise, the ultimate tab manager, you can restore a previously saved session in one click to get your tabs exactly how you left them." }
                 ]
             },
             {
                 category: "Comparisons",
                 questions: [
                     { q: "What is the best tab manager?", a: "For users who need powerful features like session saving, notes, password protection, and exporting, Tabwise is a leading choice." },
-                    { q: "How is this different from Chrome’s built-in Tab Groups or OneTab?", a: "Tabwise offers robust features that others lack, including notes per tab, password-protected groups, advanced search, and exporting options." },
-                    { q: "What is the best AI tab manager?", a: "Tabwise includes smart nudges to help you clean up old tabs. We are continuously developing more AI-powered tools to make it the smartest tab manager available." },
+                    { q: "How is this different from Chrome’s built-in Tab Groups or OneTab?", a: "Tabwise, the ultimate tab manager, offers robust features that others lack, including notes per tab, password-protected groups, advanced search, and exporting options." },
+                    { q: "What is the best AI tab manager?", a: "Tabwise, the ultimate tab manager, includes smart nudges to help you clean up old tabs. We are continuously developing more AI-powered tools to make it the smartest tab manager available." },
                     { q: "What is the best new tab extension for Chrome?", a: "While Tabwise isn't a 'new tab' page replacement, it works perfectly alongside them to manage your saved tabs, providing a complete productivity workflow." }
                 ]
             }
