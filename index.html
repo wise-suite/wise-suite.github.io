@@ -12,20 +12,20 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>WiseSuite: Elevate Your Digital Experience with Productivity Tools</title>
-    <meta name="description" content="Discover WiseSuite, a collection of intuitive digital tools designed to boost your productivity, organize your digital life, and enhance your online experience."/>
-    <meta name="keywords" content="WiseSuite, productivity tools, browser management, tab organizer, TabWise, FocusWise, TimeWise, ClipWise, EmailWise, TaskWise, BookmarkWise, Chrome extension, waitlist"/>
+    <title>WiseSuite: A Full Suite of Productivity Tools for Chrome</title>
+    <meta name="description" content="Discover WiseSuite, a collection of intuitive productivity tools designed to boost your focus, organize your digital life, and enhance your online experience."/>
+    <meta name="keywords" content="WiseSuite, productivity tools, productivity suite, browser management, tab manager, TabWise, FocusWise, TimeWise, ClipWise, EmailWise, TaskWise, BookmarkWise, Chrome extension, waitlist"/>
     <meta name="author" content="WiseSuite Team"/>
     <meta name="robots" content="index, follow"/>
     <link rel="canonical" href="https://thewisesuite.com/"/>
-    <meta property="og:title" content="WiseSuite: Elevate Your Digital Experience with Productivity Tools"/>
+    <meta property="og:title" content="WiseSuite: A Full Suite of Productivity Tools for Chrome"/>
     <meta property="og:description" content="Discover WiseSuite, a suite of productivity tools starting with TabWise for effortless browser tab management. Join the waitlist for more tools!"/>
     <meta property="og:image" content="https://thewisesuite.com/wisesuite-logo.png"/>
     <meta property="og:url" content="https://thewisesuite.com/"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="WiseSuite: Elevate Your Digital Experience with Productivity Tools"/>
-    <meta name="twitter:description" content="Join the waitlist for WiseSuite, a collection of productivity tools to enhance your workflow."/>
+    <meta name="twitter:title" content="WiseSuite: A Full Suite of Productivity Tools for Chrome"/>
+    <meta name="twitter:description" content="Join the waitlist for WiseSuite, a collection of productivity tools to enhance your workflow, starting with our powerful Tab Manager."/>
     <meta name="twitter:image" content="https://thewisesuite.com/wisesuite-logo.png"/>
     <script type="application/ld+json">
     {
@@ -33,14 +33,8 @@
       "@type": "SoftwareApplication",
       "name": "WiseSuite",
       "applicationCategory": "Productivity",
-      "description": "WiseSuite is a collection of productivity tools to streamline your workflow, starting with TabWise for browser tab management."
+      "description": "WiseSuite is a collection of productivity tools and Chrome extensions designed to streamline your workflow, starting with TabWise for browser tab management."
     }
-    </script>
-    <script>
-        // Redirect wise-suite.github.io to thewisesuite.com
-        if (window.location.hostname === 'wise-suite.github.io') {
-            window.location.replace('https://thewisesuite.com/');
-        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
@@ -72,6 +66,8 @@
         .product-card { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .button { display: inline-block; background: #3B82F6; color: #fff; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; }
         .button:hover { background: #2563EB; }
+        .faq-question { cursor: pointer; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-700">
@@ -86,12 +82,12 @@
                 </a>
             </div>
             <div class="hidden md:flex items-center space-x-4">
-                <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600" aria-label="Features">Features</a>
-                <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600" aria-label="Pricing">Pricing</a>
-                <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600" aria-label="Demo">Demo</a>
+                <a href="#products" class="text-gray-600 hover:text-blue-600" aria-label="Products">Our Products</a>
+                <a href="#philosophy" class="text-gray-600 hover:text-blue-600" aria-label="Our Philosophy">Our Philosophy</a>
+                <a href="#faq" class="text-gray-600 hover:text-blue-600" aria-label="FAQ">FAQ</a>
                 <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600" aria-label="Blog">Blog</a>
-                <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Sign Up for Beta">
-                    Sign Up for Beta
+                <button id="open-waitlist-modal" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600" aria-label="Join Waitlist">
+                    Join Waitlist
                 </button>
             </div>
             <div class="md:hidden flex items-center">
@@ -105,12 +101,12 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden hidden absolute top-16 left-0 w-full bg-white shadow-md">
             <div class="flex flex-col space-y-2 px-4 py-2">
-                <a href="/tabwise/#features" class="text-gray-600 hover:text-blue-600">Features</a>
-                <a href="/tabwise/#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a>
-                <a href="/tabwise/#experience" class="text-gray-600 hover:text-blue-600">Demo</a>
+                <a href="#products" class="text-gray-600 hover:text-blue-600">Our Products</a>
+                <a href="#philosophy" class="text-gray-600 hover:text-blue-600">Our Philosophy</a>
+                <a href="#faq" class="text-gray-600 hover:text-blue-600">FAQ</a>
                 <a href="/tabwise/blog.html" class="text-gray-600 hover:text-blue-600">Blog</a>
-                <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Sign Up for Beta">
-                    Sign Up for Beta
+                <button id="open-waitlist-mobile" class="bg-blue-500 text-white px-4 py-2 rounded-md text-lg hover:bg-blue-600 w-full text-left" aria-label="Join Waitlist">
+                    Join Waitlist
                 </button>
             </div>
         </div>
@@ -121,14 +117,14 @@
 <div id="waitlist-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-black bg-opacity-50">
     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-medium text-blue-900">Join the Tabwise Waitlist</h3>
+            <h3 class="text-xl font-medium text-blue-900">Join the WiseSuite Waitlist</h3>
             <button id="modal-close" class="text-gray-600 hover:text-gray-800">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
-        <p class="text-gray-600 mb-4">Be the first to try Tabwise when it launches! We’ll notify you when it’s ready, which may take a few months.</p>
+        <p class="text-gray-600 mb-4">Be the first to know when new productivity tools are launched. We'll notify you when they're ready!</p>
         <input
             type="email"
             id="waitlist-email"
@@ -153,20 +149,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="mb-4">
             <a href="https://thewisesuite.com/" class="flex-shrink-0 flex items-center justify-center">
-                <img src="/tabwise/logo.png" alt="Tabwise Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=TW';">
-                <span class="ml-2 text-lg font-semibold">Tabwise</span>
+                <img src="/wisesuite-logo.png" alt="WiseSuite Logo" class="h-6 w-6" onerror="this.onerror=null; this.src='https://placehold.co/24x24/FFFFFF/0284C7?text=WS';">
+                <span class="ml-2 text-lg font-semibold">WiseSuite</span>
             </a>
         </div>
         <div class="flex flex-wrap justify-center space-x-6 mb-4">
-            <a href="/tabwise/#features" class="text-white hover:text-gray-200">Features</a>
-            <a href="/tabwise/#pricing" class="text-white hover:text-gray-200">Pricing</a>
-            <a href="/tabwise/#experience" class="text-white hover:text-gray-200">Demo</a>
+            <a href="/tabwise/" class="text-white hover:text-gray-200">Tabwise</a>
             <a href="/tabwise/blog.html" class="text-white hover:text-gray-200">Blog</a>
             <a href="/tabwise/terms.html" class="text-white hover:text-gray-200">Terms of Service</a>
             <a href="/tabwise/privacy.html" class="text-white hover:text-gray-200">Privacy Policy</a>
-            <a href="https://thewisesuite.com/" class="text-white hover:text-gray-200">Wise Suite</a>
         </div>
-        <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> Tabwise. All rights reserved.</p>
+        <p class="text-sm">© <script>document.write(new Date().getFullYear())</script> WiseSuite. All rights reserved.</p>
     </div>
 </footer>
 
@@ -228,16 +221,16 @@
             try {
                 const formData = new FormData();
                 formData.append('email', email);
-                formData.append('tool', 'Tabwise');
+                formData.append('tool', 'WiseSuite');
 
                 await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     cache: 'no-cache',
-                    body: JSON.stringify({ email: email, tool: 'Tabwise' })
+                    body: JSON.stringify({ email: email, tool: 'WiseSuite' })
                 });
 
-                messageDiv.textContent = 'Thank you for joining the Tabwise waitlist!';
+                messageDiv.textContent = 'Thank you for joining the WiseSuite waitlist!';
                 messageDiv.className = 'text-center text-sm mt-2 text-green-600';
                 emailInput.value = '';
                 setTimeout(() => {
@@ -284,99 +277,24 @@
     }
 
     const Header = () => (
-        <header className="pt-20 pb-10 bg-blue-900 text-white text-center">
+        <header className="pt-24 pb-12 bg-blue-900 text-white text-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl md:text-5xl font-bold">WiseSuite: Your Toolkit for a Smarter Digital Experience</h1>
-                <img src="/wisesuite-hero-image.png" alt="WiseSuite Hero image for smarter productivity" className="h-auto max-w-full mx-auto mb-4 sm:max-w-md md:max-w-lg" onerror="this.onerror=null; this.src='https://placehold.co/512x384/1E3A8A/FFFFFF?text=WiseSuite+Hero';"/>
+                <p className="mt-4 max-w-3xl mx-auto text-lg text-blue-200">A growing collection of intuitive productivity tools designed to eliminate digital friction, boost your focus, and bring clarity to your workflow. Starting with Tabwise, our powerful tab manager.</p>
+                <img src="/wisesuite-hero-image.png" alt="WiseSuite Hero image showing a suite of productivity tools" className="h-auto max-w-full mx-auto my-8 sm:max-w-md md:max-w-lg rounded-lg shadow-xl" onerror="this.onerror=null; this.src='https://placehold.co/512x384/1E3A8A/FFFFFF?text=WiseSuite+Hero';"/>
             </div>
         </header>
     );
 
     const Intro = () => (
-        <section className="py-12 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <p className="text-gray-600 mb-4 text-lg">Welcome to WiseSuite, a growing collection of innovative digital tools designed to streamline your online life and boost your productivity. In today's fast-paced digital world, managing tasks, information, and countless browser tabs can be overwhelming. WiseSuite provides intelligent, intuitive solutions to bring order, efficiency, and clarity to your daily digital experience.</p>
-                <p className="text-gray-600 text-lg">Our mission is to empower you with smart software that simplifies complex workflows, helps you stay organized, and frees up your time to focus on what truly matters.</p>
+        <section className="py-16 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 className="text-3xl font-bold text-blue-900 mb-4">Reclaim Your Focus. Master Your Workflow.</h2>
+                <p className="text-gray-600 mb-4 text-lg max-w-3xl mx-auto">Welcome to WiseSuite, a growing collection of innovative digital tools designed to streamline your online life and boost your productivity. In today's fast-paced digital world, managing tasks, information, and countless browser tabs can be overwhelming. WiseSuite provides intelligent, intuitive solutions to bring order, efficiency, and clarity to your daily digital experience.</p>
+                <p className="text-gray-600 text-lg max-w-3xl mx-auto">Our mission is to empower you with smart software that simplifies complex workflows, helps you stay organized, and frees up your time to focus on what truly matters.</p>
             </div>
         </section>
     );
-
-    const Discover = () => {
-        const [currentSet, setCurrentSet] = useState(0);
-
-        const slides = [
-            { icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", title: "Simplify Your Digital World", content: "WiseSuite is your all-in-one solution for navigating the complexities of digital life. Our intuitive tools eliminate clutter, boost productivity, and make your online experience seamless." },
-            { icon: "M5 13l4 4L19 7", title: "Solve Everyday Challenges", content: "From juggling browser tabs to managing tasks, WiseSuite tackles daily challenges with tools like <a href=\"/tabwise/\" className=\"text-blue-500 hover:text-blue-600\">TabWise</a>, designed to keep you focused and efficient." },
-            { icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", title: "Shape the Future", content: "WiseSuite is growing with tools like FocusWise and TimeWise, unified by a vision to empower your digital workflow. Join our waitlist for updates!" },
-            { icon: "M4 6h16M4 12h16M4 18h16", title: "All-in-One Productivity", content: "WiseSuite integrates tools like TabWise and FocusWise into a single platform, streamlining your tasks for maximum efficiency." },
-            { icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4", title: "Customizable Workflow", content: "Tailor WiseSuite tools, starting with TabWise’s flexible tab management, to fit your unique needs and preferences." },
-            { icon: "M13 10V3L4 14h7v7l9-11h-7z", title: "Evolving Ecosystem", content: "Start with TabWise and grow with WiseSuite’s upcoming tools, designed to adapt to your changing digital demands." }
-        ];
-
-        const slidesPerSet = window.innerWidth < 640 ? 1 : 3;
-        const totalSets = Math.ceil(slides.length / slidesPerSet);
-
-        useEffect(() => {
-            const timer = setInterval(() => {
-                setCurrentSet((prev) => (prev + 1) % totalSets);
-            }, 6000);
-            return () => clearInterval(timer);
-        }, [totalSets]);
-
-        const goToSet = (index) => setCurrentSet(index);
-        const prevSet = () => setCurrentSet((prev) => (prev - 1 + totalSets) % totalSets);
-        const nextSet = () => setCurrentSet((prev) => (prev + 1) % totalSets);
-
-        const currentSlides = slides.slice(currentSet * slidesPerSet, (currentSet + 1) * slidesPerSet);
-
-        const handleJoinJourneyClick = () => {
-            const staticModal = document.getElementById('waitlist-modal');
-            if (staticModal) {
-                staticModal.classList.remove('hidden');
-            } else {
-                console.error("Static modal 'waitlist-modal' not found.");
-            }
-        };
-
-        return (
-            <section id="discover" className="py-12 discover-section animate-fade-in-up">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-10">Discover WiseSuite</h2>
-                    <div className="relative">
-                        <div className="slider-container">
-                            {currentSlides.map((slide, index) => (
-                                <div key={index} className="slider-card bg-white p-5 rounded-lg shadow-md text-center" role="group">
-                                    <div className="flex justify-center mb-3">
-                                        <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={slide.icon} />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-blue-900 mb-2">{slide.title}</h3>
-                                    <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: slide.content }}></p>
-                                </div>
-                            ))}
-                        </div>
-                        <button onClick={prevSet} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" aria-label="Previous slide set">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-                        </button>
-                        <button onClick={nextSet} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" aria-label="Next slide set">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
-                        </button>
-                    </div>
-                    <div className="flex justify-center mt-6 space-x-2">
-                        {Array.from({ length: totalSets }).map((_, index) => (
-                            <button key={index} className={`dot ${index === currentSet ? 'active' : ''}`} onClick={() => goToSet(index)} aria-label={`Go to slide set ${index + 1}`} aria-current={index === currentSet}></button>
-                        ))}
-                    </div>
-                    <div className="text-center mt-10">
-                        <button onClick={handleJoinJourneyClick} className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">
-                            Join the Journey
-                        </button>
-                    </div>
-                </div>
-            </section>
-        );
-    };
 
     const Products = () => {
         const handleProductWaitlistOpen = (toolName) => {
@@ -389,72 +307,188 @@
         };
 
         return (
-            <section id="products" className="py-12 bg-white">
+            <section id="products" className="py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Products</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="product-card">
-                            <h3 className="text-xl font-semibold text-blue-900 mb-3">TabWise: Your Smart Tab Manager for Chrome</h3>
-                            <p className="text-gray-600 mb-4">TabWise is the intelligent way to organize and manage your browser tabs. With features like content-based auto-categorization, seamless local storage, and cross-device syncing, TabWise helps you conquer tab clutter, boost focus, and enhance your browser productivity.</p>
-                            <a href="/tabwise" className="button">Visit TabWise Homepage</a>
+                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-12">Our Suite of Productivity Tools</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="product-card border-2 border-blue-500 p-6 rounded-lg shadow-lg">
+                            <h3 className="text-xl font-semibold text-blue-900 mb-3">Tabwise: Your Smart Tab Manager</h3>
+                            <p className="text-gray-600 mb-4">The first tool in our suite. Tabwise is the intelligent way to organize and manage your browser tabs. With features like project workspaces and session saving, it helps you conquer tab clutter and boost your browser productivity.</p>
+                            <a href="/tabwise" className="button">Explore Tabwise</a>
                         </div>
-                        <div className="product-card">
-                            <h3 className="text-xl font-semibold text-blue-900 mb-3">FocusWise: Stay Focused, Block Distractions</h3>
-                            <p className="text-gray-600 mb-4">FocusWise is an upcoming tool designed to enhance productivity by offering customizable website filters to block distractions and keep you on task.</p>
-                            <button onClick={() => handleProductWaitlistOpen('FocusWise')} className="button">Join Waitlist</button>
+                        <div className="product-card p-6 rounded-lg shadow-md">
+                            <h3 className="text-xl font-semibold text-blue-900 mb-3">FocusWise <span className="text-sm bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full">Coming Soon</span></h3>
+                            <p className="text-gray-600 mb-4">An upcoming productivity tool designed to enhance focus by offering customizable website filters to block distractions and keep you on task.</p>
+                            <button onClick={() => handleProductWaitlistOpen('FocusWise')} className="button bg-gray-600 hover:bg-gray-700">Join Waitlist</button>
+                        </div>
+                        <div className="product-card p-6 rounded-lg shadow-md">
+                            <h3 className="text-xl font-semibold text-blue-900 mb-3">TimeWise <span className="text-sm bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full">Coming Soon</span></h3>
+                            <p className="text-gray-600 mb-4">Track time spent on tasks and projects to identify productivity patterns and optimize your workflow for peak efficiency.</p>
+                            <button onClick={() => handleProductWaitlistOpen('TimeWise')} className="button bg-gray-600 hover:bg-gray-700">Join Waitlist</button>
                         </div>
                     </div>
                 </div>
             </section>
         );
     };
+    
+    // NEW SECTION: Common Challenges
+    const Challenges = () => (
+      <section id="challenges" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:text-center">
+            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Your Workflow, Upgraded</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Solve Common Productivity Challenges
+            </p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+              Our productivity tools are designed to tackle the specific issues that slow you down. From browser clutter to endless distractions, WiseSuite has a solution.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <div className="text-center">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mx-auto">
+                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                </div>
+                <h3 className="mt-5 text-lg leading-6 font-medium text-gray-900">Digital Clutter & Tab Overload</h3>
+                <p className="mt-2 text-base text-gray-500">
+                    **The Problem:** Dozens of open tabs slow down your computer and your thinking. Finding the right information becomes a frustrating treasure hunt.
+                    <br/><br/>
+                    **The Solution:** Our **tab manager**, Tabwise, lets you group tabs into clean workspaces and save sessions, instantly decluttering your browser.
+                </p>
+            </div>
+            <div className="text-center">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mx-auto">
+                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59" /></svg>
+                </div>
+                <h3 className="mt-5 text-lg leading-6 font-medium text-gray-900">Constant Distractions</h3>
+                <p className="mt-2 text-base text-gray-500">
+                    **The Problem:** Social media, news, and other websites constantly pull your attention away from important tasks.
+                    <br/><br/>
+                    **The Solution:** Our upcoming **productivity tool**, FocusWise, will allow you to create custom blocklists to keep you focused when it matters most.
+                </p>
+            </div>
+            <div className="text-center">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mx-auto">
+                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+                <h3 className="mt-5 text-lg leading-6 font-medium text-gray-900">Inefficient Workflow</h3>
+                <p className="mt-2 text-base text-gray-500">
+                    **The Problem:** Switching between different contexts and tools wastes valuable time and mental energy.
+                    <br/><br/>
+                    **The Solution:** The WiseSuite **productivity suite** is designed for a seamless workflow, allowing you to manage tabs, tasks, and time all in one integrated environment.
+                </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
 
-    const Vision = () => (
-        <section id="vision" className="py-12 bg-gray-50">
+    const Philosophy = () => (
+        <section id="philosophy" className="py-16 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Vision</h2>
-                <p className="text-gray-600 text-lg text-center">WiseSuite envisions a digital future where tools seamlessly adapt to your needs, providing clarity and control. We are continuously researching and developing new solutions to empower individuals and teams to achieve more with less digital friction.</p>
+                <div className="lg:text-center">
+                    <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Our Vision</h2>
+                    <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        The WiseSuite Philosophy
+                    </p>
+                    <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        We build productivity tools guided by three core principles. Every feature we ship is designed to be simple, powerful, and private.
+                    </p>
+                </div>
+
+                <div className="mt-10">
+                    <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                        <div className="relative">
+                            <dt>
+                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" />
+                                    </svg>
+                                </div>
+                                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Simplicity First</p>
+                            </dt>
+                            <dd className="mt-2 ml-16 text-base text-gray-500">
+                                A productivity tool should never be more complicated than the problem it's solving. Our extensions are designed with clean, intuitive interfaces that get out of your way.
+                            </dd>
+                        </div>
+
+                        <div className="relative">
+                            <dt>
+                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Powerful Features</p>
+                            </dt>
+                            <dd className="mt-2 ml-16 text-base text-gray-500">
+                                Underneath the simple design is a powerful engine. From the robust session saving in our tab manager to the smart filtering in our future tools, we provide professional-grade capabilities.
+                            </dd>
+                        </div>
+                        
+                        <div className="relative">
+                            <dt>
+                                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Privacy by Design</p>
+                            </dt>
+                            <dd className="mt-2 ml-16 text-base text-gray-500">
+                                Your data is yours. Our tools are built to work locally on your machine whenever possible. We don't track your browsing habits or sell your information. Ever.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
             </div>
         </section>
     );
 
-    const Tools = () => {
-        const handleToolWaitlistOpen = (toolName) => {
-            const staticModal = document.getElementById('waitlist-modal');
-            if (staticModal) {
-                staticModal.classList.remove('hidden');
-            } else {
-                console.error("Static modal 'waitlist-modal' not found.");
-            }
-        };
+    // NEW SECTION: FAQ
+    const FAQ = () => {
+        const [openFAQ, setOpenFAQ] = useState(null);
 
-        const toolData = [
-            { title: "TabWise", tagline: "Smart Browser Tab Management", desc: "Effortlessly organize your browser tabs with AI-powered categorization, drag-and-drop, and session saving.", link: "/tabwise/", cta: "Get TabWise", isBeta: true },
-            { title: "FocusWise", tagline: "Stay Focused, Block Distractions", desc: "Boost productivity with customizable website filters to keep distractions at bay.", cta: "Join Waitlist", isComingSoon: true },
-            { title: "TimeWise", tagline: "Track Time, Boost Efficiency", desc: "Monitor time spent on tasks and projects to optimize your workflow.", cta: "Join Waitlist", isComingSoon: true },
-            { title: "ClipWise", tagline: "Save Web Snippets Easily", desc: "Capture and organize web content for quick reference and research.", cta: "Join Waitlist", isComingSoon: true },
-            { title: "EmailWise", tagline: "Smart Inbox Organization", desc: "Streamline your email with intelligent filters and scheduling tools.", cta: "Join Waitlist", isComingSoon: true },
-            { title: "TaskWise", tagline: "Seamless Task Tracking", desc: "Manage tasks with integration across your digital tools for maximum efficiency.", cta: "Join Waitlist", isComingSoon: true },
-            { title: "BookmarkWise", tagline: "Organized Bookmarking", desc: "Categorize and access your bookmarks intuitively for a clutter-free experience.", cta: "Join Waitlist", isComingSoon: true },
+        const faqData = [
+            {
+                q: "What are productivity tools for Chrome?",
+                a: "Productivity tools for Chrome are extensions that enhance your browser's functionality to help you work more efficiently. They can include anything from a tab manager like Tabwise, to a focus tool, a time tracker, or a note-taking app."
+            },
+            {
+                q: "How can a productivity suite improve my workflow?",
+                a: "A productivity suite like WiseSuite improves your workflow by providing a set of integrated tools that work together seamlessly. Instead of using multiple, disconnected extensions, a suite ensures a consistent experience and allows for powerful cross-tool features, saving you time and reducing complexity."
+            },
+            {
+                q: "What is a tab manager and why do I need one?",
+                a: "A tab manager is a tool that helps you organize the dozens of tabs you have open. If you find yourself losing track of important pages or your browser is slowing down, a tab manager like Tabwise is essential. It lets you group tabs into workspaces, save sessions for later, and quickly find what you need."
+            },
+            {
+                q: "Are the tools in WiseSuite free?",
+                a: "Our flagship tab manager, Tabwise, is currently in beta and is completely free to use. As we launch more productivity tools in the suite, we will offer both free and premium versions with advanced features."
+            }
         ];
 
+        const toggleFAQ = (index) => {
+            setOpenFAQ(openFAQ === index ? null : index);
+        };
+
         return (
-            <section id="tools" className="py-12 bg-gray-100">
+            <section id="faq" className="py-16 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Our Productivity Tools</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {toolData.map((tool, index) => (
-                            <div key={index} className="relative bg-white p-5 rounded-lg shadow-sm text-center">
-                                {tool.isComingSoon && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">Coming Soon</div>}
-                                {tool.isBeta && <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm">In Beta</div>}
-                                <h3 className="text-xl font-bold text-blue-900 mb-2">{tool.title}</h3>
-                                <p className="text-blue-600 font-medium mb-2">{tool.tagline}</p>
-                                <p className="text-gray-600 mb-4">{tool.desc}</p>
-                                {tool.link ? (
-                                    <a href={tool.link} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</a>
-                                ) : (
-                                    <button onClick={() => handleToolWaitlistOpen(tool.title)} className="tool-button bg-blue-500 text-white rounded-md hover:bg-blue-600">{tool.cta}</button>
-                                )}
+                    <h2 className="text-3xl font-bold text-blue-900 text-center mb-12">Frequently Asked Questions</h2>
+                    <div className="max-w-3xl mx-auto">
+                        {faqData.map((item, index) => (
+                            <div key={index} className="border-b border-gray-200 py-4">
+                                <button onClick={() => toggleFAQ(index)} className="w-full flex justify-between items-center text-left text-lg font-medium text-gray-900">
+                                    <span>{item.q}</span>
+                                    <span className={`transform transition-transform duration-200 ${openFAQ === index ? 'rotate-180' : ''}`}>
+                                        <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </span>
+                                </button>
+                                <div className={`mt-2 text-gray-600 faq-answer ${openFAQ === index ? 'max-h-96' : 'max-h-0'}`}>
+                                    <p className="pt-2">{item.a}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -463,15 +497,31 @@
         );
     };
 
+    const CallToAction = () => (
+        <section id="cta" className="py-16 bg-blue-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                <h2 className="text-3xl font-bold mb-4">Ready to Join the Productivity Revolution?</h2>
+                <p className="text-lg text-blue-100 mb-6 max-w-2xl mx-auto">Be the first to get access to our suite of productivity tools. Join the WiseSuite waitlist and get notified as we roll out new extensions to simplify your digital life.</p>
+                <button
+                    onClick={() => { const modal = document.getElementById('waitlist-modal'); if(modal) modal.classList.remove('hidden');}}
+                    className="bg-white text-blue-600 font-bold px-8 py-3 rounded-full hover:bg-gray-200 text-lg transition duration-300"
+                >
+                    Join the Waitlist
+                </button>
+            </div>
+        </section>
+    );
+
     const App = () => (
         <ErrorBoundary>
-            <div className="pt-24">
+            <div className="pt-16">
                 <Header />
                 <Intro />
                 <Products />
-                <Discover />
-                <Tools />
-                <Vision />
+                <Challenges />
+                <Philosophy />
+                <FAQ />
+                <CallToAction />
             </div>
         </ErrorBoundary>
     );
